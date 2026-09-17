@@ -124,8 +124,7 @@ const mr: TranslationDictionary = {
     whyWeStarted: "आम्ही ही सुरुवात का केली",
     ourStory: "आमची कहाणी",
     mission: "आमचे ध्येय",
-    founderMessage: "संस्थापकांचा संदेश",
-    placeholderNote: "संस्थापकांची संपूर्ण कहाणी लवकरच येथे अद्ययावत केली जाईल."
+    founderMessage: "संस्थापकांचा संदेश"
   },
 
   contact: {

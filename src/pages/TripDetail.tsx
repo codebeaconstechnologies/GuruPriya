@@ -1,9 +1,10 @@
 import { Suspense, lazy } from "react";
-import { useParams, Navigate } from "react-router-dom";
-import { MapPin, Quote, User } from "lucide-react";
+import { useParams, Navigate, Link } from "react-router-dom";
+import { MapPin, Quote, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { trips, founderStory } from "@/data/trips";
+import { trips, founderStory, company } from "@/data/trips";
 import { useSeo } from "@/utils/seo";
+import { splitParagraphs } from "@/utils/format";
 import { TripHero } from "@/components/trip-detail/TripHero";
 import { QuickInfo } from "@/components/trip-detail/QuickInfo";
 import { PricingCards } from "@/components/trip-detail/PricingCards";
@@ -26,6 +27,7 @@ export default function TripDetail() {
   const pick = useLocalized();
 
   const trip = trips.find((tr) => tr.slug === slug);
+  const founderExcerpt = splitParagraphs(pick(founderStory.founderMessage))[0];
 
   useSeo({
     title: trip ? pick(trip.seo.title) : "Yatra Not Found",
@@ -82,15 +84,23 @@ export default function TripDetail() {
       <section className="bg-ivory py-10 sm:py-14">
         <div className="container-px mx-auto max-w-4xl">
           <div className="card-premium flex flex-col items-center gap-5 p-8 text-center sm:flex-row sm:text-left">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-saffron-50 ring-4 ring-gold/20">
-              <User className="h-10 w-10 text-saffron-500" />
-            </div>
+            <img
+              src={company.founder.photo}
+              alt={pick(trip.organizer.name)}
+              width={80}
+              height={80}
+              className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-gold/20"
+            />
             <div>
               <Quote className="mx-auto mb-2 h-5 w-5 text-gold/50 sm:mx-0" />
-              <p className="text-sm leading-relaxed text-charcoal/70">{pick(founderStory.founderMessage)}</p>
+              <p className="text-sm leading-relaxed text-charcoal/70">{founderExcerpt}</p>
               <p className="mt-3 font-display text-sm font-bold text-charcoal">
                 {pick(trip.organizer.name)} <span className="font-normal text-charcoal/50">— {pick(trip.organizer.title)}</span>
               </p>
+              <Link to="/about" className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-600 hover:text-saffron-700">
+                {t.common.readMore}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </div>

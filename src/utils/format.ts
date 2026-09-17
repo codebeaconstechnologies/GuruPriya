@@ -17,3 +17,7 @@ export function formatDate(date?: string): string {
 export function formatCurrency(amount: number): string {
   return `₹${amount.toLocaleString("en-IN")}`;
 }
+
+export function splitParagraphs(text: string): string[] {
+  return text.split(/\n\n+/).filter(Boolean);
+}

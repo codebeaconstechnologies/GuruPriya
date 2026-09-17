@@ -122,8 +122,7 @@ const en = {
     whyWeStarted: "Why We Started",
     ourStory: "Our Story",
     mission: "Our Mission",
-    founderMessage: "Founder's Message",
-    placeholderNote: "This section will be updated with the founder's complete story."
+    founderMessage: "Founder's Message"
   },
 
   contact: {
