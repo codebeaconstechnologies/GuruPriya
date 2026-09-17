@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  html[lang="mr"] body {
+    font-family: "Noto Sans Devanagari", "Inter", system-ui, sans-serif;
+  }
+
+  :focus-visible {
+    outline: 2px solid #C89A3C;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply px-4 sm:px-6 lg:px-10;
+  }
+
+  .section-py {
+    @apply py-14 sm:py-20;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-saffron-500 px-6 py-3 text-sm font-semibold text-white shadow-card transition hover:bg-saffron-600 focus-visible:outline-offset-4 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/15 bg-white/90 px-6 py-3 text-sm font-semibold text-charcoal transition hover:border-gold hover:text-saffron-600 active:scale-[0.98];
+  }
+
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 active:scale-[0.98];
+  }
+
+  .card-premium {
+    @apply rounded-2xl border border-charcoal/5 bg-white shadow-card transition hover:shadow-premium;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-saffron-600;
+  }
+}
+
+.leaflet-container {
+  font-family: inherit;
+  z-index: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(33, 28, 26, 0.2);
+  border-radius: 999px;
+}
