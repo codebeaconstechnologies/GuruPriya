@@ -30,7 +30,7 @@ export function FounderMessage() {
             className="h-32 w-32 shrink-0 rounded-full object-cover object-[50%_12%] ring-4 ring-gold/20 sm:h-40 sm:w-40"
           />
 
-          <div>
+          <div className="min-w-0">
             <Quote className="mx-auto mb-3 h-7 w-7 text-gold/50 md:mx-0" />
             <div className="space-y-4 text-base leading-relaxed text-charcoal/75 sm:text-lg">
               {paragraphs.map((para, i) => (

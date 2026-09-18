@@ -60,15 +60,15 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-white/70">
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span>{pick(company.office)}</span>
+              <span className="min-w-0 break-words">{pick(company.office)}</span>
             </li>
             <li className="flex items-start gap-2.5">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span>{company.founder.phones.join(" / ")}</span>
+              <span className="min-w-0 break-words">{company.founder.phones.join(" / ")}</span>
             </li>
             <li className="flex items-start gap-2.5">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span>enquiry@gurupriyatravels.example.com</span>
+              <span className="min-w-0 break-words">enquiry@gurupriyatravels.example.com</span>
             </li>
           </ul>
         </div>

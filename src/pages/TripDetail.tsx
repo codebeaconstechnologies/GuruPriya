@@ -91,7 +91,7 @@ export default function TripDetail() {
               height={80}
               className="h-20 w-20 shrink-0 rounded-full object-cover object-[50%_12%] ring-4 ring-gold/20"
             />
-            <div>
+            <div className="min-w-0">
               <Quote className="mx-auto mb-2 h-5 w-5 text-gold/50 sm:mx-0" />
               <p className="text-sm leading-relaxed text-charcoal/70">{founderExcerpt}</p>
               <p className="mt-3 font-display text-sm font-bold text-charcoal">

@@ -27,9 +27,9 @@ export default function ContactUs() {
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-saffron-50 text-saffron-600">
                   <MapPin className="h-5 w-5" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-sm font-bold text-charcoal">{t.contact.officeAddress}</h3>
-                  <p className="mt-1 text-sm text-charcoal/60">{pick(company.office)}</p>
+                  <p className="mt-1 text-sm text-charcoal/60 break-words">{pick(company.office)}</p>
                 </div>
               </div>
 
@@ -37,7 +37,7 @@ export default function ContactUs() {
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-saffron-50 text-saffron-600">
                   <Phone className="h-5 w-5" />
                 </span>
-                <div className="w-full">
+                <div className="w-full min-w-0">
                   <h3 className="text-sm font-bold text-charcoal">{t.contact.phoneNumbers}</h3>
                   <ul className="mt-1 space-y-1 text-sm text-charcoal/60">
                     {company.contacts.map((c) => (
@@ -53,9 +53,9 @@ export default function ContactUs() {
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-saffron-50 text-saffron-600">
                   <Mail className="h-5 w-5" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-sm font-bold text-charcoal">{t.contact.emailUs}</h3>
-                  <p className="mt-1 text-sm text-charcoal/60">enquiry@gurupriyatravels.example.com</p>
+                  <p className="mt-1 break-words text-sm text-charcoal/60">enquiry@gurupriyatravels.example.com</p>
                 </div>
               </div>
 
