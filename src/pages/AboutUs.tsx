@@ -89,7 +89,7 @@ export default function AboutUs() {
               alt={pick(company.founder.name)}
               width={160}
               height={160}
-              className="h-32 w-32 shrink-0 rounded-full object-cover ring-4 ring-gold/20 sm:h-40 sm:w-40"
+              className="h-32 w-32 shrink-0 rounded-full object-cover object-[50%_12%] ring-4 ring-gold/20 sm:h-40 sm:w-40"
             />
             <div>
               <Quote className="mx-auto mb-3 h-7 w-7 text-gold/50 md:mx-0" />
