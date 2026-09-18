@@ -57,7 +57,7 @@ export function Footer() {
 
         <div>
           <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gold">{t.footer.contactInfo}</h3>
-          <ul className="space-y-3 text-sm text-white/70">
+          <ul className="space-y-3 text-sm text-white/80">
             <li className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
               <span className="min-w-0 break-words">{pick(company.office)}</span>

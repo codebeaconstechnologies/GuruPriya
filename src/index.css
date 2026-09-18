@@ -7,6 +7,10 @@
     scroll-behavior: smooth;
   }
 
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
