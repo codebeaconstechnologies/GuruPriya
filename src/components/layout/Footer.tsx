@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { company, featuredTrip } from "@/data/trips";
+import { company, trips } from "@/data/trips";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 
 export function Footer() {
@@ -46,11 +46,13 @@ export function Footer() {
         <div>
           <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gold">{t.footer.popularYatras}</h3>
           <ul className="space-y-2.5 text-sm">
-            <li>
-              <Link to={`/yatras/${featuredTrip.slug}`} className="text-white/70 hover:text-white">
-                {pick(featuredTrip.title)}
-              </Link>
-            </li>
+            {trips.map((trip) => (
+              <li key={trip.id}>
+                <Link to={`/yatras/${trip.slug}`} className="text-white/70 hover:text-white">
+                  {pick(trip.title)}
+                </Link>
+              </li>
+            ))}
             <li><Link to="/coming-soon" className="text-white/70 hover:text-white">{t.common.comingSoon}</Link></li>
           </ul>
         </div>

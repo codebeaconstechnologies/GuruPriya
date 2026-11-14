@@ -14,10 +14,17 @@ import Gallery from "@/pages/Gallery";
 import NotFound from "@/pages/NotFound";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      // Wait a tick so the target section has rendered.
+      const id = window.setTimeout(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+      return () => window.clearTimeout(id);
+    }
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 

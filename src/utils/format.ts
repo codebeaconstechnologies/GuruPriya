@@ -14,10 +14,6 @@ export function formatDate(date?: string): string {
   return new Date(date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
 }
 
-export function formatCurrency(amount: number): string {
-  return `₹${amount.toLocaleString("en-IN")}`;
-}
-
 export function splitParagraphs(text: string): string[] {
   return text.split(/\n\n+/).filter(Boolean);
 }

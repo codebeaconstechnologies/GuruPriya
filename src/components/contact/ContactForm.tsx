@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CheckCircle2, AlertTriangle, Send } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { trips, comingSoonTrips } from "@/data/trips";
+import { comingSoonTrips, getUpcomingTrips, ALL_TRAVEL_OPTIONS } from "@/data/trips";
 import { validateContactForm, type ContactFormValues, type ContactFormErrors } from "@/utils/validation";
 
 const initialValues: ContactFormValues = {
@@ -12,6 +12,7 @@ const initialValues: ContactFormValues = {
   yatra: "",
   travellers: "",
   preferredDate: "",
+  travelMode: "",
   message: "",
   company: ""
 };
@@ -19,17 +20,22 @@ const initialValues: ContactFormValues = {
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const pick = useLocalized();
   const [searchParams] = useSearchParams();
   const presetYatra = searchParams.get("yatra") ?? "";
+  const presetMode = searchParams.get("mode") ?? "";
 
-  const [values, setValues] = useState<ContactFormValues>({ ...initialValues, yatra: presetYatra });
+  const [values, setValues] = useState<ContactFormValues>({
+    ...initialValues,
+    yatra: presetYatra,
+    travelMode: ALL_TRAVEL_OPTIONS.some((o) => o.mode === presetMode) ? presetMode : ""
+  });
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
 
   const allYatraOptions = [
-    ...trips.map((tr) => ({ slug: tr.slug, label: pick(tr.title) })),
+    ...getUpcomingTrips().map((tr) => ({ slug: tr.slug, label: pick(tr.title) })),
     ...comingSoonTrips.map((tr) => ({ slug: tr.slug, label: `${pick(tr.title)} (${t.common.comingSoon})` }))
   ];
 
@@ -55,7 +61,14 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values)
+        body: JSON.stringify({
+          ...values,
+          // Readable labels so the enquiry email doesn't show slugs/codes.
+          yatraTitle: allYatraOptions.find((o) => o.slug === values.yatra)?.label ?? "",
+          travelModeLabel: ALL_TRAVEL_OPTIONS.find((o) => o.mode === values.travelMode)?.name.en ?? "",
+          language,
+          pageUrl: window.location.href
+        })
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
@@ -144,6 +157,21 @@ export function ContactForm() {
             placeholder={t.contact.placeholders.travellers}
             className={inputClass(!!errors.travellers)}
           />
+        </Field>
+
+        <Field label={t.contact.fields.travelMode}>
+          <select
+            value={values.travelMode}
+            onChange={(e) => handleChange("travelMode", e.target.value)}
+            className={inputClass(false)}
+          >
+            <option value="">{t.contact.travelModeDefault}</option>
+            {ALL_TRAVEL_OPTIONS.map((opt) => (
+              <option key={opt.mode} value={opt.mode}>
+                {pick(opt.name)}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field label={t.contact.fields.preferredDate}>

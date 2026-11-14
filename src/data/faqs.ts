@@ -36,8 +36,8 @@ export const generalFaqs: FAQItem[] = [
       mr: "रेल्वे, बस व विमान यापैकी प्रवासाचे साधन निवडता येते का?"
     },
     answer: {
-      en: "Yes. Each travel mode has its own package price and duration, listed on the trip page.",
-      mr: "होय. प्रत्येक प्रवास साधनाचा स्वतंत्र पॅकेज दर व कालावधी यात्रा पानावर नमूद आहे."
+      en: "Where a yatra offers more than one travel mode, the options are listed on its trip page. Package details for each option are shared on call or WhatsApp.",
+      mr: "ज्या यात्रेत एकापेक्षा जास्त प्रवास साधने उपलब्ध आहेत, ते पर्याय यात्रा पानावर नमूद आहेत. प्रत्येक पर्यायाची पॅकेज माहिती कॉल किंवा व्हॉट्सॲपवर दिली जाते."
     }
   },
   {

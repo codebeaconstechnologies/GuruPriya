@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CalendarDays, MapPin, Bus, ArrowRight } from "lucide-react";
+import { CalendarDays, MapPin, Clock, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { featuredTrip } from "@/data/trips";
+import { featuredTrip, getDeparture } from "@/data/trips";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { formatDateRange } from "@/utils/format";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { tripEnquiryMessage } from "@/utils/whatsapp";
 
 export function FeaturedYatra() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const pick = useLocalized();
   const trip = featuredTrip;
-  const startingPrice = Math.min(...trip.prices.map((p) => p.amount));
 
   return (
     <section className="section-py bg-ivory">
@@ -50,11 +51,11 @@ export function FeaturedYatra() {
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-saffron-600" />
-                <span className="text-charcoal/75">{pick(trip.departure)}</span>
+                <span className="text-charcoal/75">{pick(getDeparture(trip))}</span>
               </div>
-              <div className="flex items-start gap-2 col-span-2">
-                <Bus className="mt-0.5 h-4 w-4 shrink-0 text-saffron-600" />
-                <span className="text-charcoal/75">{trip.prices.map((p) => pick(p.name)).join(" • ")}</span>
+              <div className="flex items-start gap-2">
+                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-saffron-600" />
+                <span className="text-charcoal/75">{pick(trip.duration)}</span>
               </div>
             </div>
 
@@ -66,20 +67,12 @@ export function FeaturedYatra() {
               ))}
             </div>
 
-            <div className="mt-2 flex flex-wrap items-center justify-between gap-4 border-t border-charcoal/10 pt-5">
-              <div>
-                <span className="block text-xs font-semibold uppercase tracking-wide text-charcoal/50">
-                  {t.common.startingFrom}
-                </span>
-                <span className="font-display text-2xl font-extrabold text-saffron-700">
-                  ₹{startingPrice.toLocaleString("en-IN")}
-                </span>
-                <span className="text-sm text-charcoal/50"> / {t.common.perPerson}</span>
-              </div>
+            <div className="mt-2 flex flex-wrap items-center gap-3 border-t border-charcoal/10 pt-5">
               <Link to={`/yatras/${trip.slug}`} className="btn-primary">
                 {t.common.viewYatra}
                 <ArrowRight className="h-4 w-4" />
               </Link>
+              <WhatsAppButton message={tripEnquiryMessage(pick(trip.title), language)} />
             </div>
           </div>
         </motion.div>

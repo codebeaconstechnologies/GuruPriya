@@ -43,11 +43,13 @@ src/
     home/               Hero, FeaturedYatra, WhyTravelWithUs, HowItWorks, Philosophy,
                         Testimonials, FounderMessage, CTASection, ComingSoonPreview
     trips/              TripCard, ComingSoonCard
-    trip-detail/        TripHero, QuickInfo, PricingCards, Features, RouteVisualization,
+    trip-detail/        TripHero, QuickInfo, PackageEnquiry, Features, RouteVisualization,
                         RouteMap, ItineraryTimeline, InclusionsExclusions,
-                        RegistrationInfo, SpiritualGuidance, TripGallery, TripFAQ, EnquiryCTA
+                        RegistrationInfo, TripReviews, SpiritualGuidance, TripGallery, TripFAQ, EnquiryCTA
+    trips/              TripCard, ComingSoonCard, CompletedTripsPane
+    reviews/            ReviewCard (+ Stars)
     contact/            ContactForm
-  data/                 trips.ts, testimonials.ts, faqs.ts  ← single source of truth
+  data/                 trips.ts, reviews.ts, testimonials.ts, faqs.ts  ← single source of truth
   i18n/                 en.ts, mr.ts, I18nContext.tsx
   hooks/                useReducedMotion, useScrollPosition
   utils/                seo.ts, validation.ts, whatsapp.ts, format.ts
@@ -145,7 +147,18 @@ confirmed, and the UI shows a "details will be shared" note instead.
 
 ### Coming Soon trips
 `src/data/trips.ts` → `comingSoonTrips` array. These intentionally have no
-`prices`/`itinerary` fields — do not add fake dates or prices.
+`itinerary` fields — do not add fake dates.
+
+### Content rules
+- **No prices anywhere.** The site never shows package amounts; visitors are
+  directed to call / WhatsApp / the enquiry form.
+- **Departure** defaults to Latur when a trip has no `departure`.
+- **Travel modes:** every trip offers railway, bus and flight
+  (`getTravelOptions`); `travelOptions` only overrides per-mode details.
+- **Completed trips** are detected from `endDate` automatically, stay listed
+  with a Completed badge, and show reviews from `src/data/reviews.ts`
+  (set `isSample: false` on real reviews).
+- The announcement bar always shows the next upcoming trip.
 
 ### English content
 `src/i18n/en.ts` — one flat, typed dictionary.

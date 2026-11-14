@@ -1,6 +1,6 @@
 import { CalendarDays, MapPin, Bus, Hotel, Utensils, Users } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import type { Trip } from "@/data/trips";
+import { getDeparture, getTravelOptions, type Trip } from "@/data/trips";
 
 export function QuickInfo({ trip }: { trip: Trip }) {
   const { t } = useI18n();
@@ -8,10 +8,10 @@ export function QuickInfo({ trip }: { trip: Trip }) {
 
   const items = [
     { icon: CalendarDays, label: t.common.duration, value: pick(trip.duration) },
-    { icon: MapPin, label: t.trip.startingPoint, value: pick(trip.departure) },
-    { icon: Bus, label: t.common.travelMode, value: trip.prices.map((p) => pick(p.name)).join(" / ") },
+    { icon: MapPin, label: t.trip.startingPoint, value: pick(getDeparture(trip)) },
+    { icon: Bus, label: t.common.travelMode, value: getTravelOptions(trip).map((p) => pick(p.name)).join(" / ") },
     { icon: Hotel, label: t.trip.accommodation, value: t.common.detailsShared },
-    { icon: Utensils, label: t.trip.meals, value: "Tea, Breakfast & Pure Vegetarian Meals" },
+    { icon: Utensils, label: t.trip.meals, value: trip.meals ? pick(trip.meals) : t.common.detailsShared },
     { icon: Users, label: t.trip.tripType, value: t.trip.tripTypeValue }
   ];
 

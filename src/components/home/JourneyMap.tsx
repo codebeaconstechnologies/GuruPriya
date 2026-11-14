@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MapContainer, TileLayer, Polyline, CircleMarker, Popup } from "react-leaflet";
 import { ArrowRight, CalendarRange, MapPinned, Landmark } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { featuredTrip, type RoutePoint } from "@/data/trips";
+import { charDhamTrip, type RoutePoint } from "@/data/trips";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { FitBounds, AnimatedBus } from "@/components/map/RouteMapPrimitives";
 
@@ -12,7 +12,7 @@ export function JourneyMap() {
   const { t } = useI18n();
   const pick = useLocalized();
   const reduced = useReducedMotion();
-  const trip = featuredTrip;
+  const trip = charDhamTrip;
 
   const mappablePoints = useMemo(
     () => trip.routePoints.filter((rp): rp is RoutePoint & { lat: number; lng: number } => typeof rp.lat === "number" && typeof rp.lng === "number"),

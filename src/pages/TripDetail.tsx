@@ -2,12 +2,12 @@ import { Suspense, lazy } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { MapPin, Quote, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { trips, founderStory, company } from "@/data/trips";
+import { trips, founderStory, company, isTripCompleted } from "@/data/trips";
 import { useSeo } from "@/utils/seo";
 import { splitParagraphs } from "@/utils/format";
 import { TripHero } from "@/components/trip-detail/TripHero";
 import { QuickInfo } from "@/components/trip-detail/QuickInfo";
-import { PricingCards } from "@/components/trip-detail/PricingCards";
+import { PackageEnquiry } from "@/components/trip-detail/PackageEnquiry";
 import { Features } from "@/components/trip-detail/Features";
 import { RouteVisualization } from "@/components/trip-detail/RouteVisualization";
 import { ItineraryTimeline } from "@/components/trip-detail/ItineraryTimeline";
@@ -17,6 +17,7 @@ import { SpiritualGuidance } from "@/components/trip-detail/SpiritualGuidance";
 import { TripGallery } from "@/components/trip-detail/TripGallery";
 import { TripFAQ } from "@/components/trip-detail/TripFAQ";
 import { EnquiryCTA } from "@/components/trip-detail/EnquiryCTA";
+import { TripReviews } from "@/components/trip-detail/TripReviews";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const RouteMap = lazy(() => import("@/components/trip-detail/RouteMap").then((m) => ({ default: m.RouteMap })));
@@ -40,11 +41,13 @@ export default function TripDetail() {
     return <Navigate to="/yatras" replace />;
   }
 
+  const completed = isTripCompleted(trip);
+
   return (
     <>
       <TripHero trip={trip} />
       <QuickInfo trip={trip} />
-      <PricingCards trip={trip} />
+      {completed ? <TripReviews trip={trip} /> : <PackageEnquiry trip={trip} />}
       <Features trip={trip} />
 
       <section className="bg-ivory py-10 sm:py-14">
@@ -78,7 +81,7 @@ export default function TripDetail() {
 
       <ItineraryTimeline trip={trip} />
       <InclusionsExclusions trip={trip} />
-      <RegistrationInfo trip={trip} />
+      {!completed && <RegistrationInfo trip={trip} />}
       <SpiritualGuidance trip={trip} />
 
       <section className="bg-ivory py-10 sm:py-14">

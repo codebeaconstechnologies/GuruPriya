@@ -5,6 +5,7 @@ export interface ContactFormValues {
   yatra: string;
   travellers: string;
   preferredDate: string;
+  travelMode: string;
   message: string;
   company: string; // honeypot
 }

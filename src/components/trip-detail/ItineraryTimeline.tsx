@@ -9,6 +9,19 @@ export function ItineraryTimeline({ trip }: { trip: Trip }) {
   const pick = useLocalized();
   const pointsById = new Map(trip.routePoints.map((rp) => [rp.id, rp]));
 
+  if (trip.itinerary.length === 0) {
+    return (
+      <section id="itinerary" className="section-py bg-ivory">
+        <div className="container-px mx-auto max-w-4xl">
+          <SectionHeading eyebrow={pick(trip.duration)} title={t.trip.itineraryTitle} />
+          <p className="rounded-2xl border border-charcoal/10 bg-white p-6 text-center text-sm leading-relaxed text-charcoal/65">
+            {t.trip.itineraryPending}
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="itinerary" className="section-py bg-ivory">
       <div className="container-px mx-auto max-w-4xl">

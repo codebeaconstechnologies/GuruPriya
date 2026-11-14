@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Stethoscope, Gem, Sparkles, BedDouble, Utensils, ShieldCheck } from "lucide-react";
+import { Stethoscope, Gem, Sparkles, BedDouble, Utensils, ShieldCheck, Landmark, Mountain } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import type { Trip } from "@/data/trips";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,7 +10,9 @@ const iconMap: Record<string, typeof Stethoscope> = {
   spiritual: Sparkles,
   hotel: BedDouble,
   food: Utensils,
-  transparent: ShieldCheck
+  transparent: ShieldCheck,
+  temple: Landmark,
+  mountain: Mountain
 };
 
 export function Features({ trip }: { trip: Trip }) {

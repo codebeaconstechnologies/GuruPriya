@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import type { Trip } from "@/data/trips";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { tripEnquiryMessage } from "@/utils/whatsapp";
 
 export function EnquiryCTA({ trip }: { trip: Trip }) {
   const { t, language } = useI18n();
@@ -14,17 +15,11 @@ export function EnquiryCTA({ trip }: { trip: Trip }) {
         <h2 className="font-display text-2xl font-extrabold text-white sm:text-3xl">{pick(trip.title)}</h2>
         <p className="text-white/75">{t.trip.enquireAboutYatra}</p>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link to="/contact" className="btn-primary">
+          <Link to={`/contact?yatra=${trip.slug}`} className="btn-primary">
             {t.trip.bookThisYatra}
             <ArrowRight className="h-4 w-4" />
           </Link>
-          <WhatsAppButton
-            message={
-              language === "mr"
-                ? `नमस्कार, मला "${pick(trip.title)}" या यात्रेबद्दल अधिक माहिती हवी आहे.`
-                : `Hello, I would like more information about "${pick(trip.title)}".`
-            }
-          />
+          <WhatsAppButton message={tripEnquiryMessage(pick(trip.title), language)} />
         </div>
       </div>
     </section>

@@ -30,10 +30,14 @@ export interface RoutePoint {
   imageQuery: string;
 }
 
-export interface TripPrice {
+/**
+ * A travel option offered for a yatra. Prices are intentionally NOT stored
+ * or shown anywhere on the website — package rates are shared personally
+ * on call / WhatsApp.
+ */
+export interface TravelOption {
   mode: "railway" | "bus" | "flight";
   name: LocalizedText;
-  amount: number;
   duration?: LocalizedText;
 }
 
@@ -70,7 +74,8 @@ export interface Trip {
   startDate?: string;
   endDate?: string;
 
-  departure: LocalizedText;
+  // Leave unset when not announced — defaults to Latur (see getDeparture()).
+  departure?: LocalizedText;
 
   heroImage: string;
 
@@ -86,13 +91,11 @@ export interface Trip {
 
   features: TripFeature[];
 
-  prices: TripPrice[];
+  // Optional per-mode overrides (e.g. duration). Every yatra always offers
+  // all three modes — see getTravelOptions().
+  travelOptions?: TravelOption[];
 
-  advanceRegistration: {
-    mode: LocalizedText;
-    amount: number;
-    refundable: false;
-  }[];
+  meals?: LocalizedText;
 
   inclusions: LocalizedText[];
 
@@ -309,7 +312,7 @@ export const founderStory = {
    FIRST / FEATURED YATRA
 ========================================================= */
 
-export const featuredTrip: Trip = {
+export const charDhamTrip: Trip = {
 
   id: "uttarakhand-char-dham-2026",
 
@@ -476,34 +479,16 @@ export const featuredTrip: Trip = {
 
 
   /* =======================================================
-     PACKAGE PRICES
+     TRAVEL OPTIONS (no prices — shared on enquiry)
   ======================================================= */
 
-  prices: [
-    { mode: "railway", name: { en: "Railway Travel", mr: "रेल्वे प्रवास" }, amount: 45000 },
-    {
-      mode: "bus",
-      name: { en: "Travels / Bus", mr: "ट्रॅव्हल्स / बस" },
-      amount: 51000,
-      duration: { en: "18 Days", mr: "१८ दिवस" }
-    },
-    {
-      mode: "flight",
-      name: { en: "Flight", mr: "विमान प्रवास" },
-      amount: 65000,
-      duration: { en: "10 Days", mr: "१० दिवस" }
-    }
+  travelOptions: [
+    { mode: "railway", name: { en: "Railway Travel", mr: "रेल्वे प्रवास" } },
+    { mode: "bus", name: { en: "Travels / Bus", mr: "ट्रॅव्हल्स / बस" }, duration: { en: "18 Days", mr: "१८ दिवस" } },
+    { mode: "flight", name: { en: "Flight", mr: "विमान प्रवास" }, duration: { en: "10 Days", mr: "१० दिवस" } }
   ],
 
-
-  /* =======================================================
-     ADVANCE REGISTRATION
-  ======================================================= */
-
-  advanceRegistration: [
-    { mode: { en: "Railway & Travels", mr: "रेल्वे व ट्रॅव्हल्स" }, amount: 11000, refundable: false },
-    { mode: { en: "Flight", mr: "विमान प्रवास" }, amount: 25000, refundable: false }
-  ],
+  meals: { en: "Tea, Breakfast & Pure Vegetarian Meals", mr: "चहा, नाश्ता व शुद्ध शाकाहारी भोजन" },
 
 
   /* =======================================================
@@ -846,6 +831,208 @@ export const featuredTrip: Trip = {
 
 
 /* =========================================================
+   NEXT YATRA — KAINCHI DHAM (NEEM KAROLI BABA ASHRAM)
+   Source: official yatra poster (2–6 February 2027).
+   Day-wise plan is not yet announced — leave it unset rather
+   than guessing. Departure defaults to Latur.
+========================================================= */
+
+export const kainchiDhamTrip: Trip = {
+
+  id: "kainchi-dham-2027",
+
+  slug: "kainchi-dham-neem-karoli-baba-ashram-divya-yatra-2027",
+
+  status: "featured",
+
+  title: {
+    en: "Kainchi Dham • Neem Karoli Baba Ashram Divya Yatra 2027",
+    mr: "कैंची धाम • नीम करोली बाबा आश्रम दिव्य यात्रा २०२७"
+  },
+
+  subtitle: {
+    en: "A peaceful Himalayan pilgrimage to Neem Karoli Baba's Kainchi Dham, with darshan at Nainital, Hanuman Garhi and Bhimtal.",
+    mr: "नीम करोली बाबांच्या कैंची धामची शांत हिमालयीन यात्रा — नैनीताल, हनुमान गढी व भीमताल दर्शनासह."
+  },
+
+  badge: {
+    en: "Next Yatra",
+    mr: "आगामी यात्रा"
+  },
+
+  duration: {
+    en: "5 Days",
+    mr: "५ दिवस"
+  },
+
+  startDate: "2027-02-02",
+
+  endDate: "2027-02-06",
+
+  heroImage: commonsImage("Early morning Glimpse of Kainchi Dham Nainital 2023.jpg", 2000),
+
+  gallery: [
+    {
+      src: commonsImage("Early morning Glimpse of Kainchi Dham Nainital 2023.jpg"),
+      alt: { en: "Kainchi Dham in the early morning", mr: "पहाटेचे कैंची धाम" },
+      searchQuery: "Kainchi Dham Nainital"
+    },
+    {
+      src: commonsImage("Kainchi Dhaam Neem Karoli Temple.jpg"),
+      alt: { en: "Neem Karoli Baba Temple, Kainchi Dham", mr: "नीम करोली बाबा मंदिर, कैंची धाम" },
+      searchQuery: "Neem Karoli Baba Temple Kainchi Dham"
+    },
+    {
+      src: commonsImage("Kaichi dham.jpg"),
+      alt: { en: "Kainchi Dham ashram in the valley", mr: "दरीतील कैंची धाम आश्रम" },
+      searchQuery: "Kainchi Dham ashram"
+    },
+    {
+      src: commonsImage("Kainchi Dham Nainital.jpg"),
+      alt: { en: "Kainchi Dham at dusk", mr: "संध्याकाळचे कैंची धाम" },
+      searchQuery: "Kainchi Dham Nainital"
+    },
+    {
+      src: commonsImage("Naini Lake, Nainital, Uttarakhand, India.jpg"),
+      alt: { en: "Naini Lake, Nainital", mr: "नैनी तलाव, नैनीताल" },
+      searchQuery: "Naini Lake Nainital"
+    },
+    {
+      src: commonsImage("Maa Naina Devi Temple, Nainital, Uttarakhand, India.jpg"),
+      alt: { en: "Naina Devi Temple, Nainital", mr: "नैना देवी मंदिर, नैनीताल" },
+      searchQuery: "Naina Devi Temple Nainital"
+    },
+    {
+      src: commonsImage("Bhimtal lake during winter.jpg"),
+      alt: { en: "Bhimtal Lake", mr: "भीमताल तलाव" },
+      searchQuery: "Bhimtal lake Uttarakhand"
+    }
+  ],
+
+  description: {
+    en: "From 2 to 6 February 2027, GuruPriya Tours & Travels invites you on a divine yatra to Kainchi Dham — the ashram of Neem Karoli Baba in the Kumaon hills of Uttarakhand (Nainital–Bhowali). The journey includes darshan at Nainital, Hanuman Garhi and Bhimtal, with comfortable travel and accommodation arrangements.",
+    mr: "दि. २ ते ६ फेब्रुवारी २०२७ दरम्यान गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स आपल्याला उत्तराखंडातील कुमाऊँ पर्वतरांगेतील (नैनीताल–भवाली) नीम करोली बाबांच्या कैंची धाम आश्रमाच्या दिव्य यात्रेसाठी आमंत्रित करीत आहे. यात्रेत नैनीताल, हनुमान गढी व भीमताल दर्शन तसेच आरामदायी प्रवास व राहण्याची व्यवस्था समाविष्ट आहे."
+  },
+
+  highlights: [
+    { en: "Kainchi Dham Darshan", mr: "कैंची धाम दर्शन" },
+    { en: "Neem Karoli Baba Ashram", mr: "नीम करोली बाबा आश्रम" },
+    { en: "Nainital", mr: "नैनीताल" },
+    { en: "Hanuman Garhi", mr: "हनुमान गढी" },
+    { en: "Bhimtal", mr: "भीमताल" }
+  ],
+
+  features: [
+    {
+      icon: "temple",
+      title: { en: "Neem Karoli Baba Ashram Darshan", mr: "नीम करोली बाबा आश्रम दर्शन" },
+      description: {
+        en: "Darshan at Kainchi Dham, the revered ashram of Neem Karoli Baba near Bhowali.",
+        mr: "भवालीजवळील नीम करोली बाबांच्या पवित्र कैंची धाम आश्रमाचे दर्शन."
+      }
+    },
+    {
+      icon: "mountain",
+      title: { en: "Nainital, Hanuman Garhi & Bhimtal", mr: "नैनीताल, हनुमान गढी व भीमताल दर्शन" },
+      description: {
+        en: "Visit the lake town of Nainital, Hanuman Garhi temple and Bhimtal.",
+        mr: "नैनीताल तलाव नगरी, हनुमान गढी मंदिर व भीमताल यांचे दर्शन."
+      }
+    },
+    {
+      icon: "hotel",
+      title: { en: "Comfortable Travel & Stay", mr: "आरामदायी प्रवास व राहण्याची व्यवस्था" },
+      description: {
+        en: "Comfortable travel and accommodation arrangements throughout the yatra.",
+        mr: "संपूर्ण यात्रेत आरामदायी प्रवास व राहण्याची व्यवस्था."
+      }
+    }
+  ],
+
+  inclusions: [
+    { en: "Comfortable travel", mr: "आरामदायी प्रवास" },
+    { en: "Accommodation", mr: "राहण्याची व्यवस्था" },
+    { en: "Kainchi Dham (Neem Karoli Baba Ashram) darshan", mr: "कैंची धाम (नीम करोली बाबा आश्रम) दर्शन" },
+    { en: "Nainital, Hanuman Garhi & Bhimtal darshan", mr: "नैनीताल, हनुमान गढी व भीमताल दर्शन" }
+  ],
+
+  exclusions: [
+    {
+      en: "Personal expenses not specifically included in the package.",
+      mr: "पॅकेजमध्ये स्पष्टपणे समाविष्ट नसलेले वैयक्तिक खर्च."
+    },
+    {
+      en: "Additional services or expenses not mentioned in the package.",
+      mr: "पॅकेजमध्ये नमूद नसलेल्या अतिरिक्त सेवा किंवा खर्च."
+    }
+  ],
+
+  routeSections: [
+    {
+      id: "kumaon",
+      title: { en: "Kumaon Darshan • Nainital – Bhowali", mr: "कुमाऊँ दर्शन • नैनीताल – भवाली" },
+      description: {
+        en: "Places covered during the yatra. The exact day-wise order will be shared with registered pilgrims.",
+        mr: "यात्रेत समाविष्ट स्थळे. दिवसनिहाय अचूक क्रम नोंदणीकृत यात्रेकरूंना कळविण्यात येईल."
+      },
+      stops: ["nainital", "hanuman-garhi", "bhimtal", "bhowali", "kainchi-dham"]
+    }
+  ],
+
+  // Approximate coordinates for these well-known public locations.
+  routePoints: [
+    { id: "nainital", name: { en: "Nainital", mr: "नैनीताल" }, category: "city",
+      description: { en: "Lake town of the Kumaon hills, home to Naini Lake and Naina Devi Temple.", mr: "नैनी तलाव व नैना देवी मंदिरासाठी प्रसिद्ध कुमाऊँतील तलाव नगरी." },
+      lat: 29.3919, lng: 79.4542, imageQuery: "Naini Lake Nainital" },
+
+    { id: "hanuman-garhi", name: { en: "Hanuman Garhi", mr: "हनुमान गढी" }, category: "temple",
+      description: { en: "Hanuman temple on the hillside near Nainital.", mr: "नैनीतालजवळील डोंगरावरील हनुमान मंदिर." },
+      lat: 29.3720, lng: 79.4590, imageQuery: "Hanuman Garhi Nainital" },
+
+    { id: "bhimtal", name: { en: "Bhimtal", mr: "भीमताल" }, category: "pilgrimage",
+      description: { en: "Lake town with the ancient Bhimeshwar Mahadev temple.", mr: "प्राचीन भीमेश्वर महादेव मंदिर असलेली तलाव नगरी." },
+      lat: 29.3454, lng: 79.5536, imageQuery: "Bhimtal lake" },
+
+    { id: "bhowali", name: { en: "Bhowali", mr: "भवाली" }, category: "route",
+      description: { en: "Hill town on the route to Kainchi Dham.", mr: "कैंची धामच्या मार्गावरील डोंगरी शहर." },
+      lat: 29.3833, lng: 79.5167, imageQuery: "Bhowali Uttarakhand" },
+
+    { id: "kainchi-dham", name: { en: "Kainchi Dham", mr: "कैंची धाम" }, category: "temple",
+      description: { en: "Ashram of Neem Karoli Baba in the Kumaon hills.", mr: "कुमाऊँ पर्वतरांगेतील नीम करोली बाबांचा आश्रम." },
+      lat: 29.4172, lng: 79.5216, imageQuery: "Kainchi Dham Neem Karoli Baba" }
+  ],
+
+  // Day-wise plan not announced yet — the page shows a "will be shared" note.
+  itinerary: [],
+
+  organizer: {
+    name: { en: "Shri. Guruprasad Hundekar", mr: "श्री. गुरुप्रसाद हुंडेकर" },
+    title: { en: "Founder & Chief Coordinator", mr: "संस्थापक व मुख्य संयोजक" },
+    phones: ["7498132640", "9637134510", "9730699805"]
+  },
+
+  contactNumbers: company.contacts,
+
+  office: company.office,
+
+  seo: {
+    title: {
+      en: "Kainchi Dham Neem Karoli Baba Ashram Yatra 2027 | GuruPriya Tours & Travels",
+      mr: "कैंची धाम नीम करोली बाबा आश्रम यात्रा २०२७ | गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
+    },
+    description: {
+      en: "Join GuruPriya Tours & Travels for the Kainchi Dham (Neem Karoli Baba Ashram) Divya Yatra, 2–6 February 2027, with Nainital, Hanuman Garhi and Bhimtal darshan.",
+      mr: "२ ते ६ फेब्रुवारी २०२७ — नैनीताल, हनुमान गढी व भीमताल दर्शनासह कैंची धाम (नीम करोली बाबा आश्रम) दिव्य यात्रेत गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्ससोबत सहभागी व्हा."
+    },
+    keywords: [
+      "Kainchi Dham Yatra", "Kainchi Dham 2027", "Neem Karoli Baba Ashram", "Nainital Yatra",
+      "Hanuman Garhi", "Bhimtal", "GuruPriya Travels", "कैंची धाम यात्रा", "नीम करोली बाबा", "गुरुप्रिया ट्रॅव्हल्स"
+    ]
+  }
+};
+
+
+/* =========================================================
    COMING SOON TRIPS
 ========================================================= */
 
@@ -910,7 +1097,52 @@ export type ComingSoonTrip = (typeof comingSoonTrips)[number];
    ALL FEATURED TRIPS (extend this array for future yatras)
 ========================================================= */
 
-export const trips: Trip[] = [featuredTrip];
+export const trips: Trip[] = [kainchiDhamTrip, charDhamTrip];
+
+
+/* =========================================================
+   TRIP HELPERS
+========================================================= */
+
+/** Every yatra departs from Latur unless the trip says otherwise. */
+export const DEFAULT_DEPARTURE: LocalizedText = { en: "Latur, Maharashtra", mr: "लातूर, महाराष्ट्र" };
+
+export function getDeparture(trip: Trip): LocalizedText {
+  return trip.departure ?? DEFAULT_DEPARTURE;
+}
+
+/** All yatras offer all three travel modes; pilgrims pick what suits them. */
+export const ALL_TRAVEL_OPTIONS: TravelOption[] = [
+  { mode: "railway", name: { en: "Railway Travel", mr: "रेल्वे प्रवास" } },
+  { mode: "bus", name: { en: "Travels / Bus", mr: "ट्रॅव्हल्स / बस" } },
+  { mode: "flight", name: { en: "Flight", mr: "विमान प्रवास" } }
+];
+
+export function getTravelOptions(trip: Trip): TravelOption[] {
+  return ALL_TRAVEL_OPTIONS.map((base) => trip.travelOptions?.find((o) => o.mode === base.mode) ?? base);
+}
+
+/** A trip is completed once its end date has passed (checked at page load). */
+export function isTripCompleted(trip: Trip, now: Date = new Date()): boolean {
+  if (!trip.endDate) return false;
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return new Date(`${trip.endDate}T00:00:00`) < today;
+}
+
+export function getUpcomingTrips(): Trip[] {
+  return trips
+    .filter((trip) => !isTripCompleted(trip))
+    .sort((a, b) => (a.startDate ?? "9999").localeCompare(b.startDate ?? "9999"));
+}
+
+export function getCompletedTrips(): Trip[] {
+  return trips
+    .filter((trip) => isTripCompleted(trip))
+    .sort((a, b) => (b.endDate ?? "").localeCompare(a.endDate ?? ""));
+}
+
+// The yatra promoted on the home page: the next upcoming one.
+export const featuredTrip: Trip = getUpcomingTrips()[0] ?? trips[0];
 
 
 /* =========================================================
@@ -918,11 +1150,6 @@ export const trips: Trip[] = [featuredTrip];
 ========================================================= */
 
 export const homePage = {
-  announcement: {
-    en: "Registrations Open • Premium Uttarakhand Char Dham Yatra 2026",
-    mr: "पूर्वनोंदणी सुरू • प्रीमियम उत्तराखंड चारधाम यात्रा २०२६"
-  },
-
   hero: {
     title: { en: "Your Sacred Journey Begins Here", mr: "आपली पवित्र यात्रा येथे सुरू होते" },
     subtitle: {

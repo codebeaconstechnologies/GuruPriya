@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { trips } from "@/data/trips";
+import { trips, getDeparture, isTripCompleted } from "@/data/trips";
 import { useSeo } from "@/utils/seo";
 import { TripCard } from "@/components/trips/TripCard";
+import { CompletedTripsPane } from "@/components/trips/CompletedTripsPane";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 type FilterKey = "all" | "upcoming" | "pilgrimage" | "southIndia" | "northIndia" | "maharashtra" | "multiState";
@@ -34,7 +35,7 @@ export default function Yatras() {
         pick(trip.title),
         pick(trip.subtitle),
         ...trip.routePoints.map((rp) => pick(rp.name)),
-        pick(trip.departure)
+        pick(getDeparture(trip))
       ]
         .join(" ")
         .toLowerCase();
@@ -43,10 +44,10 @@ export default function Yatras() {
 
       if (!matchesQuery) return false;
       if (filter === "all") return true;
-      if (filter === "upcoming") return true;
-      if (filter === "multiState") return true;
-      if (filter === "northIndia") return trip.routePoints.some((rp) => rp.id === "haridwar" || rp.id === "kedarnath");
-      if (filter === "maharashtra") return trip.routePoints.some((rp) => rp.id === "latur" || rp.id === "mahur");
+      if (filter === "upcoming") return !isTripCompleted(trip);
+      if (filter === "multiState") return trip.routeSections.length > 1;
+      if (filter === "northIndia") return trip.routePoints.some((rp) => ["haridwar", "kedarnath", "nainital", "kainchi-dham"].includes(rp.id));
+      if (filter === "maharashtra") return getDeparture(trip).en.includes("Maharashtra") || trip.routePoints.some((rp) => rp.id === "latur" || rp.id === "mahur");
       if (filter === "pilgrimage") return true;
       return true;
     });
@@ -85,15 +86,21 @@ export default function Yatras() {
           </div>
         </div>
 
-        {filtered.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((trip, i) => (
-              <TripCard key={trip.id} trip={trip} index={i} />
-            ))}
+        <div className="grid gap-8 lg:grid-cols-3 lg:items-start">
+          <div className="lg:col-span-2">
+            {filtered.length > 0 ? (
+              <div className="grid gap-6 sm:grid-cols-2">
+                {filtered.map((trip, i) => (
+                  <TripCard key={trip.id} trip={trip} index={i} />
+                ))}
+              </div>
+            ) : (
+              <p className="rounded-2xl bg-white p-10 text-center text-charcoal/60">{t.yatrasPage.noResults}</p>
+            )}
           </div>
-        ) : (
-          <p className="rounded-2xl bg-white p-10 text-center text-charcoal/60">{t.yatrasPage.noResults}</p>
-        )}
+
+          <CompletedTripsPane />
+        </div>
       </div>
     </section>
   );

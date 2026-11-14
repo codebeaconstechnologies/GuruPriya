@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { featuredTrip } from "@/data/trips";
+import { trips } from "@/data/trips";
 import { useSeo } from "@/utils/seo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -12,7 +12,7 @@ export default function Gallery() {
 
   useSeo({ title: `${t.galleryPage.title} | GuruPriya Tours & Travels`, description: t.galleryPage.subtitle });
 
-  const images = featuredTrip.gallery;
+  const images = trips.flatMap((trip) => trip.gallery);
 
   return (
     <section className="section-py bg-ivory">

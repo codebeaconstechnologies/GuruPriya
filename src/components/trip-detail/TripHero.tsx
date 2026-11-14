@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import type { Trip } from "@/data/trips";
+import { getDeparture, isTripCompleted, type Trip } from "@/data/trips";
 import { formatDateRange } from "@/utils/format";
 
 export function TripHero({ trip }: { trip: Trip }) {
   const { t } = useI18n();
   const pick = useLocalized();
+  const completed = isTripCompleted(trip);
 
   return (
     <section className="relative isolate flex min-h-[70vh] items-end overflow-hidden bg-charcoal">
@@ -21,7 +22,7 @@ export function TripHero({ trip }: { trip: Trip }) {
           transition={{ duration: 0.5 }}
           className="mb-4 inline-flex rounded-full border border-gold/40 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-gold backdrop-blur-sm"
         >
-          {pick(trip.badge)}
+          {completed ? t.common.completed : pick(trip.badge)}
         </motion.span>
 
         <motion.h1
@@ -54,7 +55,7 @@ export function TripHero({ trip }: { trip: Trip }) {
           </span>
           <span className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-gold" />
-            {pick(trip.departure)}
+            {pick(getDeparture(trip))}
           </span>
           <span className="rounded-full bg-white/10 px-3 py-1 font-bold">{pick(trip.duration)}</span>
         </motion.div>
@@ -65,13 +66,22 @@ export function TripHero({ trip }: { trip: Trip }) {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-8 flex flex-wrap gap-4"
         >
-          <Link to="/contact" className="btn-primary">
-            {t.trip.enquireAboutYatra}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <a href="#itinerary" className="btn-ghost-light">
-            {t.common.seeFullItinerary}
-          </a>
+          {completed ? (
+            <a href="#reviews" className="btn-primary">
+              {t.common.readReviews}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          ) : (
+            <Link to={`/contact?yatra=${trip.slug}`} className="btn-primary">
+              {t.trip.enquireAboutYatra}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
+          {trip.itinerary.length > 0 && (
+            <a href="#itinerary" className="btn-ghost-light">
+              {t.common.seeFullItinerary}
+            </a>
+          )}
         </motion.div>
       </div>
     </section>
