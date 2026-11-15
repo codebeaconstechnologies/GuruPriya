@@ -36,7 +36,7 @@ export function HowItWorks() {
                 </span>
               </div>
               <h3 className="mb-1 font-display text-base font-bold text-charcoal">{step.title}</h3>
-              <p className="max-w-[220px] text-sm text-charcoal/60">{step.desc}</p>
+              <p className="max-w-[220px] text-sm text-charcoal/70">{step.desc}</p>
             </motion.div>
           ))}
         </div>

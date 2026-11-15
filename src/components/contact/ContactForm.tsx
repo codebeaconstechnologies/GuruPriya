@@ -1,9 +1,10 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, AlertTriangle, Send } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { comingSoonTrips, getUpcomingTrips, ALL_TRAVEL_OPTIONS } from "@/data/trips";
-import { validateContactForm, type ContactFormValues, type ContactFormErrors } from "@/utils/validation";
+import { validateContactForm, MESSAGE_MAX, type ContactFormValues, type ContactFormErrors } from "@/utils/validation";
+import { trackEvent } from "@/utils/analytics";
 
 const initialValues: ContactFormValues = {
   fullName: "",
@@ -14,6 +15,7 @@ const initialValues: ContactFormValues = {
   preferredDate: "",
   travelMode: "",
   message: "",
+  consent: false,
   company: ""
 };
 
@@ -33,13 +35,15 @@ export function ContactForm() {
   });
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  // Time-trap: the server rejects forms submitted implausibly fast (bots).
+  const [startedAt] = useState(() => Date.now());
 
   const allYatraOptions = [
     ...getUpcomingTrips().map((tr) => ({ slug: tr.slug, label: pick(tr.title) })),
     ...comingSoonTrips.map((tr) => ({ slug: tr.slug, label: `${pick(tr.title)} (${t.common.comingSoon})` }))
   ];
 
-  function handleChange<K extends keyof ContactFormValues>(key: K, value: string) {
+  function handleChange<K extends keyof ContactFormValues>(key: K, value: ContactFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
   }
 
@@ -67,11 +71,13 @@ export function ContactForm() {
           yatraTitle: allYatraOptions.find((o) => o.slug === values.yatra)?.label ?? "",
           travelModeLabel: ALL_TRAVEL_OPTIONS.find((o) => o.mode === values.travelMode)?.name.en ?? "",
           language,
+          startedAt,
           pageUrl: window.location.href
         })
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
+      trackEvent("generate_lead", { form: "enquiry", yatra: values.yatra || "none", travel_mode: values.travelMode || "none" });
       setValues(initialValues);
     } catch {
       setStatus("error");
@@ -106,6 +112,10 @@ export function ContactForm() {
         <Field label={t.contact.fields.fullName} error={errors.fullName}>
           <input
             type="text"
+            name="name"
+            autoComplete="name"
+            required
+            maxLength={200}
             value={values.fullName}
             onChange={(e) => handleChange("fullName", e.target.value)}
             placeholder={t.contact.placeholders.fullName}
@@ -116,6 +126,11 @@ export function ContactForm() {
         <Field label={t.contact.fields.mobile} error={errors.mobile}>
           <input
             type="tel"
+            name="mobile"
+            autoComplete="tel-national"
+            inputMode="numeric"
+            required
+            maxLength={14}
             value={values.mobile}
             onChange={(e) => handleChange("mobile", e.target.value)}
             placeholder={t.contact.placeholders.mobile}
@@ -126,6 +141,9 @@ export function ContactForm() {
         <Field label={t.contact.fields.email} error={errors.email}>
           <input
             type="email"
+            name="email"
+            autoComplete="email"
+            maxLength={200}
             value={values.email}
             onChange={(e) => handleChange("email", e.target.value)}
             placeholder={t.contact.placeholders.email}
@@ -187,12 +205,33 @@ export function ContactForm() {
       <Field label={t.contact.fields.message}>
         <textarea
           rows={4}
+          maxLength={MESSAGE_MAX}
           value={values.message}
           onChange={(e) => handleChange("message", e.target.value)}
           placeholder={t.contact.placeholders.message}
           className={inputClass(false)}
         />
       </Field>
+
+      <div className="flex flex-col gap-1.5">
+        <label className="flex items-start gap-3 text-sm text-charcoal/75">
+          <input
+            type="checkbox"
+            checked={values.consent}
+            onChange={(e) => handleChange("consent", e.target.checked)}
+            aria-invalid={!!errors.consent}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-saffron-600"
+          />
+          <span>
+            {t.contact.fields.consent}{" "}
+            <Link to="/privacy" className="font-semibold text-saffron-700 underline underline-offset-2">
+              {t.contact.privacyLink}
+            </Link>
+            .
+          </span>
+        </label>
+        {errors.consent && <span className="text-xs font-medium text-red-600">{errors.consent}</span>}
+      </div>
 
       {status === "error" && (
         <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">

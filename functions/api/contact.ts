@@ -18,7 +18,7 @@ interface Env {
 interface ContactPayload {
   fullName: string;
   mobile: string;
-  email: string;
+  email?: string;
   yatra?: string;
   yatraTitle?: string;
   travellers?: string;
@@ -28,11 +28,16 @@ interface ContactPayload {
   message?: string;
   language?: string;
   pageUrl?: string;
+  consent?: boolean;
+  startedAt?: number; // time-trap: when the form was rendered (ms epoch)
   company?: string; // honeypot
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MOBILE_RE = /^[6-9]\d{9}$/;
+const MAX_BODY_BYTES = 16 * 1024;
+// People need more than a few seconds to fill the form; simple bots don't.
+const MIN_FILL_MS = 3000;
 
 function escapeHtml(value: string): string {
   return value
@@ -86,9 +91,26 @@ async function sendEmail(env: Env, body: Record<string, unknown>): Promise<Respo
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
 
+  // Only accept same-origin browser submissions.
+  const origin = request.headers.get("Origin");
+  if (origin) {
+    let sameHost = false;
+    try {
+      sameHost = new URL(origin).host === new URL(request.url).host;
+    } catch {
+      sameHost = false;
+    }
+    if (!sameHost) return json({ error: "Forbidden." }, 403);
+  }
+  if (!(request.headers.get("Content-Type") ?? "").includes("application/json")) {
+    return json({ error: "Unsupported content type." }, 415);
+  }
+
   let payload: ContactPayload;
   try {
-    payload = await request.json();
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) return json({ error: "Request too large." }, 413);
+    payload = JSON.parse(raw);
   } catch {
     return badRequest("Invalid request body.");
   }
@@ -98,13 +120,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return json({ ok: true });
   }
 
+  // Time-trap: submitted too fast to be a person. Accept silently and drop.
+  if (typeof payload.startedAt === "number" && Date.now() - payload.startedAt < MIN_FILL_MS) {
+    return json({ ok: true });
+  }
+
   const fullName = clean(payload.fullName, 200);
   const mobileDigits = (payload.mobile ?? "").replace(/\D/g, "").slice(-10);
   const email = clean(payload.email, 200);
 
   if (!fullName) return badRequest("A valid name is required.");
   if (!MOBILE_RE.test(mobileDigits)) return badRequest("A valid 10-digit mobile number is required.");
-  if (!EMAIL_RE.test(email)) return badRequest("A valid email address is required.");
+  if (email && !EMAIL_RE.test(email)) return badRequest("Please enter a valid email address.");
+  if (payload.consent !== true) return badRequest("Consent to be contacted is required.");
 
   const yatraSlug = clean(payload.yatra, 200);
   const yatraTitle = clean(payload.yatraTitle, 300) || yatraSlug;
@@ -125,7 +153,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const enquiryRows: [string, string][] = [
     ["Name", escapeHtml(fullName)],
     ["Mobile", `<a href="tel:+91${mobileDigits}">${mobileDigits}</a> &nbsp;·&nbsp; <a href="https://wa.me/91${mobileDigits}">WhatsApp</a>`],
-    ["Email", `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`],
+    ["Email", email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : "Not provided"],
     ["Yatra", escapeHtml(yatraTitle || "Not selected")],
     ["Travel Mode", escapeHtml(travelMode || "Not decided")],
     ["Travellers", escapeHtml(travellers || "-")],
@@ -141,7 +169,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     "",
     `Name: ${fullName}`,
     `Mobile: ${mobileDigits}`,
-    `Email: ${email}`,
+    `Email: ${email || "Not provided"}`,
     `Yatra: ${yatraTitle || "Not selected"}`,
     `Travel Mode: ${travelMode || "Not decided"}`,
     `Travellers: ${travellers || "-"}`,
@@ -155,7 +183,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const resendRes = await sendEmail(env, {
       to: env.CONTACT_EMAIL.split(",").map((s) => s.trim()).filter(Boolean),
-      reply_to: email,
+      ...(email ? { reply_to: email } : {}),
       subject: `New Yatra Enquiry — ${fullName}${yatraTitle ? ` — ${yatraTitle}` : ""}`,
       html: wrapEmail("New Yatra Enquiry", `<table style="border-collapse:collapse;width:100%;font-size:14px">${rowsToHtml(enquiryRows)}</table>`),
       text: enquiryText
@@ -169,7 +197,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // Best-effort acknowledgement to the customer. Without a verified sending
     // domain Resend rejects this (it only delivers to the account owner), so a
     // failure here must not fail the request — the enquiry was already sent.
-    try {
+    if (email) try {
       const ackRows: [string, string][] = enquiryRows.filter(([label]) =>
         ["Yatra", "Travel Mode", "Travellers", "Preferred Date", "Message"].includes(label)
       );

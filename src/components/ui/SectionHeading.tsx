@@ -8,9 +8,11 @@ interface SectionHeadingProps {
   align?: "left" | "center";
   light?: boolean;
   action?: ReactNode;
+  /** Use "h1" when this is the page's main heading. */
+  as?: "h1" | "h2";
 }
 
-export function SectionHeading({ eyebrow, title, subtitle, align = "center", light, action }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, subtitle, align = "center", light, action, as: Heading = "h2" }: SectionHeadingProps) {
   return (
     <div className={`flex flex-col gap-3 ${align === "center" ? "items-center text-center" : "items-start text-left"} mb-10 sm:mb-14`}>
       <motion.div
@@ -21,9 +23,9 @@ export function SectionHeading({ eyebrow, title, subtitle, align = "center", lig
         className="flex flex-col gap-3 items-inherit"
       >
         {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-        <h2 className={`font-display text-3xl sm:text-4xl font-extrabold tracking-tight ${light ? "text-white" : "text-charcoal"}`}>
+        <Heading className={`font-display text-3xl sm:text-4xl font-extrabold tracking-tight ${light ? "text-white" : "text-charcoal"}`}>
           {title}
-        </h2>
+        </Heading>
         {subtitle && (
           <p className={`max-w-2xl text-base sm:text-lg ${light ? "text-white/75" : "text-charcoal/65"}`}>
             {subtitle}

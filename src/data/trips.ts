@@ -263,7 +263,20 @@ export const company = {
     }
   ],
 
-  whatsapp: "917498132640"
+  whatsapp: "917498132640",
+
+  // Structured address for schema.org / Google Business Profile. Only
+  // verified parts are filled in — add postalCode once confirmed.
+  address: {
+    streetAddress: "Shri Swami Samarth Girls' Hostel, next to Ambika Temple, behind the Bus Stand",
+    addressLocality: "Latur",
+    addressRegion: "Maharashtra",
+    postalCode: "",
+    addressCountry: "IN"
+  },
+
+  // Google Business Profile / Maps link — fill in once the profile is verified.
+  googleBusinessProfileUrl: ""
 };
 
 
@@ -813,7 +826,7 @@ export const charDhamTrip: Trip = {
 
   seo: {
     title: {
-      en: "Premium Uttarakhand Char Dham Yatra 2026 | GuruPriya Tours & Travels",
+      en: "Char Dham Yatra 2026 from Latur, 18 Days | GuruPriya Tours",
       mr: "प्रीमियम उत्तराखंड चारधाम यात्रा २०२६ | गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
     },
     description: {
@@ -1017,7 +1030,7 @@ export const kainchiDhamTrip: Trip = {
 
   seo: {
     title: {
-      en: "Kainchi Dham Neem Karoli Baba Ashram Yatra 2027 | GuruPriya Tours & Travels",
+      en: "Kainchi Dham Yatra 2027 from Latur | Neem Karoli Baba Ashram",
       mr: "कैंची धाम नीम करोली बाबा आश्रम यात्रा २०२७ | गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
     },
     description: {

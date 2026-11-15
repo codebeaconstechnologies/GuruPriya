@@ -26,7 +26,7 @@ export function QuickInfo({ trip }: { trip: Trip }) {
                 <item.icon className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wide text-charcoal/45">{item.label}</p>
+                <p className="text-xs font-bold uppercase tracking-wide text-charcoal/65">{item.label}</p>
                 <p className="mt-0.5 text-sm font-semibold text-charcoal">{item.value}</p>
               </div>
             </div>

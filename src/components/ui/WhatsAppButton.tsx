@@ -25,9 +25,9 @@ export function WhatsAppButton({ message, floating = false }: { message: string;
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-card transition hover:brightness-95 active:scale-[0.98]"
+      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-[#0b2b16] shadow-card transition hover:brightness-95 active:scale-[0.98]"
     >
-      <MessageCircle className="h-4 w-4" fill="white" strokeWidth={0} />
+      <MessageCircle className="h-4 w-4" fill="currentColor" strokeWidth={0} />
       {t.common.whatsappCta}
     </a>
   );

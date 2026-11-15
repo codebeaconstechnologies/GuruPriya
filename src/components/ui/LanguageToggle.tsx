@@ -14,7 +14,7 @@ export function LanguageToggle({ compact }: { compact?: boolean }) {
         onClick={() => setLanguage("en")}
         aria-pressed={language === "en"}
         className={`rounded-full px-3 py-1.5 transition ${
-          language === "en" ? "bg-charcoal text-white" : "text-charcoal/60 hover:text-charcoal"
+          language === "en" ? "bg-charcoal text-white" : "text-charcoal/75 hover:text-charcoal"
         }`}
       >
         EN
@@ -24,7 +24,7 @@ export function LanguageToggle({ compact }: { compact?: boolean }) {
         onClick={() => setLanguage("mr")}
         aria-pressed={language === "mr"}
         className={`rounded-full px-3 py-1.5 font-devanagari transition ${
-          language === "mr" ? "bg-charcoal text-white" : "text-charcoal/60 hover:text-charcoal"
+          language === "mr" ? "bg-charcoal text-white" : "text-charcoal/75 hover:text-charcoal"
         }`}
       >
         मराठी

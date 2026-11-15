@@ -1,11 +1,8 @@
 import { useI18n } from "@/i18n/I18nContext";
-import { useSeo } from "@/utils/seo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function Privacy() {
   const { t, language } = useI18n();
-
-  useSeo({ title: `${t.privacy.title} | GuruPriya Tours & Travels`, description: t.privacy.intro });
 
   const sectionsEn = [
     { title: "Information We Collect", body: "When you submit an enquiry, we collect your name, mobile number, email address and any other details you choose to share, such as preferred yatra, number of travellers and travel dates." },
@@ -28,7 +25,7 @@ export default function Privacy() {
   return (
     <section className="section-py bg-ivory">
       <div className="container-px mx-auto max-w-3xl">
-        <SectionHeading align="left" title={t.privacy.title} subtitle={t.privacy.intro} />
+        <SectionHeading as="h1" align="left" title={t.privacy.title} subtitle={t.privacy.intro} />
         <div className="flex flex-col gap-6">
           {sections.map((s, i) => (
             <div key={i} className="card-premium p-6">

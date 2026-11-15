@@ -1,17 +1,24 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { SeoManager } from "@/utils/seo";
 import Home from "@/pages/Home";
 import Yatras from "@/pages/Yatras";
-import TripDetail from "@/pages/TripDetail";
-import AboutUs from "@/pages/AboutUs";
-import ContactUs from "@/pages/ContactUs";
-import ComingSoon from "@/pages/ComingSoon";
-import Terms from "@/pages/Terms";
-import Privacy from "@/pages/Privacy";
-import FAQ from "@/pages/FAQ";
-import Gallery from "@/pages/Gallery";
 import NotFound from "@/pages/NotFound";
+
+// Secondary pages are split into their own chunks so the home page loads
+// less JavaScript. scripts/build.mjs adds <link rel="modulepreload"> for the
+// right chunk to each prerendered route, so direct visits don't wait for it.
+const TripDetail = lazy(() => import("@/pages/TripDetail"));
+const AboutUs = lazy(() => import("@/pages/AboutUs"));
+const ContactUs = lazy(() => import("@/pages/ContactUs"));
+const UpcomingYatras = lazy(() => import("@/pages/ComingSoon"));
+const Terms = lazy(() => import("@/pages/Terms"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const FAQ = lazy(() => import("@/pages/FAQ"));
+const Gallery = lazy(() => import("@/pages/Gallery"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogPost = lazy(() => import("@/pages/BlogPost"));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -32,20 +39,26 @@ export default function App() {
   return (
     <>
       <ScrollToTop />
+      <SeoManager />
       <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/yatras" element={<Yatras />} />
-          <Route path="/yatras/:slug" element={<TripDetail />} />
-          <Route path="/coming-soon" element={<ComingSoon />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {/* Full-height placeholder keeps the footer below the fold while a page chunk loads (no layout shift). */}
+        <Suspense fallback={<div className="min-h-screen bg-ivory" aria-busy="true" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/yatras" element={<Yatras />} />
+            <Route path="/yatras/:slug" element={<TripDetail />} />
+            <Route path="/upcoming-yatras" element={<UpcomingYatras />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </Layout>
     </>
   );

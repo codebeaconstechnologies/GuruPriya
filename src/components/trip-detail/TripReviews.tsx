@@ -35,7 +35,7 @@ export function TripReviews({ trip }: { trip: Trip }) {
             <div className="mb-6 flex items-center justify-center gap-3">
               <Stars rating={avg} size="h-5 w-5" />
               <span className="font-display text-lg font-bold text-charcoal">{avg.toFixed(1)}</span>
-              <span className="text-sm text-charcoal/50">
+              <span className="text-sm text-charcoal/70">
                 ({reviews.length} {t.yatrasPage.reviewsCount})
               </span>
             </div>
@@ -45,11 +45,11 @@ export function TripReviews({ trip }: { trip: Trip }) {
               ))}
             </div>
             {reviews.some((r) => r.isSample) && (
-              <p className="mt-6 text-center text-xs italic text-charcoal/40">{t.trip.reviewsSampleNote}</p>
+              <p className="mt-6 text-center text-xs italic text-charcoal/65">{t.trip.reviewsSampleNote}</p>
             )}
           </>
         ) : (
-          <p className="rounded-2xl bg-white p-8 text-center text-charcoal/60">{t.yatrasPage.noCompleted}</p>
+          <p className="rounded-2xl bg-white p-8 text-center text-charcoal/70">{t.yatrasPage.noCompleted}</p>
         )}
       </div>
     </section>

@@ -114,7 +114,7 @@ export function RouteVisualization({ trip }: { trip: Trip }) {
           })}
         </div>
 
-        <p className="mt-6 text-center text-xs italic text-white/40">{t.trip.animatedRouteNote}</p>
+        <p className="mt-6 text-center text-xs italic text-white/60">{t.trip.animatedRouteNote}</p>
       </div>
     </section>
   );

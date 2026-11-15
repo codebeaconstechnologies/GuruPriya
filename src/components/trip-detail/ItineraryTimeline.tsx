@@ -66,7 +66,7 @@ export function ItineraryTimeline({ trip }: { trip: Trip }) {
           ))}
         </div>
 
-        <p className="mt-8 rounded-2xl border border-charcoal/10 bg-white p-5 text-sm text-charcoal/60">
+        <p className="mt-8 rounded-2xl border border-charcoal/10 bg-white p-5 text-sm text-charcoal/70">
           {t.trip.itineraryNote}
         </p>
       </div>

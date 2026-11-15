@@ -25,8 +25,8 @@ export function PackageEnquiry({ trip }: { trip: Trip }) {
         <div className="lg:col-span-3">
           <SectionHeading eyebrow={t.trip.packageDetailsEyebrow} title={t.trip.packageDetailsTitle} subtitle={t.trip.packageDetailsBody} align="left" />
 
-          <h3 className="text-xs font-bold uppercase tracking-wide text-charcoal/50">{t.trip.travelOptions}</h3>
-          <p className="mb-4 mt-1 text-sm text-charcoal/60">{t.trip.travelOptionsNote}</p>
+          <h3 className="text-xs font-bold uppercase tracking-wide text-charcoal/70">{t.trip.travelOptions}</h3>
+          <p className="mb-4 mt-1 text-sm text-charcoal/70">{t.trip.travelOptionsNote}</p>
           <div className="grid gap-4 sm:grid-cols-3">
             {travelOptions.map((option, i) => {
               const Icon = modeIcons[option.mode];
@@ -48,7 +48,7 @@ export function PackageEnquiry({ trip }: { trip: Trip }) {
                     </span>
                     <div className="min-w-0">
                       <p className="font-display text-sm font-bold text-charcoal">{pick(option.name)}</p>
-                      <p className="text-xs text-charcoal/50">
+                      <p className="text-xs text-charcoal/70">
                         {option.duration ? pick(option.duration) : t.trip.chooseThisMode}
                       </p>
                     </div>

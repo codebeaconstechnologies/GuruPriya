@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Send, MapPin } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { company, trips } from "@/data/trips";
+import { getVisiblePosts } from "@/seo/routes";
+
+const HAS_BLOG = getVisiblePosts().length > 0;
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 
 export function Footer() {
@@ -35,9 +38,10 @@ export function Footer() {
           <ul className="space-y-2.5 text-sm">
             <li><Link to="/" className="text-white/70 hover:text-white">{t.nav.home}</Link></li>
             <li><Link to="/yatras" className="text-white/70 hover:text-white">{t.nav.yatras}</Link></li>
-            <li><Link to="/coming-soon" className="text-white/70 hover:text-white">{t.nav.comingSoon}</Link></li>
+            <li><Link to="/upcoming-yatras" className="text-white/70 hover:text-white">{t.nav.comingSoon}</Link></li>
             <li><Link to="/about" className="text-white/70 hover:text-white">{t.nav.about}</Link></li>
             <li><Link to="/contact" className="text-white/70 hover:text-white">{t.nav.contact}</Link></li>
+            {HAS_BLOG && <li><Link to="/blog" className="text-white/70 hover:text-white">{t.nav.blog}</Link></li>}
             <li><Link to="/gallery" className="text-white/70 hover:text-white">{t.nav.gallery}</Link></li>
             <li><Link to="/faq" className="text-white/70 hover:text-white">{t.nav.faq}</Link></li>
           </ul>
@@ -53,7 +57,7 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            <li><Link to="/coming-soon" className="text-white/70 hover:text-white">{t.common.comingSoon}</Link></li>
+            <li><Link to="/upcoming-yatras" className="text-white/70 hover:text-white">{t.common.comingSoon}</Link></li>
           </ul>
         </div>
 
@@ -66,11 +70,18 @@ export function Footer() {
             </li>
             <li className="flex items-start gap-2.5">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span className="min-w-0 break-words">{company.founder.phones.join(" / ")}</span>
+              <span className="min-w-0 break-words">
+                {company.founder.phones.map((p, i) => (
+                  <span key={p}>
+                    {i > 0 && " / "}
+                    <a href={`tel:+91${p}`} className="hover:text-white">{p}</a>
+                  </span>
+                ))}
+              </span>
             </li>
             <li className="flex items-start gap-2.5">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span className="min-w-0 break-words">enquiry@gurupriyatravels.example.com</span>
+              <Send className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+              <Link to="/contact#enquiry" className="min-w-0 break-words hover:text-white">{t.contact.formTitle}</Link>
             </li>
           </ul>
         </div>

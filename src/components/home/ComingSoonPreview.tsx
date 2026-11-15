@@ -16,7 +16,7 @@ export function ComingSoonPreview() {
           title={t.home.comingSoonTitle}
           subtitle={t.home.comingSoonSubtitle}
           action={
-            <Link to="/coming-soon" className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-600 hover:text-saffron-700">
+            <Link to="/upcoming-yatras" className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-600 hover:text-saffron-700">
               {t.common.viewDetails}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>

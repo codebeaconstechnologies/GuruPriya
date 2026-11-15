@@ -5,6 +5,9 @@ import { useI18n } from "@/i18n/I18nContext";
 import { useScrolled } from "@/hooks/useScrollPosition";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { company } from "@/data/trips";
+import { getVisiblePosts } from "@/seo/routes";
+
+const HAS_BLOG = getVisiblePosts().length > 0;
 
 export function Header() {
   const { t } = useI18n();
@@ -14,7 +17,8 @@ export function Header() {
   const navItems = [
     { to: "/", label: t.nav.home },
     { to: "/yatras", label: t.nav.yatras },
-    { to: "/coming-soon", label: t.nav.comingSoon },
+    { to: "/upcoming-yatras", label: t.nav.comingSoon },
+    ...(HAS_BLOG ? [{ to: "/blog", label: t.nav.blog }] : []),
     { to: "/about", label: t.nav.about },
     { to: "/contact", label: t.nav.contact }
   ];
@@ -26,7 +30,7 @@ export function Header() {
       }`}
     >
       <div className="container-px mx-auto flex max-w-7xl items-center justify-between py-3">
-        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex items-center" aria-label={`${company.name.en} home`} onClick={() => setOpen(false)}>
           <span className="block h-16 w-16 shrink-0 overflow-hidden rounded-full shadow-sm sm:h-[72px] sm:w-[72px]">
             <img
               src="/images/logo.png"

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { generalFaqs } from "@/data/faqs";
-import { useSeo } from "@/utils/seo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function FAQ() {
@@ -10,12 +9,10 @@ export default function FAQ() {
   const pick = useLocalized();
   const [openId, setOpenId] = useState<string | null>(generalFaqs[0]?.id ?? null);
 
-  useSeo({ title: `${t.faqPage.title} | GuruPriya Tours & Travels`, description: t.faqPage.subtitle });
-
   return (
     <section className="section-py bg-ivory">
       <div className="container-px mx-auto max-w-3xl">
-        <SectionHeading title={t.faqPage.title} subtitle={t.faqPage.subtitle} />
+        <SectionHeading as="h1" title={t.faqPage.title} subtitle={t.faqPage.subtitle} />
         <div className="flex flex-col gap-3">
           {generalFaqs.map((faq) => {
             const open = openId === faq.id;

@@ -17,3 +17,11 @@ export function formatDate(date?: string): string {
 export function splitParagraphs(text: string): string[] {
   return text.split(/\n\n+/).filter(Boolean);
 }
+
+export function formatArticleDate(iso: string, language: "en" | "mr"): string {
+  return new Date(`${iso}T00:00:00`).toLocaleDateString(language === "mr" ? "mr-IN" : "en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}

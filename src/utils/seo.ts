@@ -1,44 +1,49 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { findSeoRoute, NOT_FOUND_ROUTE } from "@/seo/routes";
+import { headTags, jsonLdString } from "@/seo/head";
+import { trackPageView } from "@/utils/analytics";
 
-interface SeoOptions {
-  title: string;
-  description: string;
-  keywords?: string[];
-  image?: string;
-}
+const MANAGED = "data-seo";
 
-function setMeta(name: string, content: string, attr: "name" | "property" = "name") {
-  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
-  if (!el) {
-    el = document.createElement("meta");
-    el.setAttribute(attr, name);
-    document.head.appendChild(el);
-  }
-  el.setAttribute("content", content);
-}
+/**
+ * Keeps <head> in sync with the central route manifest (src/seo/routes.ts)
+ * during client-side navigation. The initial HTML for every route is already
+ * prerendered with the same tags at build time, so this only matters after
+ * the first in-app navigation. Unknown paths get 404 metadata (noindex).
+ */
+export function SeoManager() {
+  const { pathname } = useLocation();
 
-export function useSeo({ title, description, keywords, image }: SeoOptions) {
   useEffect(() => {
-    document.title = title;
-    setMeta("description", description);
-    if (keywords?.length) setMeta("keywords", keywords.join(", "));
+    const route = findSeoRoute(pathname) ?? NOT_FOUND_ROUTE;
+    document.title = route.title;
 
-    setMeta("og:title", title, "property");
-    setMeta("og:description", description, "property");
-    setMeta("og:type", "website", "property");
-    if (image) setMeta("og:image", image, "property");
+    // Replace all managed tags (including the prerendered ones) in one pass.
+    document.head
+      .querySelectorAll(
+        `[${MANAGED}], meta[name="description"], meta[name="robots"], meta[property^="og:"], meta[name^="twitter:"], link[rel="canonical"]`
+      )
+      .forEach((el) => el.remove());
 
-    setMeta("twitter:card", "summary_large_image");
-    setMeta("twitter:title", title);
-    setMeta("twitter:description", description);
-    if (image) setMeta("twitter:image", image);
-
-    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
+    for (const t of headTags(route)) {
+      const el = document.createElement(t.tag);
+      for (const [k, v] of Object.entries(t.attrs)) el.setAttribute(k, v);
+      el.setAttribute(MANAGED, "");
+      document.head.appendChild(el);
     }
-    canonical.setAttribute("href", window.location.href);
-  }, [title, description, keywords?.join(","), image]);
+
+    let ld = document.getElementById("seo-jsonld");
+    if (!ld) {
+      ld = document.createElement("script");
+      ld.id = "seo-jsonld";
+      ld.setAttribute("type", "application/ld+json");
+      document.head.appendChild(ld);
+    }
+    ld.textContent = jsonLdString(route);
+
+    trackPageView(pathname, route.title);
+  }, [pathname]);
+
+  return null;
 }

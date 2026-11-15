@@ -7,10 +7,13 @@ export interface ContactFormValues {
   preferredDate: string;
   travelMode: string;
   message: string;
+  consent: boolean;
   company: string; // honeypot
 }
 
 export type ContactFormErrors = Partial<Record<keyof ContactFormValues, string>>;
+
+export const MESSAGE_MAX = 2000;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const INDIAN_MOBILE_RE = /^[6-9]\d{9}$/;
@@ -22,6 +25,7 @@ export function validateContactForm(
     invalidEmail: string;
     invalidMobile: string;
     invalidTravellers: string;
+    consentRequired: string;
   }
 ): ContactFormErrors {
   const errors: ContactFormErrors = {};
@@ -33,15 +37,16 @@ export function validateContactForm(
     errors.mobile = messages.invalidMobile;
   }
 
-  if (!values.email.trim()) {
-    errors.email = messages.required;
-  } else if (!EMAIL_RE.test(values.email.trim())) {
+  // Email is optional — the team replies by phone / WhatsApp.
+  if (values.email.trim() && !EMAIL_RE.test(values.email.trim())) {
     errors.email = messages.invalidEmail;
   }
 
   if (values.travellers.trim() && (!/^\d+$/.test(values.travellers.trim()) || Number(values.travellers) < 1)) {
     errors.travellers = messages.invalidTravellers;
   }
+
+  if (!values.consent) errors.consent = messages.consentRequired;
 
   return errors;
 }

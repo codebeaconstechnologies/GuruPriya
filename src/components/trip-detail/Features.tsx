@@ -40,7 +40,7 @@ export function Features({ trip }: { trip: Trip }) {
                   <Icon className="h-6 w-6" />
                 </span>
                 <h3 className="font-display text-base font-bold text-charcoal">{pick(feature.title)}</h3>
-                <p className="text-sm leading-relaxed text-charcoal/60">{pick(feature.description)}</p>
+                <p className="text-sm leading-relaxed text-charcoal/70">{pick(feature.description)}</p>
               </motion.div>
             );
           })}

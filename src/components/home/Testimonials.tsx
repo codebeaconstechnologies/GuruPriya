@@ -27,13 +27,13 @@ export function Testimonials() {
               <blockquote className="text-sm leading-relaxed text-charcoal/70">"{pick(item.quote)}"</blockquote>
               <figcaption className="mt-auto text-sm font-bold text-charcoal">
                 {item.name}
-                <span className="block text-xs font-medium text-charcoal/45">{pick(item.location)}</span>
+                <span className="block text-xs font-medium text-charcoal/65">{pick(item.location)}</span>
               </figcaption>
             </motion.figure>
           ))}
         </div>
 
-        <p className="mt-6 text-center text-xs italic text-charcoal/40">{t.home.testimonialsPlaceholderNote}</p>
+        <p className="mt-6 text-center text-xs italic text-charcoal/65">{t.home.testimonialsPlaceholderNote}</p>
       </div>
     </section>
   );

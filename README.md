@@ -33,8 +33,15 @@ functions/
     contact.ts        Cloudflare Pages Function — sends enquiries via Resend
   env.d.ts             Ambient PagesFunction type (no workers-types dependency)
 
+scripts/
+  build.mjs            Build pipeline: prerendered SEO head per route, sitemap,
+                       robots.txt, 404.html, _headers, _redirects, _routes.json
+  seo-check.mjs        Automated SEO + deploy-safety checks (run on every build)
+
+docs/seo/              Audit, keywords, content calendar, Google setup, launch checklist
+
 public/
-  favicon.svg, robots.txt, sitemap.xml
+  favicons, images/    (robots.txt and sitemap.xml are generated at build time)
 
 src/
   components/
@@ -49,7 +56,9 @@ src/
     trips/              TripCard, ComingSoonCard, CompletedTripsPane
     reviews/            ReviewCard (+ Stars)
     contact/            ContactForm
-  data/                 trips.ts, reviews.ts, testimonials.ts, faqs.ts  ← single source of truth
+  data/                 trips.ts, reviews.ts, testimonials.ts, faqs.ts, blog.ts  ← single source of truth
+  seo/                  routes.ts (central SEO manifest), schema.ts (JSON-LD), head.ts
+  config/site.ts        SITE_URL / GA4 — from build env, never hardcoded
   i18n/                 en.ts, mr.ts, I18nContext.tsx
   hooks/                useReducedMotion, useScrollPosition
   utils/                seo.ts, validation.ts, whatsapp.ts, format.ts
@@ -62,10 +71,12 @@ src/
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run build       # type-check + production build to dist/
-npm run preview     # preview the production build locally
+npm run dev        # http://localhost:5173 — also shows draft blog posts for review
+npm run build      # production build + automated SEO checks (fails on errors)
+npm run seo:check  # re-run the SEO checks on dist/
 ```
+
+See **docs/seo/05-launch.md** for go-live steps and the checklist.
 
 The contact form calls `/api/contact`. Locally that endpoint is not served
 by Vite — use `wrangler pages dev` (see below) if you need to exercise the
@@ -98,7 +109,10 @@ runs server-side only, the key is never bundled into browser JavaScript.
 
 ## 5. Cloudflare Deployment
 
-**Build command:** `npm run build`
+**Build command:** `npm run build` (optional variables: `SITE_URL`,
+`GA4_MEASUREMENT_ID`, `GOOGLE_SITE_VERIFICATION` — see docs/seo/05-launch.md)
+
+
 **Build output directory:** `dist`
 **Root directory:** repository root (contains both `dist` output and the
 `functions/` folder, which Cloudflare Pages picks up automatically as

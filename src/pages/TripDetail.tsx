@@ -1,9 +1,8 @@
 import { Suspense, lazy } from "react";
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { MapPin, Quote, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { trips, founderStory, company, isTripCompleted } from "@/data/trips";
-import { useSeo } from "@/utils/seo";
 import { splitParagraphs } from "@/utils/format";
 import { TripHero } from "@/components/trip-detail/TripHero";
 import { QuickInfo } from "@/components/trip-detail/QuickInfo";
@@ -19,6 +18,7 @@ import { TripFAQ } from "@/components/trip-detail/TripFAQ";
 import { EnquiryCTA } from "@/components/trip-detail/EnquiryCTA";
 import { TripReviews } from "@/components/trip-detail/TripReviews";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import NotFound from "@/pages/NotFound";
 
 const RouteMap = lazy(() => import("@/components/trip-detail/RouteMap").then((m) => ({ default: m.RouteMap })));
 
@@ -30,15 +30,9 @@ export default function TripDetail() {
   const trip = trips.find((tr) => tr.slug === slug);
   const founderExcerpt = splitParagraphs(pick(founderStory.founderMessage))[0];
 
-  useSeo({
-    title: trip ? pick(trip.seo.title) : "Yatra Not Found",
-    description: trip ? pick(trip.seo.description) : "",
-    keywords: trip?.seo.keywords,
-    image: trip?.heroImage
-  });
-
   if (!trip) {
-    return <Navigate to="/yatras" replace />;
+    // Unknown slug: show the 404 page (the static host also returns HTTP 404).
+    return <NotFound />;
   }
 
   const completed = isTripCompleted(trip);
@@ -73,7 +67,7 @@ export default function TripDetail() {
 
       <Suspense
         fallback={
-          <div className="section-py bg-white text-center text-charcoal/50">{t.common.loading}</div>
+          <div className="section-py bg-white text-center text-charcoal/70">{t.common.loading}</div>
         }
       >
         <RouteMap trip={trip} />
@@ -98,7 +92,7 @@ export default function TripDetail() {
               <Quote className="mx-auto mb-2 h-5 w-5 text-gold/50 sm:mx-0" />
               <p className="text-sm leading-relaxed text-charcoal/70">{founderExcerpt}</p>
               <p className="mt-3 font-display text-sm font-bold text-charcoal">
-                {pick(trip.organizer.name)} <span className="font-normal text-charcoal/50">— {pick(trip.organizer.title)}</span>
+                {pick(trip.organizer.name)} <span className="font-normal text-charcoal/70">— {pick(trip.organizer.title)}</span>
               </p>
               <Link to="/about" className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-600 hover:text-saffron-700">
                 {t.common.readMore}

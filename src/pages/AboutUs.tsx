@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { company, founderStory } from "@/data/trips";
-import { useSeo } from "@/utils/seo";
 import { splitParagraphs } from "@/utils/format";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Philosophy } from "@/components/home/Philosophy";
@@ -11,11 +10,6 @@ export default function AboutUs() {
   const { t } = useI18n();
   const pick = useLocalized();
   const founderParagraphs = splitParagraphs(pick(founderStory.founderMessage));
-
-  useSeo({
-    title: `${t.about.title} | GuruPriya Tours & Travels`,
-    description: pick(company.description)
-  });
 
   return (
     <>

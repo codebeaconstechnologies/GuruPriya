@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Marker, useMap } from "react-leaflet";
 import L from "leaflet";
+// Loaded with the (lazy) map chunk only, not render-blocking on every page.
+import "leaflet/dist/leaflet.css";
 
 export const busIcon = L.divIcon({
   className: "",
@@ -54,5 +56,6 @@ export function AnimatedBus({ positions, speed = 0.004 }: { positions: [number, 
     };
   }, [positions, speed]);
 
-  return <Marker position={pos} icon={busIcon} />;
+  // Decorative only: not focusable or clickable (no accessible name needed).
+  return <Marker position={pos} icon={busIcon} interactive={false} keyboard={false} />;
 }

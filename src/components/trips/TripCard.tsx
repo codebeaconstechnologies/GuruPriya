@@ -1,3 +1,4 @@
+import { withWidth } from "@/utils/images";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -5,7 +6,8 @@ import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { getDeparture, isTripCompleted, type Trip } from "@/data/trips";
 import { formatDateRange } from "@/utils/format";
 
-export function TripCard({ trip, index = 0 }: { trip: Trip; index?: number }) {
+export function TripCard({ trip, index = 0, headingLevel = 3 }: { trip: Trip; index?: number; headingLevel?: 2 | 3 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   const { t } = useI18n();
   const pick = useLocalized();
   const completed = isTripCompleted(trip);
@@ -20,7 +22,7 @@ export function TripCard({ trip, index = 0 }: { trip: Trip; index?: number }) {
     >
       <div className="relative h-52 overflow-hidden">
         <img
-          src={trip.heroImage}
+          src={withWidth(trip.heroImage, 960)}
           alt={pick(trip.title)}
           loading="lazy"
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
@@ -32,7 +34,7 @@ export function TripCard({ trip, index = 0 }: { trip: Trip; index?: number }) {
             {t.common.completed}
           </span>
         ) : (
-          <span className="absolute left-4 top-4 rounded-full bg-saffron-500 px-3 py-1 text-xs font-bold text-white shadow">
+          <span className="absolute left-4 top-4 rounded-full bg-saffron-600 px-3 py-1 text-xs font-bold text-white shadow">
             {pick(trip.badge)}
           </span>
         )}
@@ -40,10 +42,10 @@ export function TripCard({ trip, index = 0 }: { trip: Trip; index?: number }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-6">
-        <h3 className="font-display text-lg font-bold leading-snug text-charcoal">{pick(trip.title)}</h3>
-        <p className="line-clamp-2 text-sm text-charcoal/60">{pick(trip.subtitle)}</p>
+        <Heading className="font-display text-lg font-bold leading-snug text-charcoal">{pick(trip.title)}</Heading>
+        <p className="line-clamp-2 text-sm text-charcoal/70">{pick(trip.subtitle)}</p>
 
-        <div className="mt-1 flex flex-col gap-1.5 text-xs text-charcoal/55">
+        <div className="mt-1 flex flex-col gap-1.5 text-xs text-charcoal/70">
           <span className="flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5 text-saffron-600" />
             {formatDateRange(trip.startDate, trip.endDate)}

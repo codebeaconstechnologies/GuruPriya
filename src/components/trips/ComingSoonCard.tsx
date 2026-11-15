@@ -32,8 +32,8 @@ export function ComingSoonCard({ trip, index = 0 }: { trip: ComingSoonTrip; inde
 
       <div className="flex flex-1 flex-col gap-3 p-6">
         <h3 className="font-display text-lg font-bold leading-snug text-charcoal">{pick(trip.title)}</h3>
-        <p className="text-sm text-charcoal/60">{pick(trip.subtitle)}</p>
-        <p className="text-sm italic text-charcoal/50">{pick(trip.description)}</p>
+        <p className="text-sm text-charcoal/70">{pick(trip.subtitle)}</p>
+        <p className="text-sm italic text-charcoal/70">{pick(trip.description)}</p>
 
         <div className="mt-auto flex items-center gap-3 border-t border-charcoal/10 pt-4">
           <Link

@@ -21,7 +21,7 @@ export function RouteMap({ trip }: { trip: Trip }) {
       <section className="section-py bg-white">
         <div className="container-px mx-auto max-w-4xl text-center">
           <SectionHeading eyebrow="Map" title={t.trip.mapTitle} />
-          <p className="rounded-2xl bg-ivory p-8 text-charcoal/60">{t.trip.mapUnavailable}</p>
+          <p className="rounded-2xl bg-ivory p-8 text-charcoal/70">{t.trip.mapUnavailable}</p>
         </div>
       </section>
     );

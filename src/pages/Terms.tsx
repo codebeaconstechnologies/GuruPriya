@@ -1,11 +1,8 @@
 import { useI18n } from "@/i18n/I18nContext";
-import { useSeo } from "@/utils/seo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function Terms() {
   const { t, language } = useI18n();
-
-  useSeo({ title: `${t.terms.title} | GuruPriya Tours & Travels`, description: t.terms.intro });
 
   const sectionsEn = [
     { title: "Registration & Advance Payment", body: "A seat on any yatra is confirmed only after the advance registration amount, as communicated by our team for that yatra, has been received. The advance registration amount is strictly non-refundable." },
@@ -30,7 +27,7 @@ export default function Terms() {
   return (
     <section className="section-py bg-ivory">
       <div className="container-px mx-auto max-w-3xl">
-        <SectionHeading align="left" title={t.terms.title} subtitle={t.terms.intro} />
+        <SectionHeading as="h1" align="left" title={t.terms.title} subtitle={t.terms.intro} />
         <div className="flex flex-col gap-6">
           {sections.map((s, i) => (
             <div key={i} className="card-premium p-6">

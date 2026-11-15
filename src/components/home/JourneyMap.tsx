@@ -101,7 +101,7 @@ export function JourneyMap() {
               {!reduced && <AnimatedBus positions={positions} speed={0.0025} />}
             </MapContainer>
           </div>
-          <p className="mt-3 text-center text-xs italic text-white/40">{t.trip.animatedRouteNote}</p>
+          <p className="mt-3 text-center text-xs italic text-white/60">{t.trip.animatedRouteNote}</p>
         </motion.div>
       </div>
     </section>

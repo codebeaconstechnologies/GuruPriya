@@ -1,3 +1,4 @@
+import { withWidth } from "@/utils/images";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, MapPin, Clock, ArrowRight } from "lucide-react";
@@ -27,7 +28,7 @@ export function FeaturedYatra() {
         >
           <div className="relative min-h-[280px] lg:min-h-full">
             <img
-              src={trip.heroImage}
+              src={withWidth(trip.heroImage, 960)}
               alt={pick(trip.title)}
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"

@@ -4,6 +4,7 @@ import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { getDeparture, isTripCompleted, type Trip } from "@/data/trips";
 import { formatDateRange } from "@/utils/format";
+import { heroSrc, heroSrcSet } from "@/utils/images";
 
 export function TripHero({ trip }: { trip: Trip }) {
   const { t } = useI18n();
@@ -12,7 +13,15 @@ export function TripHero({ trip }: { trip: Trip }) {
 
   return (
     <section className="relative isolate flex min-h-[70vh] items-end overflow-hidden bg-charcoal">
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${trip.heroImage}')` }} />
+      <img
+          src={heroSrc(trip.heroImage)}
+          srcSet={heroSrcSet(trip.heroImage)}
+          sizes="100vw"
+          alt={trip.gallery[0] ? pick(trip.gallery[0].alt) : ""}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
       <div className="absolute inset-0 bg-hero-gradient" />
 
       <div className="container-px relative z-10 mx-auto w-full max-w-7xl pb-14 pt-36">

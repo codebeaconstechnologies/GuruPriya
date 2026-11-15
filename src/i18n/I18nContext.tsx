@@ -17,7 +17,9 @@ interface I18nContextValue {
 
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
-const DEFAULT_LANGUAGE: Language = "mr";
+// English is the default so search engines index the English version.
+// Visitors can switch to Marathi; their choice is remembered.
+const DEFAULT_LANGUAGE: Language = "en";
 
 function readStoredLanguage(): Language {
   if (typeof window === "undefined") return DEFAULT_LANGUAGE;

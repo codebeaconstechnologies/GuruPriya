@@ -31,7 +31,7 @@ export function WhyTravelWithUs() {
                   <Icon className="h-6 w-6" />
                 </span>
                 <h3 className="font-display text-lg font-bold text-charcoal">{pick(item.title)}</h3>
-                <p className="text-sm leading-relaxed text-charcoal/60">{pick(item.description)}</p>
+                <p className="text-sm leading-relaxed text-charcoal/70">{pick(item.description)}</p>
               </motion.div>
             );
           })}

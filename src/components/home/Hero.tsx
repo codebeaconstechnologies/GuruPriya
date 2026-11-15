@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { homePage, featuredTrip } from "@/data/trips";
+import { heroSrc, heroSrcSet } from "@/utils/images";
 
 export function Hero() {
   const { t } = useI18n();
@@ -10,10 +11,15 @@ export function Hero() {
 
   return (
     <section className="relative isolate flex min-h-[88vh] items-end overflow-hidden bg-charcoal">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${featuredTrip.heroImage}')` }}
-      />
+      <img
+          src={heroSrc(featuredTrip.heroImage)}
+          srcSet={heroSrcSet(featuredTrip.heroImage)}
+          sizes="100vw"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
       <div className="absolute inset-0 bg-hero-gradient" />
       <div
         aria-hidden

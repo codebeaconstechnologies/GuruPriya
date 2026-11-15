@@ -5,7 +5,7 @@ import type { TripReview } from "@/data/reviews";
 export function Stars({ rating, size = "h-4 w-4" }: { rating: number; size?: string }) {
   const rounded = Math.round(rating);
   return (
-    <span className="inline-flex items-center gap-0.5" aria-label={`${rating.toFixed(1)} / 5`}>
+    <span role="img" className="inline-flex items-center gap-0.5" aria-label={`${rating.toFixed(1)} / 5`}>
       {[1, 2, 3, 4, 5].map((n) => (
         <Star
           key={n}
@@ -26,7 +26,7 @@ export function ReviewCard({ review, compact = false }: { review: TripReview; co
       <div className="flex items-center justify-between gap-2">
         <Stars rating={review.rating} size={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
         {review.isSample && (
-          <span className="rounded-full bg-charcoal/5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-charcoal/45">
+          <span className="rounded-full bg-charcoal/5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-charcoal/65">
             {t.trip.sampleReview}
           </span>
         )}
@@ -37,7 +37,7 @@ export function ReviewCard({ review, compact = false }: { review: TripReview; co
       </blockquote>
       <figcaption className="mt-auto text-sm font-bold text-charcoal">
         {review.name}
-        <span className="font-medium text-charcoal/45"> · {pick(review.location)}</span>
+        <span className="font-medium text-charcoal/65"> · {pick(review.location)}</span>
       </figcaption>
     </figure>
   );

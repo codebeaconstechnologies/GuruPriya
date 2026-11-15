@@ -2,7 +2,8 @@ const en = {
   nav: {
     home: "Home",
     yatras: "Yatras",
-    comingSoon: "Coming Soon",
+    comingSoon: "Upcoming Yatras",
+    blog: "Travel Guides",
     about: "About Us",
     contact: "Contact",
     enquireNow: "Enquire Now",
@@ -142,18 +143,21 @@ const en = {
     subtitle: "We would love to help you plan your next pilgrimage.",
     officeAddress: "Office Address",
     phoneNumbers: "Phone Numbers",
-    emailUs: "Email Us",
+    enquiryNote: "Fill in the enquiry form and our team will call you back.",
+    enquiryLink: "Go to the enquiry form",
     formTitle: "Send an Enquiry",
     fields: {
       fullName: "Full Name",
       mobile: "Mobile Number",
-      email: "Email",
+      email: "Email (optional)",
       selectYatra: "Select Yatra",
       travellers: "Number of Travellers",
       preferredDate: "Preferred Travel Date",
       travelMode: "Preferred Travel Mode",
-      message: "Message"
+      message: "Message",
+      consent: "I agree to be contacted by GuruPriya Tours & Travels by phone, WhatsApp or email about this enquiry. See our"
     },
+    privacyLink: "Privacy Policy",
     placeholders: {
       fullName: "Enter your full name",
       mobile: "10-digit mobile number",
@@ -173,7 +177,8 @@ const en = {
       required: "This field is required.",
       invalidEmail: "Please enter a valid email address.",
       invalidMobile: "Please enter a valid 10-digit Indian mobile number.",
-      invalidTravellers: "Please enter a valid number of travellers."
+      invalidTravellers: "Please enter a valid number of travellers.",
+      consentRequired: "Please tick the box so we can contact you."
     }
   },
 
@@ -211,6 +216,34 @@ const en = {
     completedSubtitle: "Reviews from pilgrims who travelled with us.",
     noCompleted: "Reviews will appear here once our yatras are completed.",
     reviewsCount: "reviews"
+  },
+
+  breadcrumb: {
+    label: "Breadcrumb"
+  },
+
+  mobileCta: {
+    call: "Call Now",
+    whatsapp: "WhatsApp",
+    enquire: "Enquire"
+  },
+
+  blog: {
+    title: "Pilgrimage Travel Guides",
+    subtitle: "Practical guidance for pilgrims from Maharashtra: routes, seasons, registration, health and packing.",
+    by: "By",
+    published: "Published",
+    updated: "Updated",
+    readGuide: "Read Guide",
+    relatedYatras: "Related Yatras",
+    relatedArticles: "More Travel Guides",
+    share: "Share this guide",
+    copyLink: "Copy link",
+    copied: "Link copied",
+    draftBanner: "DRAFT: visible in local preview only. Not published and not indexed.",
+    englishOnly: "This guide is currently available in English.",
+    planCta: "Planning this yatra? Talk to our team for dates and package details.",
+    empty: "Travel guides are coming soon."
   },
 
   notFound: {

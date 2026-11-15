@@ -1,16 +1,10 @@
 import { motion } from "framer-motion";
 import { useI18n } from "@/i18n/I18nContext";
 import { comingSoonTrips } from "@/data/trips";
-import { useSeo } from "@/utils/seo";
 import { ComingSoonCard } from "@/components/trips/ComingSoonCard";
 
 export default function ComingSoon() {
   const { t } = useI18n();
-
-  useSeo({
-    title: `${t.comingSoonPage.heroTitle} | GuruPriya Tours & Travels`,
-    description: t.comingSoonPage.heroSubtitle
-  });
 
   return (
     <>
