@@ -45,7 +45,7 @@ export function Footer() {
 
       <div className="container-site grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <Link to="/" className="inline-block" aria-label="GuruPriya Tours & Travels — home">
+          <Link to="/" className="inline-block" aria-label="GuruPriya Tours — home">
             <Logo size={128} />
           </Link>
           <p className="mt-4 max-w-sm font-display text-base font-bold text-navy-900">{pick(S.footer.tagline)}</p>

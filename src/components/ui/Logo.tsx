@@ -15,7 +15,7 @@ export function Logo({ size, className = "", priority = false }: { size: number;
       sizes={`${size}px`}
       width={size}
       height={size}
-      alt="GuruPriya Tours & Travels"
+      alt="GuruPriya Tours"
       decoding="async"
       fetchPriority={priority ? "high" : undefined}
       className={`block aspect-square object-contain ${className}`}

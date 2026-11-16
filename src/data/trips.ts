@@ -140,13 +140,13 @@ export interface Trip {
 export const company = {
 
   name: {
-    en: "GuruPriya Tours & Travels",
-    mr: "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
+    en: "GuruPriya Tours",
+    mr: "गुरुप्रिया टुर्स"
   },
 
   shortName: {
-    en: "GuruPriya Travels",
-    mr: "गुरुप्रिया ट्रॅव्हल्स"
+    en: "GuruPriya Tours",
+    mr: "गुरुप्रिया टुर्स"
   },
 
   tagline: {
@@ -168,9 +168,9 @@ export const company = {
 
   description: {
     en:
-      "GuruPriya Tours & Travels is a pilgrimage-focused travel initiative created to provide meaningful, comfortable and thoughtfully planned spiritual journeys.",
+      "GuruPriya Tours is a pilgrimage-focused travel initiative created to provide meaningful, comfortable and thoughtfully planned spiritual journeys.",
     mr:
-      "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स हा श्रद्धाळूंना अर्थपूर्ण, आरामदायी आणि नियोजनबद्ध आध्यात्मिक यात्रेचा अनुभव देण्याच्या उद्देशाने सुरू करण्यात आलेला तीर्थयात्रा-केंद्रित उपक्रम आहे."
+      "गुरुप्रिया टुर्स हा श्रद्धाळूंना अर्थपूर्ण, आरामदायी आणि नियोजनबद्ध आध्यात्मिक यात्रेचा अनुभव देण्याच्या उद्देशाने सुरू करण्यात आलेला तीर्थयात्रा-केंद्रित उपक्रम आहे."
   },
 
   founder: {
@@ -194,9 +194,9 @@ export const company = {
 
   office: {
     en:
-      "GuruPriya Tours & Travels, Shri Swami Samarth Girls' Hostel, next to Ambika Temple, behind the Bus Stand, Latur, Maharashtra.",
+      "GuruPriya Tours, Shri Swami Samarth Girls' Hostel, next to Ambika Temple, behind the Bus Stand, Latur, Maharashtra.",
     mr:
-      "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स, श्री स्वामी समर्थ मुलींचे वसतीगृह, अंबिका मंदिर शेजारी, बस स्टँडच्या पाठीमागे, लातूर, महाराष्ट्र."
+      "गुरुप्रिया टुर्स, श्री स्वामी समर्थ मुलींचे वसतीगृह, अंबिका मंदिर शेजारी, बस स्टँडच्या पाठीमागे, लातूर, महाराष्ट्र."
   },
 
   contacts: [
@@ -293,9 +293,9 @@ export const founderStory = {
 
   introduction: {
     en:
-      "After 12 years of continuous travel, study and first-hand experience across Uttarakhand, along with journeys through various pilgrimage destinations across India, Shri. Guruprasad Hundekar is beginning a new venture in the travel sector through GuruPriya Travels.",
+      "After 12 years of continuous travel, study and first-hand experience across Uttarakhand, along with journeys through various pilgrimage destinations across India, Shri. Guruprasad Hundekar is beginning a new venture in the travel sector through GuruPriya Tours.",
     mr:
-      "उत्तराखंडातील गेल्या १२ वर्षांच्या सातत्यपूर्ण प्रवास, अभ्यास आणि प्रत्यक्ष अनुभवाच्या आधारावर, तसेच देशभरातील विविध तीर्थक्षेत्रांच्या भ्रमंतीतून मिळालेल्या अनुभवाच्या बळावर, श्री. गुरुप्रसाद हुंडेकर 'गुरुप्रिया ट्रॅव्हल्स' या नव्या उपक्रमाद्वारे पर्यटन क्षेत्रात व्यवसाय म्हणून पदार्पण करीत आहेत."
+      "उत्तराखंडातील गेल्या १२ वर्षांच्या सातत्यपूर्ण प्रवास, अभ्यास आणि प्रत्यक्ष अनुभवाच्या आधारावर, तसेच देशभरातील विविध तीर्थक्षेत्रांच्या भ्रमंतीतून मिळालेल्या अनुभवाच्या बळावर, श्री. गुरुप्रसाद हुंडेकर 'गुरुप्रिया टुर्स' या नव्या उपक्रमाद्वारे पर्यटन क्षेत्रात व्यवसाय म्हणून पदार्पण करीत आहेत."
   },
 
   story: {
@@ -307,16 +307,16 @@ export const founderStory = {
 
   mission: {
     en:
-      "GuruPriya Travels aims to combine pilgrimage with knowledge, comfort, spiritual guidance and thoughtful planning.",
+      "GuruPriya Tours aims to combine pilgrimage with knowledge, comfort, spiritual guidance and thoughtful planning.",
     mr:
-      "दर्शनासोबत तीर्थक्षेत्राचे ज्ञान, आरामदायी प्रवास, आध्यात्मिक मार्गदर्शन आणि नियोजनबद्ध व्यवस्था यांचा सुंदर संगम घडविणे हे गुरुप्रिया ट्रॅव्हल्सचे उद्दिष्ट आहे."
+      "दर्शनासोबत तीर्थक्षेत्राचे ज्ञान, आरामदायी प्रवास, आध्यात्मिक मार्गदर्शन आणि नियोजनबद्ध व्यवस्था यांचा सुंदर संगम घडविणे हे गुरुप्रिया टुर्सचे उद्दिष्ट आहे."
   },
 
   founderMessage: {
     en:
-      "Namaste and Jai Shree Krishna to everyone reading this.\n\nFor the past twelve years, Uttarakhand has not merely been a place I visit — it has been a teacher. Every temple bell at Kedarnath, every sunrise over Badrinath, and every quiet moment on the banks of the Ganga at Rishikesh has shaped how I understand faith, patience and service. Along the way I met countless pilgrims — some travelling for the very first time, others returning after decades — and I noticed the same thing again and again: people did not just want to see a temple, they wanted to understand it, to feel safe on the journey, and to be treated as family rather than as a booking number.\n\nThat realisation is the reason GuruPriya Tours & Travels exists today. This is not a business built overnight; it is the result of more than a decade of walking these sacred paths myself, learning their history, their difficulties and their quiet beauty — so that when I plan a yatra for you, I am not guessing. I am sharing a path I have walked and trust.\n\nEvery itinerary we design, every vehicle we book and every meal we plan is built around one simple promise: your comfort and your faith deserve equal care. Whether you travel with your parents, your children, or as part of a larger family group, my team and I will treat your journey with the same seriousness we would want for our own.\n\nI do not ask you to trust us because of what we say — I ask you to give us the opportunity to earn it, one yatra at a time. Your love, your trust and your company are the true strength behind this new beginning, and I warmly invite you to walk this path with us.",
+      "Namaste and Jai Shree Krishna to everyone reading this.\n\nFor the past twelve years, Uttarakhand has not merely been a place I visit — it has been a teacher. Every temple bell at Kedarnath, every sunrise over Badrinath, and every quiet moment on the banks of the Ganga at Rishikesh has shaped how I understand faith, patience and service. Along the way I met countless pilgrims — some travelling for the very first time, others returning after decades — and I noticed the same thing again and again: people did not just want to see a temple, they wanted to understand it, to feel safe on the journey, and to be treated as family rather than as a booking number.\n\nThat realisation is the reason GuruPriya Tours exists today. This is not a business built overnight; it is the result of more than a decade of walking these sacred paths myself, learning their history, their difficulties and their quiet beauty — so that when I plan a yatra for you, I am not guessing. I am sharing a path I have walked and trust.\n\nEvery itinerary we design, every vehicle we book and every meal we plan is built around one simple promise: your comfort and your faith deserve equal care. Whether you travel with your parents, your children, or as part of a larger family group, my team and I will treat your journey with the same seriousness we would want for our own.\n\nI do not ask you to trust us because of what we say — I ask you to give us the opportunity to earn it, one yatra at a time. Your love, your trust and your company are the true strength behind this new beginning, and I warmly invite you to walk this path with us.",
     mr:
-      "सर्व वाचकांना नमस्कार आणि जय श्री कृष्ण.\n\nगेल्या बारा वर्षांत उत्तराखंड हे माझ्यासाठी केवळ भेट देण्याचे ठिकाण राहिलेले नाही, तर एक गुरूच राहिला आहे. केदारनाथच्या घंटानादापासून ते बद्रीनाथवरील प्रत्येक सूर्योदयापर्यंत आणि ऋषिकेशमध्ये गंगेकाठी घालवलेल्या शांत क्षणांपर्यंत — प्रत्येक अनुभवाने श्रद्धा, संयम आणि सेवा यांबद्दलची माझी समज घडवली. या प्रवासादरम्यान मला असंख्य यात्रेकरू भेटले — काही पहिल्यांदाच प्रवास करणारे, तर काही अनेक वर्षांनी परतणारे — आणि प्रत्येक वेळी एकच गोष्ट प्रकर्षाने जाणवली: लोकांना केवळ मंदिर पाहायचे नसते, तर ते समजून घ्यायचे असते, प्रवासात सुरक्षित वाटायचे असते आणि त्यांना बुकिंग क्रमांक नव्हे, तर कुटुंबातील सदस्यासारखी वागणूक हवी असते.\n\nयाच जाणिवेतून आज गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्सची सुरुवात झाली आहे. हा व्यवसाय एका रात्रीत उभा राहिलेला नाही — तो गेल्या बारा वर्षांहून अधिक काळ या पवित्र मार्गांवर प्रत्यक्ष चालत, त्यांचा इतिहास, अडचणी आणि शांत सौंदर्य समजून घेतल्याचा परिपाक आहे. त्यामुळे जेव्हा मी आपल्यासाठी यात्रेचे नियोजन करतो, तेव्हा तो केवळ अंदाज नसतो — तो माझ्या स्वतःच्या अनुभवातून आलेला आणि विश्वासार्ह असा मार्ग असतो.\n\nआम्ही तयार करत असलेला प्रत्येक प्रवासक्रम, बुक करत असलेले प्रत्येक वाहन आणि आखत असलेले प्रत्येक भोजन — हे सर्व एका साध्या वचनावर आधारित आहे: आपला आराम आणि आपली श्रद्धा, या दोन्हींना समान महत्त्व दिले जाईल. आपण आई-वडिलांसोबत प्रवास करत असाल, मुलांसोबत असाल किंवा मोठ्या कुटुंबासह — माझी टीम आणि मी आपल्या प्रवासाला तितक्याच आपुलकीने वागवू, जितक्या आपुलकीने आम्ही आमच्या स्वतःच्या कुटुंबाच्या प्रवासाला वागवू.\n\nआम्ही जे बोलतो त्यावर विश्वास ठेवा असे मी सांगत नाही — तो विश्वास कमावण्याची संधी द्यावी, एका वेळी एक यात्रा, अशी विनंती करतो. आपले प्रेम, विश्वास आणि सोबत हीच या नव्या सुरुवातीमागील खरी शक्ती आहे, आणि याच श्रद्धेने आपण या वाटचालीत सहभागी व्हावे, ही मनापासून विनंती."
+      "सर्व वाचकांना नमस्कार आणि जय श्री कृष्ण.\n\nगेल्या बारा वर्षांत उत्तराखंड हे माझ्यासाठी केवळ भेट देण्याचे ठिकाण राहिलेले नाही, तर एक गुरूच राहिला आहे. केदारनाथच्या घंटानादापासून ते बद्रीनाथवरील प्रत्येक सूर्योदयापर्यंत आणि ऋषिकेशमध्ये गंगेकाठी घालवलेल्या शांत क्षणांपर्यंत — प्रत्येक अनुभवाने श्रद्धा, संयम आणि सेवा यांबद्दलची माझी समज घडवली. या प्रवासादरम्यान मला असंख्य यात्रेकरू भेटले — काही पहिल्यांदाच प्रवास करणारे, तर काही अनेक वर्षांनी परतणारे — आणि प्रत्येक वेळी एकच गोष्ट प्रकर्षाने जाणवली: लोकांना केवळ मंदिर पाहायचे नसते, तर ते समजून घ्यायचे असते, प्रवासात सुरक्षित वाटायचे असते आणि त्यांना बुकिंग क्रमांक नव्हे, तर कुटुंबातील सदस्यासारखी वागणूक हवी असते.\n\nयाच जाणिवेतून आज गुरुप्रिया टुर्सची सुरुवात झाली आहे. हा व्यवसाय एका रात्रीत उभा राहिलेला नाही — तो गेल्या बारा वर्षांहून अधिक काळ या पवित्र मार्गांवर प्रत्यक्ष चालत, त्यांचा इतिहास, अडचणी आणि शांत सौंदर्य समजून घेतल्याचा परिपाक आहे. त्यामुळे जेव्हा मी आपल्यासाठी यात्रेचे नियोजन करतो, तेव्हा तो केवळ अंदाज नसतो — तो माझ्या स्वतःच्या अनुभवातून आलेला आणि विश्वासार्ह असा मार्ग असतो.\n\nआम्ही तयार करत असलेला प्रत्येक प्रवासक्रम, बुक करत असलेले प्रत्येक वाहन आणि आखत असलेले प्रत्येक भोजन — हे सर्व एका साध्या वचनावर आधारित आहे: आपला आराम आणि आपली श्रद्धा, या दोन्हींना समान महत्त्व दिले जाईल. आपण आई-वडिलांसोबत प्रवास करत असाल, मुलांसोबत असाल किंवा मोठ्या कुटुंबासह — माझी टीम आणि मी आपल्या प्रवासाला तितक्याच आपुलकीने वागवू, जितक्या आपुलकीने आम्ही आमच्या स्वतःच्या कुटुंबाच्या प्रवासाला वागवू.\n\nआम्ही जे बोलतो त्यावर विश्वास ठेवा असे मी सांगत नाही — तो विश्वास कमावण्याची संधी द्यावी, एका वेळी एक यात्रा, अशी विनंती करतो. आपले प्रेम, विश्वास आणि सोबत हीच या नव्या सुरुवातीमागील खरी शक्ती आहे, आणि याच श्रद्धेने आपण या वाटचालीत सहभागी व्हावे, ही मनापासून विनंती."
   }
 };
 
@@ -827,17 +827,17 @@ export const charDhamTrip: Trip = {
   seo: {
     title: {
       en: "Char Dham Yatra 2026 from Latur, 18 Days | GuruPriya Tours",
-      mr: "प्रीमियम उत्तराखंड चारधाम यात्रा २०२६ | गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
+      mr: "प्रीमियम उत्तराखंड चारधाम यात्रा २०२६ | गुरुप्रिया टुर्स"
     },
     description: {
-      en: "Join GuruPriya Tours & Travels for the 18-day Premium Uttarakhand Char Dham and Ancient Devasthan Darshan Yatra starting from Latur on 21 October 2026.",
-      mr: "२१ ऑक्टोबर २०२६ रोजी लातूरहून सुरू होणाऱ्या १८ दिवसांच्या प्रीमियम उत्तराखंड चारधाम व प्राचीन देवस्थान दर्शन यात्रेत गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्ससोबत सहभागी व्हा."
+      en: "Join GuruPriya Tours for the 18-day Premium Uttarakhand Char Dham and Ancient Devasthan Darshan Yatra starting from Latur on 21 October 2026.",
+      mr: "२१ ऑक्टोबर २०२६ रोजी लातूरहून सुरू होणाऱ्या १८ दिवसांच्या प्रीमियम उत्तराखंड चारधाम व प्राचीन देवस्थान दर्शन यात्रेत गुरुप्रिया टुर्ससोबत सहभागी व्हा."
     },
     keywords: [
-      "GuruPriya Travels", "GuruPriya Tours", "Char Dham Yatra 2026", "Uttarakhand Yatra 2026",
+      "GuruPriya Tours", "GuruPriya Tours", "Char Dham Yatra 2026", "Uttarakhand Yatra 2026",
       "Latur Char Dham Yatra", "Kedarnath Badrinath", "Yamunotri Gangotri", "Tungnath",
       "Mana Village", "Ayodhya Yatra", "Kashi Yatra", "चारधाम यात्रा २०२६",
-      "लातूर चारधाम यात्रा", "गुरुप्रिया ट्रॅव्हल्स"
+      "लातूर चारधाम यात्रा", "गुरुप्रिया टुर्स"
     ]
   }
 };
@@ -923,8 +923,8 @@ export const kainchiDhamTrip: Trip = {
   ],
 
   description: {
-    en: "From 2 to 6 February 2027, GuruPriya Tours & Travels invites you on a divine yatra to Kainchi Dham — the ashram of Neem Karoli Baba in the Kumaon hills of Uttarakhand (Nainital–Bhowali). The journey includes darshan at Nainital, Hanuman Garhi and Bhimtal, with comfortable travel and accommodation arrangements.",
-    mr: "दि. २ ते ६ फेब्रुवारी २०२७ दरम्यान गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स आपल्याला उत्तराखंडातील कुमाऊँ पर्वतरांगेतील (नैनीताल–भवाली) नीम करोली बाबांच्या कैंची धाम आश्रमाच्या दिव्य यात्रेसाठी आमंत्रित करीत आहे. यात्रेत नैनीताल, हनुमान गढी व भीमताल दर्शन तसेच आरामदायी प्रवास व राहण्याची व्यवस्था समाविष्ट आहे."
+    en: "From 2 to 6 February 2027, GuruPriya Tours invites you on a divine yatra to Kainchi Dham — the ashram of Neem Karoli Baba in the Kumaon hills of Uttarakhand (Nainital–Bhowali). The journey includes darshan at Nainital, Hanuman Garhi and Bhimtal, with comfortable travel and accommodation arrangements.",
+    mr: "दि. २ ते ६ फेब्रुवारी २०२७ दरम्यान गुरुप्रिया टुर्स आपल्याला उत्तराखंडातील कुमाऊँ पर्वतरांगेतील (नैनीताल–भवाली) नीम करोली बाबांच्या कैंची धाम आश्रमाच्या दिव्य यात्रेसाठी आमंत्रित करीत आहे. यात्रेत नैनीताल, हनुमान गढी व भीमताल दर्शन तसेच आरामदायी प्रवास व राहण्याची व्यवस्था समाविष्ट आहे."
   },
 
   highlights: [
@@ -1031,15 +1031,15 @@ export const kainchiDhamTrip: Trip = {
   seo: {
     title: {
       en: "Kainchi Dham Yatra 2027 from Latur | Neem Karoli Baba Ashram",
-      mr: "कैंची धाम नीम करोली बाबा आश्रम यात्रा २०२७ | गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स"
+      mr: "कैंची धाम नीम करोली बाबा आश्रम यात्रा २०२७ | गुरुप्रिया टुर्स"
     },
     description: {
-      en: "Join GuruPriya Tours & Travels for the Kainchi Dham (Neem Karoli Baba Ashram) Divya Yatra, 2–6 February 2027, with Nainital, Hanuman Garhi and Bhimtal darshan.",
-      mr: "२ ते ६ फेब्रुवारी २०२७ — नैनीताल, हनुमान गढी व भीमताल दर्शनासह कैंची धाम (नीम करोली बाबा आश्रम) दिव्य यात्रेत गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्ससोबत सहभागी व्हा."
+      en: "Join GuruPriya Tours for the Kainchi Dham (Neem Karoli Baba Ashram) Divya Yatra, 2–6 February 2027, with Nainital, Hanuman Garhi and Bhimtal darshan.",
+      mr: "२ ते ६ फेब्रुवारी २०२७ — नैनीताल, हनुमान गढी व भीमताल दर्शनासह कैंची धाम (नीम करोली बाबा आश्रम) दिव्य यात्रेत गुरुप्रिया टुर्ससोबत सहभागी व्हा."
     },
     keywords: [
       "Kainchi Dham Yatra", "Kainchi Dham 2027", "Neem Karoli Baba Ashram", "Nainital Yatra",
-      "Hanuman Garhi", "Bhimtal", "GuruPriya Travels", "कैंची धाम यात्रा", "नीम करोली बाबा", "गुरुप्रिया ट्रॅव्हल्स"
+      "Hanuman Garhi", "Bhimtal", "GuruPriya Tours", "कैंची धाम यात्रा", "नीम करोली बाबा", "गुरुप्रिया टुर्स"
     ]
   }
 };

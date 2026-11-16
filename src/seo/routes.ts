@@ -123,7 +123,7 @@ export function getSeoRoutes(): SeoRoute[] {
   const routes: SeoRoute[] = [
     page({
       path: "/",
-      title: "GuruPriya Tours & Travels | Holidays, Group Tours & Yatras",
+      title: "GuruPriya Tours | Holidays, Group Tours & Yatras",
       description:
         "Domestic and international holidays, family trips, honeymoons, group tours and pilgrimage yatras from Latur, Maharashtra. Tailor-made plans by rail, coach or flight.",
       crumbs: [HOME],
@@ -132,9 +132,9 @@ export function getSeoRoutes(): SeoRoute[] {
     }),
     page({
       path: "/about",
-      title: "About GuruPriya Tours & Travels, Latur | Our Story",
+      title: "About GuruPriya Tours, Latur | Our Story",
       description:
-        "How one traveller's years on Uttarakhand's mountain roads became GuruPriya Tours & Travels: our story, vision, mission and the founder's message.",
+        "How one traveller's years on Uttarakhand's mountain roads became GuruPriya Tours: our story, vision, mission and the founder's message.",
       crumbs: [HOME, { label: { en: "About Us", mr: "आमच्याबद्दल" }, path: "/about" }],
       pageType: "AboutPage",
       image: "/images/founder.jpg",
@@ -239,9 +239,9 @@ export function getSeoRoutes(): SeoRoute[] {
     }),
     page({
       path: "/contact",
-      title: "Contact GuruPriya Tours & Travels | Plan Your Trip, Latur",
+      title: "Contact GuruPriya Tours | Plan Your Trip, Latur",
       description:
-        "Call, WhatsApp or send an enquiry to GuruPriya Tours & Travels. Office in Latur, with contact numbers in Pune, Solapur, Naldurg, Renapur and Nalegaon.",
+        "Call, WhatsApp or send an enquiry to GuruPriya Tours. Office in Latur, with contact numbers in Pune, Solapur, Naldurg, Renapur and Nalegaon.",
       crumbs: [HOME, { label: { en: "Contact", mr: "संपर्क" }, path: "/contact" }],
       pageType: "ContactPage",
       extraSchema: [travelAgencySchema()],
@@ -263,20 +263,20 @@ export function getSeoRoutes(): SeoRoute[] {
     }),
     page({
       path: "/terms",
-      title: "Terms & Conditions | GuruPriya Tours & Travels",
-      description: "Registration, payment, cancellation and itinerary terms for tours and yatras organised by GuruPriya Tours & Travels.",
+      title: "Terms & Conditions | GuruPriya Tours",
+      description: "Registration, payment, cancellation and itinerary terms for tours and yatras organised by GuruPriya Tours.",
       crumbs: [HOME, { label: { en: "Terms & Conditions", mr: "नियम व अटी" }, path: "/terms" }]
     }),
     page({
       path: "/privacy",
-      title: "Privacy Policy | GuruPriya Tours & Travels",
-      description: "How GuruPriya Tours & Travels collects, uses and protects the details you share in an enquiry.",
+      title: "Privacy Policy | GuruPriya Tours",
+      description: "How GuruPriya Tours collects, uses and protects the details you share in an enquiry.",
       crumbs: [HOME, { label: { en: "Privacy Policy", mr: "गोपनीयता धोरण" }, path: "/privacy" }]
     }),
     page({
       path: "/image-credits",
-      title: "Image Credits | GuruPriya Tours & Travels",
-      description: "Photographers and licences for the destination photographs used on the GuruPriya Tours & Travels website.",
+      title: "Image Credits | GuruPriya Tours",
+      description: "Photographers and licences for the destination photographs used on the GuruPriya Tours website.",
       crumbs: [HOME, { label: { en: "Image credits", mr: "छायाचित्र श्रेय" }, path: "/image-credits" }],
       noindex: true
     }),
@@ -284,7 +284,7 @@ export function getSeoRoutes(): SeoRoute[] {
     // the index until at least one reviewed article is published.
     page({
       path: "/blog",
-      title: "Travel Guides & Tips | GuruPriya Tours & Travels",
+      title: "Travel Guides & Tips | GuruPriya Tours",
       description:
         "Practical travel guides from the GuruPriya team: routes, best seasons, packing, health and planning tips for holidays and yatras.",
       crumbs: [HOME, BLOG],

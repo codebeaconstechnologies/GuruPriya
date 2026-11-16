@@ -1,4 +1,4 @@
-# GuruPriya Tours & Travels — Website
+# GuruPriya Tours — Website
 
 A bilingual (English / Marathi) pilgrimage travel website built as a static
 React + TypeScript application, designed to deploy on **Cloudflare Pages**

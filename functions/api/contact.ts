@@ -6,7 +6,7 @@
 //   RESEND_API_KEY  — from resend.com → API Keys
 //   CONTACT_EMAIL   — inbox that receives enquiries (comma-separate for several)
 //   FROM_EMAIL      — sender. Until a domain is verified in Resend use
-//                     "GuruPriya Tours & Travels <onboarding@resend.dev>"
+//                     "GuruPriya Tours <onboarding@resend.dev>"
 //                     (Resend then only delivers to the Resend account's own email).
 
 interface Env {
@@ -77,7 +77,7 @@ function wrapEmail(title: string, inner: string): string {
   return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#222">
     <div style="background:#7A1F2B;color:#fff;padding:16px 20px;border-radius:10px 10px 0 0">
       <strong style="font-size:18px">${escapeHtml(title)}</strong><br/>
-      <span style="font-size:13px;opacity:.8">GuruPriya Tours &amp; Travels</span>
+      <span style="font-size:13px;opacity:.8">GuruPriya Tours</span>
     </div>
     <div style="border:1px solid #eee;border-top:0;border-radius:0 0 10px 10px;padding:16px 8px">${inner}</div>
   </div>`;
@@ -212,14 +212,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       );
       const ackRes = await sendEmail(env, {
         to: [email],
-        subject: "We've received your enquiry — GuruPriya Tours & Travels",
+        subject: "We've received your enquiry — GuruPriya Tours",
         html: wrapEmail(
           "Thank you for your enquiry",
           `<p style="padding:0 12px">Namaste ${escapeHtml(fullName)},</p>
-           <p style="padding:0 12px">Thank you for contacting GuruPriya Tours &amp; Travels. Our team will call you shortly on <strong>${mobileDigits}</strong>.</p>
+           <p style="padding:0 12px">Thank you for contacting GuruPriya Tours. Our team will call you shortly on <strong>${mobileDigits}</strong>.</p>
            <table style="border-collapse:collapse;width:100%;font-size:14px">${rowsToHtml(ackRows)}</table>
            <p style="padding:0 12px">For anything urgent, call or WhatsApp us on 7498132640 / 9730699805.</p>
-           <p style="padding:0 12px">🙏 GuruPriya Tours &amp; Travels</p>`
+           <p style="padding:0 12px">🙏 GuruPriya Tours</p>`
         )
       });
       if (!ackRes.ok) console.warn("Acknowledgement email not sent:", ackRes.status, await ackRes.text());

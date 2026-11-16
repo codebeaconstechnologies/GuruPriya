@@ -19,9 +19,9 @@ Intent: **T** transactional (wants to book/enquire) · **C** commercial (compari
 
 | Keyword | Intent | Landing page | Competition (qual.) | Conversion | Priority |
 |---|---|---|---|---|---|
-| guruPriya tours and travels | N | `/` | None, once indexed | Very high | P1 |
-| guruPriya travels latur | N | `/`, `/contact` | None | Very high | P1 |
-| गुरुप्रिया ट्रॅव्हल्स | N | `/` | None | Very high | P1 |
+| GuruPriya Tours | N | `/` | None, once indexed | Very high | P1 |
+| gurupriya tours latur | N | `/`, `/contact` | None | Very high | P1 |
+| गुरुप्रिया टुर्स | N | `/` | None | Very high | P1 |
 
 ## B. Regional + pilgrimage (the core)
 
@@ -82,7 +82,7 @@ GuruPriya now offers general holidays as well as yatras, so these terms have gen
 
 | URL | Primary keyword | Secondary | Title (as built) |
 |---|---|---|---|
-| `/` | guruPriya tours and travels | travel agency latur, holiday packages, group tours | GuruPriya Tours & Travels \| Holidays, Group Tours & Yatras |
+| `/` | GuruPriya Tours | travel agency latur, holiday packages, group tours | GuruPriya Tours \| Holidays, Group Tours & Yatras |
 | `/packages` | tour packages from latur | india & international tour packages | Tour Packages from Latur & Pune \| India & International |
 | `/tours/pilgrimage` | yatra from latur | pilgrimage tours maharashtra, char dham kainchi dham | Pilgrimage Tours & Yatras from Latur \| Char Dham, Kainchi Dham |
 | `/tours/domestic` | domestic holiday packages | india tour packages from latur/pune | Domestic Holiday Packages from Latur & Pune \| GuruPriya |
@@ -96,7 +96,7 @@ GuruPriya now offers general holidays as well as yatras, so these terms have gen
 | `/yatras/premium-uttarakhand-char-dham-…-2026` | char dham yatra from latur | char dham for senior citizens | Char Dham Yatra 2026 from Latur, 18 Days \| GuruPriya Tours |
 | `/yatras/kainchi-dham-…-2027` | kainchi dham yatra from latur | neem karoli baba ashram trip | Kainchi Dham Yatra 2027 from Latur \| Neem Karoli Baba Ashram |
 | `/services/bus-coach-tours` | bus tours from latur | coach hire for groups | Bus & Coach Tours from Latur \| Group Coach Travel |
-| `/contact` | travel agency latur contact | plan trip, enquiry | Contact GuruPriya Tours & Travels \| Plan Your Trip, Latur |
+| `/contact` | travel agency latur contact | plan trip, enquiry | Contact GuruPriya Tours \| Plan Your Trip, Latur |
 | `/faq` | (local + booking questions) | office location, travellers from pune/solapur | Travel FAQs: Booking, Travel Modes & Refunds \| GuruPriya |
 
 ## Evergreen pilgrimage hubs (done)

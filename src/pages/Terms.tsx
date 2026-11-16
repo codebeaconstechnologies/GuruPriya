@@ -10,7 +10,7 @@ export default function Terms() {
     { title: "Cancellations", body: "In addition to the non-refundable advance, cancellation terms for the balance amount will be communicated at the time of registration." },
     { title: "Itinerary Changes", body: "The published itinerary is a presentation structure based on the planned route. Timings, accommodation and specific arrangements may be adjusted for safety, weather, local conditions or authority guidelines." },
     { title: "Traveller Conduct", body: "Travellers are expected to follow group timings and instructions from the tour management for the comfort and safety of all pilgrims." },
-    { title: "Liability", body: "GuruPriya Tours & Travels makes every effort to ensure a safe and comfortable journey but is not liable for delays, losses or circumstances beyond its reasonable control." }
+    { title: "Liability", body: "GuruPriya Tours makes every effort to ensure a safe and comfortable journey but is not liable for delays, losses or circumstances beyond its reasonable control." }
   ];
 
   const sectionsMr = [
@@ -19,7 +19,7 @@ export default function Terms() {
     { title: "रद्दीकरण", body: "नॉन-रिफंडेबल पूर्वनोंदणी व्यतिरिक्त, उर्वरित रकमेसंदर्भातील रद्दीकरण अटी नोंदणीच्या वेळी कळविण्यात येतील." },
     { title: "प्रवासक्रमातील बदल", body: "प्रकाशित प्रवासक्रम हा नियोजित मार्गावर आधारित सादरीकरण रचना आहे. सुरक्षितता, हवामान, स्थानिक परिस्थिती किंवा प्रशासकीय सूचनांनुसार वेळापत्रक, निवास व इतर व्यवस्थेत बदल होऊ शकतो." },
     { title: "यात्रेकरूंचे वर्तन", body: "सर्व यात्रेकरूंनी समूहाचे वेळापत्रक व यात्रा व्यवस्थापनाच्या सूचनांचे पालन करणे अपेक्षित आहे." },
-    { title: "जबाबदारी", body: "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स सुरक्षित व आरामदायी प्रवासासाठी सर्वतोपरी प्रयत्न करते, मात्र आवाक्याबाहेरील विलंब, नुकसान किंवा परिस्थितीसाठी जबाबदार राहणार नाही." }
+    { title: "जबाबदारी", body: "गुरुप्रिया टुर्स सुरक्षित व आरामदायी प्रवासासाठी सर्वतोपरी प्रयत्न करते, मात्र आवाक्याबाहेरील विलंब, नुकसान किंवा परिस्थितीसाठी जबाबदार राहणार नाही." }
   ];
 
   const sections = language === "mr" ? sectionsMr : sectionsEn;

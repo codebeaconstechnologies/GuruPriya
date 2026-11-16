@@ -38,7 +38,7 @@ export function travelAgencySchema(): JsonLd {
     "@type": "TravelAgency",
     "@id": ORG_ID,
     name: SITE_NAME,
-    alternateName: [company.shortName.en, company.name.mr],
+    alternateName: company.name.mr,
     url: `${SITE_URL}/`,
     logo: { "@type": "ImageObject", url: absoluteUrl("/images/logo.png") },
     image: absoluteUrl("/images/logo.png"),

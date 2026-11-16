@@ -54,8 +54,8 @@ export const generalFaqs: FAQItem[] = [
   {
     id: "office-location",
     question: {
-      en: "Where is the GuruPriya Tours & Travels office?",
-      mr: "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्सचे कार्यालय कोठे आहे?"
+      en: "Where is the GuruPriya Tours office?",
+      mr: "गुरुप्रिया टुर्सचे कार्यालय कोठे आहे?"
     },
     answer: {
       en: "Our office is in Latur, Maharashtra: Shri Swami Samarth Girls' Hostel, next to Ambika Temple, behind the Bus Stand. Please call before visiting so the right person is available.",

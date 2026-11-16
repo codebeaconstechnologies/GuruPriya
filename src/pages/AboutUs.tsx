@@ -30,7 +30,7 @@ export default function AboutUs() {
         imageAlt="Nainital lake in the hills of Uttarakhand"
         eyebrow={pick(S.nav.about)}
         title="Every great journey begins with a story"
-        subtitle="GuruPriya Tours & Travels grew out of one traveller's years on the mountain roads of Uttarakhand, and a wish to make memorable journeys possible for everyone."
+        subtitle="GuruPriya Tours grew out of one traveller's years on the mountain roads of Uttarakhand, and a wish to make memorable journeys possible for everyone."
         mood="sunset"
       />
 
@@ -46,7 +46,7 @@ export default function AboutUs() {
               <p>{pick(founderStory.introduction)}</p>
               <p>{pick(founderStory.story)}</p>
               <p>
-                From that experience came GuruPriya Tours & Travels, based in Latur, Maharashtra. We started with carefully planned group yatras and now plan journeys of every kind: family holidays, honeymoons, weekend breaks, adventure trips and international escapes.
+                From that experience came GuruPriya Tours, based in Latur, Maharashtra. We started with carefully planned group yatras and now plan journeys of every kind: family holidays, honeymoons, weekend breaks, adventure trips and international escapes.
               </p>
             </div>
           </Reveal>

@@ -13,7 +13,7 @@ export default function Blog() {
   return (
     <section className="section-py bg-ivory">
       <div className="container-px mx-auto max-w-7xl">
-        <SectionHeading as="h1" eyebrow="GuruPriya Travels" title={t.blog.title} subtitle={t.blog.subtitle} />
+        <SectionHeading as="h1" eyebrow="GuruPriya Tours" title={t.blog.title} subtitle={t.blog.subtitle} />
 
         {posts.length === 0 ? (
           <p className="rounded-2xl bg-white p-10 text-center text-charcoal/70">{t.blog.empty}</p>

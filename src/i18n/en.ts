@@ -42,7 +42,7 @@ const en = {
 
   home: {
     heroTagline: "Travel with faith. Return with memories.",
-    heroKicker: "GuruPriya Tours & Travels",
+    heroKicker: "GuruPriya Tours",
     featuredYatraTitle: "Our Next Yatra",
     featuredYatraSubtitle: "Bookings are now open for our next pilgrimage. Call or WhatsApp us for complete package details.",
     journeyMapEyebrow: "The Complete Route",
@@ -131,7 +131,7 @@ const en = {
   },
 
   about: {
-    title: "About GuruPriya Tours & Travels",
+    title: "About GuruPriya Tours",
     whyWeStarted: "Why We Started",
     ourStory: "Our Story",
     mission: "Our Mission",
@@ -155,7 +155,7 @@ const en = {
       preferredDate: "Preferred Travel Date",
       travelMode: "Preferred Travel Mode",
       message: "Message",
-      consent: "I agree to be contacted by GuruPriya Tours & Travels by phone, WhatsApp or email about this enquiry. See our"
+      consent: "I agree to be contacted by GuruPriya Tours by phone, WhatsApp or email about this enquiry. See our"
     },
     privacyLink: "Privacy Policy",
     placeholders: {
@@ -253,12 +253,12 @@ const en = {
 
   terms: {
     title: "Terms & Conditions",
-    intro: "Please read these terms carefully before registering for any yatra with GuruPriya Tours & Travels."
+    intro: "Please read these terms carefully before registering for any yatra with GuruPriya Tours."
   },
 
   privacy: {
     title: "Privacy Policy",
-    intro: "This policy explains how GuruPriya Tours & Travels collects and uses your information."
+    intro: "This policy explains how GuruPriya Tours collects and uses your information."
   },
 
   faqPage: {

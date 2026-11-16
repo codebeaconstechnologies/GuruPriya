@@ -1,4 +1,4 @@
-# GuruPriya Tours & Travels: SEO Audit & Implementation Report
+# GuruPriya Tours: SEO Audit & Implementation Report
 
 Date: 15 Nov 2026 · Scope: full repository audit and technical SEO implementation.
 

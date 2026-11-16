@@ -24,7 +24,7 @@ Never add `*.pages.dev` as a property.
 
 ## 2. Google Analytics 4
 
-1. <https://analytics.google.com> → Admin → **Create property** "GuruPriya Tours & Travels", time zone India, currency INR.
+1. <https://analytics.google.com> → Admin → **Create property** "GuruPriya Tours", time zone India, currency INR.
 2. **Data stream → Web** → `https://www.gurupriyatours.com`. Turn **Enhanced measurement** on, but switch **Page views → "page changes based on browser history events" OFF**: the site sends its own SPA page views, and leaving both on double-counts.
 3. Copy the **Measurement ID** (`G-…`) into `GA4_MEASUREMENT_ID` (Production) → redeploy.
 4. Admin → Events → mark as **key events (conversions)**: `generate_lead`, `whatsapp_click`, `phone_call_click`.
@@ -48,7 +48,7 @@ Events the site already sends:
 
 For "travel agency in Latur" type searches, the Maps pack usually outranks websites.
 
-1. <https://business.google.com> → add **GuruPriya Tours & Travels**, category **Travel agency** (secondary: *Tour operator*, *Pilgrimage place*… pick only what's accurate).
+1. <https://business.google.com> → add **GuruPriya Tours**, category **Travel agency** (secondary: *Tour operator*, *Pilgrimage place*… pick only what's accurate).
 2. Address: exactly as on the site: *Shri Swami Samarth Girls' Hostel, next to Ambika Temple, behind the Bus Stand, Latur, Maharashtra* (+ PIN code). **Name, address and phone must be identical** on the website, the profile and every directory listing.
 3. Phone: the same primary number as the site (`9730699805`). Website: `https://www.gurupriyatours.com`.
 4. Complete verification (postcard, video or phone, whichever Google offers).

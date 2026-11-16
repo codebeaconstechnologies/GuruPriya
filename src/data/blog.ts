@@ -61,7 +61,7 @@ export const blogPosts: BlogPost[] = [
     description:
       "Planning the Char Dham Yatra from Latur or Marathwada? The route, best season, registration, fitness and packing tips from a group that runs the yatra.",
     category: "pilgrimage-travel",
-    author: { name: "Shri. Guruprasad Hundekar", title: "Founder, GuruPriya Tours & Travels" },
+    author: { name: "Shri. Guruprasad Hundekar", title: "Founder, GuruPriya Tours" },
     datePublished: "2026-11-15",
     dateModified: "2026-11-15",
     image: {

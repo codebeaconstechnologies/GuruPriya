@@ -45,7 +45,7 @@ Draft blog articles never reach the live site. Review them locally with `npm run
 | `GA4_MEASUREMENT_ID` | add once GA4 exists (see `04-google-setup.md`) |
 | `GOOGLE_SITE_VERIFICATION` | only if you verify Search Console by HTML tag |
 
-5. **Resend:** verify `gurupriyatours.com` in Resend and set `FROM_EMAIL` to an address on it (e.g. `GuruPriya Tours & Travels <enquiry@gurupriyatours.com>`). Until then, customer acknowledgement emails won't deliver; enquiries to you still do.
+5. **Resend:** verify `gurupriyatours.com` in Resend and set `FROM_EMAIL` to an address on it (e.g. `GuruPriya Tours <enquiry@gurupriyatours.com>`). Until then, customer acknowledgement emails won't deliver; enquiries to you still do.
 
 ## 3. Go-live checklist
 

@@ -12,7 +12,7 @@ export const GA4_ID = __SITE_CONFIG__.ga4Id;
 
 export const BUILD_DATE = __SITE_CONFIG__.buildDate;
 
-export const SITE_NAME = "GuruPriya Tours & Travels";
+export const SITE_NAME = "GuruPriya Tours";
 
 /** Default social-share image (1200x630 recommended; replace with a real one). */
 export const DEFAULT_OG_IMAGE = "/images/logo.png";

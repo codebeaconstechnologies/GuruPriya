@@ -33,7 +33,7 @@ const S = {
   },
 
   hero: {
-    eyebrow: { en: "GuruPriya Tours & Travels", mr: "गुरुप्रिया टुर्स ॲण्ड ट्रॅव्हल्स" },
+    eyebrow: { en: "GuruPriya Tours", mr: "गुरुप्रिया टुर्स" },
     title: { en: "Discover More. Travel Beyond. Create Memories.", mr: "अधिक पहा. दूरवर फिरा. आठवणी निर्माण करा." },
     subtitle: {
       en: "From unforgettable road trips to relaxing family holidays and extraordinary international escapes, we bring your travel dreams to life.",
@@ -83,7 +83,7 @@ const S = {
     aboutEyebrow: { en: "About GuruPriya", mr: "गुरुप्रियाबद्दल" },
     aboutTitle: { en: "Every great journey begins with a story", mr: "प्रत्येक सुंदर प्रवासाची सुरुवात एका कथेतून होते" },
     aboutText: {
-      en: "GuruPriya Tours & Travels was born from our founder's years of travelling the mountain roads of Uttarakhand. Today we plan meaningful journeys for every kind of traveller: families, friends, couples, pilgrims and groups.",
+      en: "GuruPriya Tours was born from our founder's years of travelling the mountain roads of Uttarakhand. Today we plan meaningful journeys for every kind of traveller: families, friends, couples, pilgrims and groups.",
       mr: "उत्तराखंडच्या पर्वतीय मार्गांवरील आमच्या संस्थापकांच्या अनेक वर्षांच्या प्रवासातून गुरुप्रियाचा जन्म झाला. आज आम्ही प्रत्येक प्रवाशासाठी — कुटुंब, मित्र, जोडपी, यात्रेकरू आणि समूह — अर्थपूर्ण सहली आखतो."
     },
     readStory: { en: "Read our story", mr: "आमची कथा वाचा" },

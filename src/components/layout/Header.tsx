@@ -305,7 +305,7 @@ export function Header() {
         }`}
       >
         <div className="container-site relative flex items-center justify-between gap-4">
-          <Link to="/" className="shrink-0 py-1.5" aria-label="GuruPriya Tours & Travels — home">
+          <Link to="/" className="shrink-0 py-1.5" aria-label="GuruPriya Tours — home">
             <Logo size={scrolled ? 60 : 78} priority className="transition-all duration-300 ease-brand max-sm:!h-[58px] max-sm:!w-[58px]" />
           </Link>
 
