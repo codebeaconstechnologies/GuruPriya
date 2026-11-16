@@ -1,15 +1,33 @@
 # Going Live: www.gurupriyatours.com
 
-The site goes live directly, with no staging environment. Every push to `main` builds and publishes the full production site on Cloudflare Pages (project `gurupriya`).
+Changes go to **staging first, then production**. Both deploy from your machine with Wrangler. Pushing to GitHub does not deploy anything.
+
+| Environment | Where | Command | Search engines |
+|---|---|---|---|
+| **Staging** | Worker `gurupriya-redesign`: https://gurupriya-redesign.gurupriyatours.workers.dev | `npm run deploy:staging` | `noindex` on every response |
+| **Production** | Pages project `gurupriya`: https://www.gurupriyatours.com | `npm run deploy:production` | indexable, sitemap |
+
+Both commands run the full build and its SEO checks first, and stop if anything fails.
+
+Workflow: make changes → `npm run deploy:staging` → review on the staging URL → `npm run deploy:production`.
+
+The staging enquiry form needs the email secrets set once (see `wrangler.staging.jsonc`). Production already has them.
 
 ## 1. What every build does
 
-`npm run build` (the Cloudflare build command):
+`npm run build`:
 
 1. Builds the React app with code splitting.
-2. Prerenders one HTML file per page, with its own title, description, canonical URL, social preview tags and structured data.
-3. Writes `sitemap.xml`, `robots.txt`, `404.html` (served with a real HTTP 404), `_redirects` (`/coming-soon` → `/upcoming-yatras`), `_headers` (security and caching headers, plus noindex on `gurupriya.pages.dev`) and `_routes.json` (Functions only run for `/api/*`).
-4. Runs the automated SEO checks. **Any error stops the deploy**, so a broken page can't go live.
+2. **Prerenders every page in full** (React server rendering at build time): head tags, H1, text, internal links, breadcrumbs and hero image are all in the HTML file, and the browser hydrates it.
+3. Writes the deployment files:
+   - `sitemap.xml` and `robots.txt`
+   - `404.html` (served with a real HTTP 404)
+   - `_redirects` (`/coming-soon` → `/upcoming-yatras`, `/yatras` → `/tours/pilgrimage`)
+   - `_headers` (security and caching headers, plus noindex on `*.pages.dev`)
+   - `_routes.json` (Functions only run for `/api/*`)
+4. Runs the automated SEO checks on the generated HTML. **Any error stops the deploy**, so a broken page can't go live.
+
+After deploying, validate structured data with `node scripts/validate-schema.mjs https://www.gurupriyatours.com`.
 
 Draft blog articles never reach the live site. Review them locally with `npm run dev`.
 

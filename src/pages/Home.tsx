@@ -1,36 +1,36 @@
-import { Suspense, lazy } from "react";
-import { useI18n, useLocalized } from "@/i18n/I18nContext";
-import { company } from "@/data/trips";
-import { Hero } from "@/components/home/Hero";
-import { FeaturedYatra } from "@/components/home/FeaturedYatra";
-import { ComingSoonPreview } from "@/components/home/ComingSoonPreview";
-import { WhyTravelWithUs } from "@/components/home/WhyTravelWithUs";
-import { HowItWorks } from "@/components/home/HowItWorks";
-import { Philosophy } from "@/components/home/Philosophy";
-import { Testimonials } from "@/components/home/Testimonials";
-import { FounderMessage } from "@/components/home/FounderMessage";
-import { CTASection } from "@/components/home/CTASection";
-
-const JourneyMap = lazy(() => import("@/components/home/JourneyMap").then((m) => ({ default: m.JourneyMap })));
+import { useLocalized } from "@/i18n/I18nContext";
+import { HomeHero } from "@/components/home/HomeHero";
+import {
+  Experiences,
+  FeaturedDestinations,
+  FeaturedPackages,
+  SignatureJourney,
+  WhyGuruPriya,
+  IndiaWorldSplit,
+  CustomTripBand,
+  AboutIntro,
+  Testimonials,
+  Inspiration
+} from "@/components/home/HomeSections";
+import { CtaBand } from "@/components/ui/CtaBand";
+import S from "@/i18n/strings";
 
 export default function Home() {
   const pick = useLocalized();
-  const { t } = useI18n();
-
   return (
     <>
-      <Hero />
-      <FeaturedYatra />
-      <Suspense fallback={<div className="section-py bg-charcoal text-center text-white/60">{t.common.loading}</div>}>
-        <JourneyMap />
-      </Suspense>
-      <ComingSoonPreview />
-      <WhyTravelWithUs />
-      <HowItWorks />
-      <Philosophy />
+      <HomeHero />
+      <Experiences />
+      <FeaturedDestinations />
+      <FeaturedPackages />
+      <SignatureJourney />
+      <WhyGuruPriya />
+      <IndiaWorldSplit />
+      <CustomTripBand />
+      <AboutIntro />
       <Testimonials />
-      <FounderMessage />
-      <CTASection />
+      <Inspiration />
+      <CtaBand title={pick(S.home.finalTitle)} text={pick(S.home.finalText)} image="maldives-water-villas" ctaLabel={pick(S.planTrip)} />
     </>
   );
 }

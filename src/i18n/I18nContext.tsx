@@ -33,16 +33,26 @@ function readStoredLanguage(): Language {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(readStoredLanguage);
+  const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
+  const [restored, setRestored] = useState(false);
+
+  // Hydration-safe: prerendered HTML is in the default language; switch to the
+  // visitor's remembered choice once the page is interactive.
+  useEffect(() => {
+    const stored = readStoredLanguage();
+    if (stored !== DEFAULT_LANGUAGE) setLanguageState(stored);
+    setRestored(true);
+  }, []);
 
   useEffect(() => {
+    if (!restored) return;
     document.documentElement.lang = language;
     try {
       window.localStorage.setItem(STORAGE_KEY, language);
     } catch {
       // ignore write failures
     }
-  }, [language]);
+  }, [language, restored]);
 
   const setLanguage = (lang: Language) => setLanguageState(lang);
   const toggleLanguage = () => setLanguageState((prev) => (prev === "en" ? "mr" : "en"));

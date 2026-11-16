@@ -32,6 +32,13 @@ const PAGE_MODULES = [
   [/^\/yatras\/.+/, "src/pages/TripDetail.tsx"],
   [/^\/upcoming-yatras$/, "src/pages/ComingSoon.tsx"],
   [/^\/about$/, "src/pages/AboutUs.tsx"],
+  [/^\/packages$/, "src/pages/Packages.tsx"],
+  [/^\/packages\/.+/, "src/pages/PackageDetail.tsx"],
+  [/^\/tours\/.+/, "src/pages/Category.tsx"],
+  [/^\/destinations$/, "src/pages/Destinations.tsx"],
+  [/^\/destinations\/.+/, "src/pages/Destination.tsx"],
+  [/^\/services(\/.+)?$/, "src/pages/Services.tsx"],
+  [/^\/image-credits$/, "src/pages/ImageCredits.tsx"],
   [/^\/contact$/, "src/pages/ContactUs.tsx"],
   [/^\/gallery$/, "src/pages/Gallery.tsx"],
   [/^\/faq$/, "src/pages/FAQ.tsx"],
@@ -60,18 +67,21 @@ await build({
     rollupOptions: { output: { entryFileNames: "entry.mjs" } }
   }
 });
-const seo = await import(pathToFileURL(path.join(ssrOut, "entry.mjs")).href + `?t=${Date.now()}`);
+const seo = await import(pathToFileURL(path.join(ssrOut, "entry.mjs")).href);
 
 // Prerender every route.
 const verification = process.env.GOOGLE_SITE_VERIFICATION || "";
 const routes = seo.getSeoRoutes();
 for (const route of routes) {
-  const html = renderPage(seo.renderHeadHtml(route, { googleSiteVerification: verification }), preloadsFor(route.path));
+  // Full page body prerendered (React SSR), hydrated in the browser.
+  const body = await seo.render(route.path, route.breadcrumbs);
+  const crumbsJson = `<script type="application/json" id="${seo.CRUMBS_SCRIPT_ID}">${JSON.stringify(route.breadcrumbs).replace(/</g, "\\u003c")}</script>`;
+  const html = renderPage(seo.renderHeadHtml(route, { googleSiteVerification: verification }), [...preloadsFor(route.path), crumbsJson], body);
   writeFile(routeFile(route.path), html);
 }
 // Cloudflare Pages serves this with HTTP 404 for any unknown URL; the app
 // boots inside it and shows the Not Found page.
-writeFile("404.html", renderPage(seo.renderHeadHtml(seo.NOT_FOUND_ROUTE), []));
+writeFile("404.html", renderPage(seo.renderHeadHtml(seo.NOT_FOUND_ROUTE), [], await seo.render("/__not-found__")));
 
 // 3. Sitemap (indexable pages only).
 const urls = routes
@@ -88,7 +98,7 @@ writeFile(
 writeFile("robots.txt", `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${seo.SITE_URL}/sitemap.xml\n`);
 
 // Old URL → new URL.
-writeFile("_redirects", "/coming-soon  /upcoming-yatras  301\n");
+writeFile("_redirects", "/coming-soon  /upcoming-yatras  301\n/yatras  /tours/pilgrimage  301\n");
 
 writeFile(
   "_headers",
@@ -140,11 +150,13 @@ function preloadsFor(routePath) {
   return [...files].map((f) => `<link rel="modulepreload" crossorigin href="/${f}" />`);
 }
 
-function renderPage(headHtml, extraHead) {
+function renderPage(headHtml, extraHead, bodyHtml = "") {
   const start = template.indexOf("<!--seo:start-->");
   const end = template.indexOf("<!--seo:end-->");
   if (start < 0 || end < 0) throw new Error("index.html is missing the <!--seo:start--> / <!--seo:end--> markers");
-  return template.slice(0, start) + [headHtml, ...extraHead].join("\n    ") + template.slice(end + "<!--seo:end-->".length);
+  const html = template.slice(0, start) + [headHtml, ...extraHead].join("\n    ") + template.slice(end + "<!--seo:end-->".length);
+  if (!html.includes('<div id="root"></div>')) throw new Error('index.html is missing <div id="root"></div>');
+  return html.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`);
 }
 
 function routeFile(routePath) {

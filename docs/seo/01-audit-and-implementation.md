@@ -4,6 +4,38 @@ Date: 15 Nov 2026 · Scope: full repository audit and technical SEO implementati
 
 > **Owner decisions applied (15 Nov 2026):** domain is **www.gurupriyatours.com** · the site goes **live directly**, so the Coming Soon page and the staging password layer were removed · **English is the default language** (what Google indexes) and visitors can still switch to Marathi · phone numbers are shown, but the **email address is not**: visitors are asked to submit the enquiry form instead.
 
+## Update: SEO pass on the redesigned site
+
+This section is current. Sections 1–5 below describe the original audit and remain as history.
+
+**Site now:** 71 indexable-or-intentionally-noindexed URLs, comprising:
+- home and about
+- package listing, plus 12 tailor-made and 2 scheduled packages
+- 12 tour categories
+- 25 destination guides, including the new Char Dham Yatra, Kashi–Ayodhya–Prayagraj and Tirupati guides
+- 7 services
+- contact, FAQ, gallery, blog, terms, privacy and credits
+
+It is previewed (noindex) at `gurupriya-redesign.gurupriyatours.workers.dev` until launch.
+
+| Area | Status (measured) |
+|---|---|
+| Crawlable rendering | **Full page body prerendered** (React SSR at build time, then hydrated): H1, text, internal links, breadcrumbs and hero image are in the static HTML. No hydration errors in the browser console. |
+| Head metadata | Unique title, description, canonical, Open Graph, Twitter and JSON-LD per page, prerendered. Titles ≤ 60 chars. |
+| Structured data | Schema.org validator: **0 errors / 0 warnings on all 11 pages tested** (`node scripts/validate-schema.mjs <url>`). Types: TravelAgency, WebSite, WebPage/AboutPage/ContactPage/CollectionPage, BreadcrumbList, TouristTrip, TouristDestination (+ TouristAttraction), Service, BlogPosting. Still no Review/Rating/Offer/Event/FAQPage, deliberately. |
+| Automated build checks | Now also inspect the rendered HTML: exactly one H1 per page, alt on every image, every internal link resolves. Verified to catch deliberately broken pages. |
+| Lighthouse (mobile, simulated slow 4G) | SEO **100**, Accessibility **100**, Best Practices **100** on all pages tested. Performance 80–93. FCP 0.8–2.2 s. CLS ≈ 0. TBT ≤ 120 ms. |
+| LCP | **3.2–4.7 s lab: target of 2.5 s not yet met.** Remaining cost: ~112 KB of JavaScript and photo weight on a simulated 1.6 Mbps link. Real-visitor (CrUX) data in Search Console after launch is what Google uses. |
+| Local SEO | Consistent name, address and phone (Latur office) in footer, contact page and TravelAgency schema. New local FAQs (office location; travellers from Pune, Solapur and nearby). No fake offices or location pages. |
+| Content | Pilgrimage hubs added where there is genuine content. Kedarnath, Badrinath, Rishikesh, Haridwar, Manali, Hampi and Gokarna stay as sections of their state guides, because separate pages would be thin duplicates. |
+
+Performance work in this pass:
+- full-body prerendering, which cut FCP from about 2 s to 0.8 s
+- the SEO manifest and detail data are no longer loaded on first page view
+- breadcrumbs are prerendered
+- hero slides 2–3 are deferred until after load
+- the font preload was removed, so fonts no longer compete with the hero image
+
 ---
 
 ## 1. What the site is (architecture as found)

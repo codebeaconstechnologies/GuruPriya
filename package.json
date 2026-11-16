@@ -11,7 +11,9 @@
     "build": "tsc --noEmit && node scripts/build.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "deploy:staging": "npm run build && npx -y wrangler@4 deploy --config wrangler.staging.jsonc",
+    "deploy:production": "npm run build && npx -y wrangler@4 pages deploy dist --project-name gurupriya --branch main"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

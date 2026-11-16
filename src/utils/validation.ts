@@ -2,6 +2,8 @@ export interface ContactFormValues {
   fullName: string;
   mobile: string;
   email: string;
+  destination: string;
+  category: string;
   yatra: string;
   travellers: string;
   preferredDate: string;

@@ -5,11 +5,14 @@ import { featuredTrip, type Trip } from "@/data/trips";
 import { getReviewsForTrip, averageRating } from "@/data/reviews";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ReviewCard, Stars } from "@/components/reviews/ReviewCard";
+import { IS_PRODUCTION } from "@/config/site";
+import { buildWhatsAppLink } from "@/utils/whatsapp";
 
 /** Shown on a completed yatra's page in place of the booking sections. */
 export function TripReviews({ trip }: { trip: Trip }) {
   const { t } = useI18n();
-  const reviews = getReviewsForTrip(trip.id);
+  // Sample reviews are never published on the live site — only genuine ones.
+  const reviews = getReviewsForTrip(trip.id).filter((r) => !r.isSample || !IS_PRODUCTION);
   const avg = averageRating(reviews);
 
   return (
@@ -49,7 +52,12 @@ export function TripReviews({ trip }: { trip: Trip }) {
             )}
           </>
         ) : (
-          <p className="rounded-2xl bg-white p-8 text-center text-charcoal/70">{t.yatrasPage.noCompleted}</p>
+          <div className="rounded-3xl bg-white p-8 text-center text-charcoal/75">
+            <p>Reviews from the pilgrims on this yatra will appear here soon.</p>
+            <a href={buildWhatsAppLink(`Hello, I travelled on ${trip.title.en} and would like to share my experience.`)} target="_blank" rel="noopener noreferrer" className="btn-secondary mt-5">
+              Travelled with us? Share your experience
+            </a>
+          </div>
         )}
       </div>
     </section>

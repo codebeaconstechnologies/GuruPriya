@@ -1,0 +1,29 @@
+// STAGING: separate Cloudflare Worker for reviewing changes before production.
+// Production is the Pages project "gurupriya" (www.gurupriyatours.com).
+// Deploy staging: npm run deploy:staging · production: npm run deploy:production
+//
+//   npm run build && npx wrangler deploy --config wrangler.staging.jsonc
+//
+// The enquiry form needs the same secrets as Pages:
+//   npx wrangler secret put RESEND_API_KEY --config wrangler.staging.jsonc
+//   npx wrangler secret put CONTACT_EMAIL  --config wrangler.staging.jsonc
+//   npx wrangler secret put FROM_EMAIL     --config wrangler.staging.jsonc
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "gurupriya-redesign",
+  "main": "worker/index.ts",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Unknown URLs get dist/404.html with HTTP 404; /about serves about.html.
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+    // Let the Worker add noindex to every response on this preview.
+    "run_worker_first": true
+  },
+  "vars": {
+    "NOINDEX": "true"
+  },
+  "observability": { "enabled": true }
+}

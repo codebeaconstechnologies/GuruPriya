@@ -133,8 +133,48 @@ export function runChecks({ dist, root, siteUrl }) {
     // Local images referenced in source exist.
     for (const file of srcFiles) {
       const code = fs.readFileSync(file, "utf8");
-      for (const m of code.matchAll(/["'`](\/images\/[^"'`?]+)["'`]/g)) {
+      for (const m of code.matchAll(/["'`](\/(?:images|brand)\/[^"'`?]+)["'`]/g)) {
+        if (m[1].includes("${")) continue; // template path — covered by the photo-id check
         if (!fs.existsSync(path.join(root, "public", m[1]))) err(`${path.relative(root, file)} references missing image ${m[1]}`);
+      }
+    }
+
+    // Rendered pages (bodies are prerendered): exactly one <h1>, every <img>
+    // has an alt attribute, and every internal link resolves to a built page
+    // or file.
+    const brokenLinks = new Map();
+    for (const f of htmlFiles) {
+      const html = read(f);
+      const bodyStart = html.indexOf('<div id="root">');
+      const body = bodyStart >= 0 ? html.slice(bodyStart) : "";
+      if (!body.includes("<")) {
+        err(`${f}: page body was not prerendered`);
+        continue;
+      }
+      const h1s = (body.match(/<h1[\s>]/g) ?? []).length;
+      if (h1s !== 1) err(`${f}: expected exactly 1 <h1> in the rendered page, found ${h1s}`);
+      for (const m of body.matchAll(/<img\b[^>]*>/g)) {
+        if (!/\salt="/.test(m[0])) err(`${f}: <img> without alt: ${m[0].slice(0, 90)}`);
+      }
+      for (const m of body.matchAll(/href="(\/[^"]*)"/g)) {
+        const target = m[1].split(/[?#]/)[0].replace(/\/$/, "") || "/";
+        if (/^\/(assets|images|brand|api)\//.test(target) || /\.(png|webp|jpe?g|svg|xml|txt|ico)$/.test(target)) continue;
+        if (routeSet.has(target)) continue;
+        if (["/coming-soon", "/yatras"].includes(target)) continue; // served as 301 redirects
+        brokenLinks.set(target, [...(brokenLinks.get(target) ?? []), f]);
+      }
+    }
+    for (const [target, files] of brokenLinks) err(`broken internal link ${target} (on ${files.slice(0, 3).join(", ")}${files.length > 3 ? ` +${files.length - 3} more` : ""})`);
+
+    // Every photo id referenced in source has its optimised files.
+    for (const file of srcFiles) {
+      const code = fs.readFileSync(file, "utf8");
+      const rel = path.relative(root, file).split(path.sep).join("/");
+      const ids = new Set([...code.matchAll(/photo\("([a-z0-9-]+)"/g)].map((m) => m[1]));
+      if (rel.startsWith("src/data/catalog/")) for (const m of code.matchAll(/\bimage: "([a-z0-9-]+)"/g)) ids.add(m[1]);
+      if (/src\/(pages\/Gallery|components\/home\/HomeHero)\.tsx$/.test(rel)) for (const m of code.matchAll(/\bid: "([a-z0-9-]+)"/g)) ids.add(m[1]);
+      for (const id of ids) {
+        if (!fs.existsSync(path.join(root, "public", "images", "photos", `${id}-800.webp`))) err(`${rel} references photo "${id}", which has no file in public/images/photos`);
       }
     }
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Bus, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { TouristBus } from "@/components/bus/TouristBus";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import type { Trip, RoutePoint } from "@/data/trips";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -58,8 +59,8 @@ function RouteStrip({ stops, reduced }: { stops: RoutePoint[]; reduced: boolean 
   return (
     <div className="relative">
       {!reduced && (
-        <div className="pointer-events-none absolute left-1/2 top-[38px] z-20 -translate-x-1/2 text-saffron-500">
-          <Bus className="h-6 w-6 drop-shadow" />
+        <div className="pointer-events-none absolute left-1/2 top-[23px] z-20 w-[68px] -translate-x-1/2">
+          <TouristBus moving className="h-auto w-full drop-shadow-lg" />
         </div>
       )}
 
@@ -73,14 +74,14 @@ function RouteStrip({ stops, reduced }: { stops: RoutePoint[]; reduced: boolean 
         className="relative overflow-x-auto pb-6"
       >
         <div className="relative flex min-w-max items-center gap-0 px-2 pt-10">
-          <div className="absolute left-2 right-2 top-[52px] h-1 rounded-full bg-gradient-to-r from-saffron-200 via-gold to-saffron-200" />
+          <div className="absolute left-2 right-2 top-[52px] h-1 rounded-full bg-gradient-to-r from-sky-300 via-sun to-saffron-400" />
 
           {stops.map((stop, i) => (
             <div key={`${stop.id}-${i}`} className="flex w-36 shrink-0 flex-col items-center text-center">
               <span className="relative z-10 mb-2 flex h-6 w-6 items-center justify-center rounded-full border-2 border-gold bg-white text-saffron-600">
                 <MapPin className="h-3 w-3" />
               </span>
-              <span className="text-xs font-bold leading-snug text-charcoal">{pick(stop.name)}</span>
+              <span className="text-xs font-bold leading-snug text-white">{pick(stop.name)}</span>
             </div>
           ))}
         </div>

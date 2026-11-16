@@ -18,7 +18,9 @@ import { TripFAQ } from "@/components/trip-detail/TripFAQ";
 import { EnquiryCTA } from "@/components/trip-detail/EnquiryCTA";
 import { TripReviews } from "@/components/trip-detail/TripReviews";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ClientOnly } from "@/components/ui/ClientOnly";
 import NotFound from "@/pages/NotFound";
+import S from "@/i18n/strings";
 
 const RouteMap = lazy(() => import("@/components/trip-detail/RouteMap").then((m) => ({ default: m.RouteMap })));
 
@@ -65,13 +67,11 @@ export default function TripDetail() {
 
       <RouteVisualization trip={trip} />
 
-      <Suspense
-        fallback={
-          <div className="section-py bg-white text-center text-charcoal/70">{t.common.loading}</div>
-        }
-      >
-        <RouteMap trip={trip} />
-      </Suspense>
+      <ClientOnly fallback={<div className="section-py bg-white" aria-hidden />}>
+        <Suspense fallback={<div className="section-py bg-white" aria-hidden />}>
+          <RouteMap trip={trip} />
+        </Suspense>
+      </ClientOnly>
 
       <ItineraryTimeline trip={trip} />
       <InclusionsExclusions trip={trip} />
@@ -95,7 +95,7 @@ export default function TripDetail() {
                 {pick(trip.organizer.name)} <span className="font-normal text-charcoal/70">— {pick(trip.organizer.title)}</span>
               </p>
               <Link to="/about" className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-saffron-600 hover:text-saffron-700">
-                {t.common.readMore}
+                {pick(S.home.readStory)}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

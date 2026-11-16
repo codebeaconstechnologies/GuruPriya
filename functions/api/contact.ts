@@ -19,6 +19,9 @@ interface ContactPayload {
   fullName: string;
   mobile: string;
   email?: string;
+  destination?: string;
+  category?: string;
+  categoryLabel?: string;
   yatra?: string;
   yatraTitle?: string;
   travellers?: string;
@@ -136,6 +139,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const yatraSlug = clean(payload.yatra, 200);
   const yatraTitle = clean(payload.yatraTitle, 300) || yatraSlug;
+  const destination = clean(payload.destination, 120);
+  const category = clean(payload.categoryLabel, 60) || clean(payload.category, 40);
   const travellers = clean(payload.travellers, 10);
   const preferredDate = clean(payload.preferredDate, 20);
   const travelMode = clean(payload.travelModeLabel, 50) || clean(payload.travelMode, 20);
@@ -154,10 +159,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ["Name", escapeHtml(fullName)],
     ["Mobile", `<a href="tel:+91${mobileDigits}">${mobileDigits}</a> &nbsp;·&nbsp; <a href="https://wa.me/91${mobileDigits}">WhatsApp</a>`],
     ["Email", email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : "Not provided"],
-    ["Yatra", escapeHtml(yatraTitle || "Not selected")],
+    ["Destination", escapeHtml(destination || "-")],
+    ["Travel Type", escapeHtml(category || "-")],
+    ["Tour / Package", escapeHtml(yatraTitle || "Not selected")],
     ["Travel Mode", escapeHtml(travelMode || "Not decided")],
     ["Travellers", escapeHtml(travellers || "-")],
-    ["Preferred Date", escapeHtml(preferredDate || "-")],
+    ["Travel Month / Date", escapeHtml(preferredDate || "-")],
     ["Message", escapeHtml(message || "-")],
     ["Language", language],
     ["Submitted", `${escapeHtml(submittedAt)} IST`],
@@ -165,15 +172,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   ];
 
   const enquiryText = [
-    `New Yatra Enquiry — ${fullName}`,
+    `New Travel Enquiry — ${fullName}`,
     "",
     `Name: ${fullName}`,
     `Mobile: ${mobileDigits}`,
     `Email: ${email || "Not provided"}`,
-    `Yatra: ${yatraTitle || "Not selected"}`,
+    `Destination: ${destination || "-"}`,
+    `Travel Type: ${category || "-"}`,
+    `Tour / Package: ${yatraTitle || "Not selected"}`,
     `Travel Mode: ${travelMode || "Not decided"}`,
     `Travellers: ${travellers || "-"}`,
-    `Preferred Date: ${preferredDate || "-"}`,
+    `Travel Month / Date: ${preferredDate || "-"}`,
     `Message: ${message || "-"}`,
     `Language: ${language}`,
     `Submitted: ${submittedAt} IST`,
@@ -184,8 +193,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const resendRes = await sendEmail(env, {
       to: env.CONTACT_EMAIL.split(",").map((s) => s.trim()).filter(Boolean),
       ...(email ? { reply_to: email } : {}),
-      subject: `New Yatra Enquiry — ${fullName}${yatraTitle ? ` — ${yatraTitle}` : ""}`,
-      html: wrapEmail("New Yatra Enquiry", `<table style="border-collapse:collapse;width:100%;font-size:14px">${rowsToHtml(enquiryRows)}</table>`),
+      subject: `New Travel Enquiry — ${fullName}${yatraTitle ? ` — ${yatraTitle}` : destination ? ` — ${destination}` : ""}`,
+      html: wrapEmail("New Travel Enquiry", `<table style="border-collapse:collapse;width:100%;font-size:14px">${rowsToHtml(enquiryRows)}</table>`),
       text: enquiryText
     });
 
@@ -199,7 +208,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     // failure here must not fail the request — the enquiry was already sent.
     if (email) try {
       const ackRows: [string, string][] = enquiryRows.filter(([label]) =>
-        ["Yatra", "Travel Mode", "Travellers", "Preferred Date", "Message"].includes(label)
+        ["Destination", "Travel Type", "Tour / Package", "Travel Mode", "Travellers", "Travel Month / Date", "Message"].includes(label)
       );
       const ackRes = await sendEmail(env, {
         to: [email],

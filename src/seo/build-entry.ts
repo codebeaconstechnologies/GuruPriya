@@ -8,3 +8,5 @@ export { travelAgencySchema, graph } from "./schema";
 export { SITE_URL, SITE_ENV, IS_PRODUCTION, SITE_NAME } from "@/config/site";
 export { company, trips } from "@/data/trips";
 export { blogPosts } from "@/data/blog";
+export { render } from "@/entry-server";
+export { CRUMBS_SCRIPT_ID } from "./initialCrumbs";

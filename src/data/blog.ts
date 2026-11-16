@@ -7,6 +7,8 @@
 //
 // Body text supports inline links written as [label](/path).
 
+import { IS_PRODUCTION } from "@/config/site";
+
 export type BlogCategory =
   | "pilgrimage-travel"
   | "travel-guides"
@@ -123,3 +125,10 @@ export const blogPosts: BlogPost[] = [
     ]
   }
 ];
+
+/** Blog posts visible in this build: published only in production; drafts too in local dev. */
+export function getVisiblePosts(): BlogPost[] {
+  return blogPosts
+    .filter((p) => p.status === "published" || !IS_PRODUCTION)
+    .sort((a, b) => b.datePublished.localeCompare(a.datePublished));
+}

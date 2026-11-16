@@ -32,9 +32,9 @@ Intent: **T** transactional (wants to book/enquire) · **C** commercial (compari
 | kainchi dham yatra from latur | T | `/yatras/kainchi-dham-…-2027` | Low | Very high | **P1** |
 | kainchi dham tour package from maharashtra / pune | C | Kainchi Dham trip page | Low–medium | High | **P1** |
 | neem karoli baba ashram trip package | C | Kainchi Dham trip page | Medium | High | P1 |
-| yatra from latur / latur yatra company | T | `/yatras` | Low | Very high | **P1** |
+| yatra from latur / latur yatra company | T | `/tours/pilgrimage` | Low | Very high | **P1** |
 | travel agency in latur / tours and travels latur | T | `/`, `/contact` (+ Google Business Profile) | Low–medium (Maps pack) | Very high | **P1** |
-| pilgrimage tour operator marathwada | C | `/yatras` | Low | High | P1 |
+| pilgrimage tour operator marathwada | C | `/tours/pilgrimage` | Low | High | P1 |
 | चारधाम यात्रा लातूर | T | Char Dham trip page (Marathi content) | Low | Very high | P2 (English is the indexed version; Marathi text is a visitor toggle) |
 | tirupati tour package from latur / solapur | T | `/upcoming-yatras` → future Tirupati trip page | Low–medium | High | P2 (when dates exist) |
 | rameshwaram kanyakumari tour from maharashtra | C | `/upcoming-yatras` → future trip page | Medium | High | P2 |
@@ -47,7 +47,7 @@ Intent: **T** transactional (wants to book/enquire) · **C** commercial (compari
 | kedarnath tour package | C | Char Dham trip page + Kedarnath guide (blog) | Very high | Medium | P2 |
 | badrinath tour package | C | Char Dham trip page | Very high | Medium | P2 |
 | char dham yatra for senior citizens | C | Char Dham trip page + senior-citizen guide | Medium | **High** (matches the founder's care positioning) | **P1** |
-| group pilgrimage tour from maharashtra | C | `/yatras` | Medium | High | P1 |
+| group pilgrimage tour from maharashtra | C | `/tours/group` | Medium | High | P1 |
 | varanasi ayodhya tour package | C | Char Dham trip page (Kashi, Ayodhya, Prayagraj stops) + future trip | High | Medium | P3 until a dedicated yatra exists |
 
 ## D. Informational (blog)
@@ -63,29 +63,42 @@ Intent: **T** transactional (wants to book/enquire) · **C** commercial (compari
 | jyotirlinga near latur (Parli Vaijnath, Aundha Nagnath) | I | `/blog/jyotirlingas-near-latur` | Low | Medium (local trust) | **P1** |
 | tuljapur / pandharpur darshan from latur | I | blog guides | Low | Low–medium | P2 |
 
-## E. Generic commercial (from the brief): evaluated, not targeted now
+## E. Generic commercial: now targeted (after the repositioning)
 
-| Keyword | Why not now |
-|---|---|
-| tour packages in india, domestic holiday packages, family tour packages, customized tour packages | National head terms owned by OTAs. GuruPriya doesn't sell leisure packages. A page here would be thin and wouldn't convert. |
-| international holiday packages | Not offered. Creating the page would misrepresent the business. |
-| best travel agency in pune | GuruPriya has a **Pune contact number but no verified Pune office** and departs from Latur. A Pune-targeted page would overclaim. Revisit if a Pune departure or office is real. |
-| weekend trips from pune, goa/kerala/kashmir/manali packages | Not offered. |
+GuruPriya now offers general holidays as well as yatras, so these terms have genuine landing pages. They are national head terms dominated by big OTAs (qualitative judgement), so expect them to rank slowly. The long-tail "from Latur / from Maharashtra" versions are the realistic early wins.
 
-## Keyword → URL map (current site)
+| Keyword | Intent | Landing page | Competition (qual.) | Conversion | Priority |
+|---|---|---|---|---|---|
+| domestic holiday packages (from latur / pune) | C | `/tours/domestic` | Very high nationally; low with "from latur" | Medium | P2 |
+| international holiday packages / tour packages from latur | C | `/tours/international` | Very high | Medium | P3 |
+| family tour packages | C | `/tours/family` | High | High | P2 |
+| customized tour packages | C | `/tours/customized` | High | High | P2 |
+| honeymoon packages (kerala / kashmir / maldives) | C | `/tours/honeymoon`, destination pages | High | High | P2 |
+| weekend trips from pune / latur | C/I | `/tours/weekend-getaways`, `/packages/mahabaleshwar-weekend-2n-3d` | Medium | Medium | P2 |
+| kashmir / kerala / goa / dubai / bali tour package | C | `/packages/<slug>` + `/destinations/<slug>` | Very high | Medium | P3 |
+| best travel agency in pune | T | Not targeted with a page | — | — | Revisit only if a staffed Pune office exists. Pune visitors are covered by `/contact`, the FAQ and tailor-made trips from any city. |
+
+## Keyword → URL map (redesigned site)
 
 | URL | Primary keyword | Secondary | Title (as built) |
 |---|---|---|---|
-| `/` | guruPriya tours and travels | pilgrimage yatras from latur, travel agency latur | GuruPriya Tours & Travels \| Pilgrimage Yatras from Latur |
-| `/yatras` | yatra from latur | pilgrimage tour packages latur, group pilgrimage maharashtra | Pilgrimage Yatra Packages from Latur \| GuruPriya Tours |
-| `/yatras/premium-uttarakhand-char-dham-…-2026` | char dham yatra from latur | char dham for senior citizens, char dham package maharashtra | Char Dham Yatra 2026 from Latur, 18 Days \| GuruPriya Tours |
-| `/yatras/kainchi-dham-…-2027` | kainchi dham yatra from latur | neem karoli baba ashram trip, nainital yatra | Kainchi Dham Yatra 2027 from Latur \| Neem Karoli Baba Ashram |
-| `/upcoming-yatras` | upcoming yatra 2027 | tirupati / rameshwaram tour from latur | Upcoming Yatras: Tirupati, Rameshwaram & Kerala \| GuruPriya |
-| `/about` | guruPriya founder | guruprasad hundekar | About GuruPriya Tours & Travels, Latur \| Our Story |
-| `/contact` | travel agency latur contact | yatra enquiry | Contact GuruPriya Tours & Travels \| Yatra Enquiry, Latur |
-| `/faq` | yatra registration refund | travel mode | Yatra FAQs: Registration, Travel Modes & Refunds \| GuruPriya |
-| `/blog/char-dham-yatra-from-latur-planning-guide` (draft) | char dham yatra itinerary from latur | best time, registration, packing | Char Dham Yatra from Latur: Route & Planning Guide |
+| `/` | guruPriya tours and travels | travel agency latur, holiday packages, group tours | GuruPriya Tours & Travels \| Holidays, Group Tours & Yatras |
+| `/packages` | tour packages from latur | india & international tour packages | Tour Packages from Latur & Pune \| India & International |
+| `/tours/pilgrimage` | yatra from latur | pilgrimage tours maharashtra, char dham kainchi dham | Pilgrimage Tours & Yatras from Latur \| Char Dham, Kainchi Dham |
+| `/tours/domestic` | domestic holiday packages | india tour packages from latur/pune | Domestic Holiday Packages from Latur & Pune \| GuruPriya |
+| `/tours/international` | international holiday packages | dubai thailand bali europe packages | International Holiday Packages \| Dubai, Thailand, Bali & Europe |
+| `/tours/family` · `/tours/group` · `/tours/honeymoon` · `/tours/senior-citizen` | family / group / honeymoon / senior citizen tours | — | category titles in `categoryDetails.ts` |
+| `/tours/weekend-getaways` | weekend trips from pune / latur | mahabaleshwar, lonavala, matheran | Weekend Getaways from Pune, Latur & Mumbai \| GuruPriya |
+| `/destinations/char-dham-yatra` | char dham yatra guide / itinerary | best time, registration, kedarnath trek | Char Dham Yatra Travel Guide & Tour Packages \| GuruPriya |
+| `/destinations/kashi-ayodhya-prayagraj` | varanasi ayodhya prayagraj tour | kashi vishwanath, ram mandir, triveni sangam | Kashi, Ayodhya & Prayagraj Travel Guide \| GuruPriya |
+| `/destinations/tirupati` | tirupati darshan from maharashtra | tirumala, balaji | Tirupati & Tirumala Travel Guide & Tour Packages \| GuruPriya |
+| `/destinations/<state or country>` | <place> travel guide / tour package | best time, attractions | `<Name> Travel Guide & Tour Packages \| GuruPriya` |
+| `/yatras/premium-uttarakhand-char-dham-…-2026` | char dham yatra from latur | char dham for senior citizens | Char Dham Yatra 2026 from Latur, 18 Days \| GuruPriya Tours |
+| `/yatras/kainchi-dham-…-2027` | kainchi dham yatra from latur | neem karoli baba ashram trip | Kainchi Dham Yatra 2027 from Latur \| Neem Karoli Baba Ashram |
+| `/services/bus-coach-tours` | bus tours from latur | coach hire for groups | Bus & Coach Tours from Latur \| Group Coach Travel |
+| `/contact` | travel agency latur contact | plan trip, enquiry | Contact GuruPriya Tours & Travels \| Plan Your Trip, Latur |
+| `/faq` | (local + booking questions) | office location, travellers from pune/solapur | Travel FAQs: Booking, Travel Modes & Refunds \| GuruPriya |
 
-## Structural recommendation: an evergreen yatra hub
+## Evergreen pilgrimage hubs (done)
 
-Each departure has a dated URL (`…-2026`, `…-2027`), which is correct because every departure is a different product with its own reviews. But ranking signals for "char dham yatra from latur" then reset every year. Once a **second** Char Dham departure is announced, add an evergreen hub `/char-dham-yatra` (route overview, season, FAQs, links to every departure, past reviews) and point internal links and the primary keyword at it. Do the same for Kainchi Dham. Don't create these hubs before there's a second departure; with one trip they'd duplicate the trip page.
+The recommendation to add an evergreen Char Dham hub is now implemented as `/destinations/char-dham-yatra`. It holds the route, season, registration and FAQs, and links to every dated departure. Dated departure pages (`/yatras/…-2026`) remain the bookable products. Point new articles and internal links about Char Dham at the hub.

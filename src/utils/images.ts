@@ -1,42 +1,81 @@
 /**
- * Builds a Wikimedia Commons image URL at a given pixel width via
- * Special:FilePath, which redirects to the actual (CDN-cached) file.
- * Centralizing this here means every destination image can be swapped
- * by changing one file name in src/data/trips.ts.
+ * Image helpers.
  *
- * Wikimedia serves thumbnails at fixed standard widths and rounds other
- * requests UP (asking for 1600 returns a 1920px file), so widths here are
- * snapped to those steps to avoid downloading far more than is displayed.
+ * All photography is self-hosted as optimised WebP in /public/images/photos
+ * (800w + 1600w), imported from Wikimedia Commons under free licences by
+ * scripts/images/fetch-commons.mjs + optimize.mjs. Author/licence for every
+ * photo is listed in src/data/imageCredits.json and shown on /image-credits.
  *
- * NOTE: these are temporary third-party images. The long-term plan is to
- * replace them with GuruPriya's own yatra photos, self-hosted as WebP — see
- * docs/seo/01-audit.md.
+ * Replace any photo with GuruPriya's own by overwriting the two WebP files
+ * for its id (and updating imageCredits.json).
  */
-const STANDARD_WIDTHS = [330, 500, 960, 1280, 1920] as const;
+import credits from "@/data/imageCredits.json";
 
-function snap(width: number): number {
-  return STANDARD_WIDTHS.find((w) => w >= width) ?? 1920;
+export interface ImageCredit {
+  id: string;
+  title: string;
+  author: string;
+  license: string;
+  licenseUrl: string;
+  sourceUrl: string;
 }
 
+export const imageCredits = credits as ImageCredit[];
+const LOCAL = new Set(imageCredits.map((c) => c.id));
+
+/** Same algorithm as slugifyFile() in scripts/images/fetch-commons.mjs. */
+function slugifyFile(file: string): string {
+  return file
+    .replace(/^File:/, "")
+    .replace(/\.[a-z]+$/i, "")
+    .normalize("NFKD")
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_]+/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 60);
+}
+
+/** Self-hosted photo by library id (see scripts/images/sources.json). */
+export function photo(id: string, width: 800 | 1600 = 1600): string {
+  return `/images/photos/${id}-${width}.webp`;
+}
+
+export function photoSrcSet(id: string): string {
+  return `${photo(id, 800)} 800w, ${photo(id, 1600)} 1600w`;
+}
+
+/**
+ * A Commons file by name. Resolves to the self-hosted copy when it has been
+ * imported (always, for files used in src/data/trips.ts), otherwise falls
+ * back to Wikimedia's Special:FilePath.
+ */
 export function commonsImage(file: string, width = 960): string {
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${snap(width)}`;
+  const id = slugifyFile(`File:${file}`);
+  if (LOCAL.has(id)) return photo(id, width <= 800 ? 800 : 1600);
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
 }
 
-const isCommons = (url: string) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/");
+const LOCAL_RE = /^\/images\/photos\/(.+)-(800|1600)\.webp$/;
 
-/** Same image at a different width (no-op for non-Commons URLs). */
+/** Same image at a different width. */
 export function withWidth(url: string, width: number): string {
-  if (!isCommons(url)) return url;
-  return url.replace(/([?&])width=\d+/, `$1width=${snap(width)}`);
+  const m = url.match(LOCAL_RE);
+  if (m) return photo(m[1], width <= 800 ? 800 : 1600);
+  if (url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/")) {
+    return url.replace(/([?&])width=\d+/, `$1width=${width}`);
+  }
+  return url;
 }
 
-/** srcset for full-width hero images (empty for non-Commons URLs). */
+/** srcset for full-width images. */
 export function heroSrcSet(url: string): string | undefined {
-  if (!isCommons(url)) return undefined;
-  return [500, 960, 1280, 1920].map((w) => `${withWidth(url, w)} ${w}w`).join(", ");
+  const m = url.match(LOCAL_RE);
+  if (m) return photoSrcSet(m[1]);
+  return undefined;
 }
 
-/** Default src for a hero (the srcset picks the best size per device). */
 export function heroSrc(url: string): string {
-  return withWidth(url, 1280);
+  return withWidth(url, 1600);
 }

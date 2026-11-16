@@ -4,7 +4,7 @@ import { ArrowRight, Link2, MessageCircle, AlertTriangle } from "lucide-react";
 import { useI18n, useLocalized } from "@/i18n/I18nContext";
 import { blogCategories, type BlogBlock } from "@/data/blog";
 import { trips } from "@/data/trips";
-import { getVisiblePosts } from "@/seo/routes";
+import { getVisiblePosts } from "@/data/blog";
 import { absoluteUrl } from "@/config/site";
 import NotFound from "@/pages/NotFound";
 import { formatArticleDate } from "@/utils/format";

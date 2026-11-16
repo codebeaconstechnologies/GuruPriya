@@ -99,7 +99,7 @@ Each entry: **SEO title** · target keyword · intent · URL · meta description
 - Keyword: jyotirlinga near latur · Intent: informational · URL: `/blog/jyotirlingas-near-latur`
 - Meta: Two of the twelve Jyotirlingas are a short drive from Latur. A guide to Parli Vaijnath and Aundha Nagnath: significance, darshan tips, and how to plan a day trip.
 - Outline: The 12 Jyotirlingas and Maharashtra's five · Parli Vaijnath · Aundha Nagnath · Planning a day trip from Latur · Combining with other temples
-- Links → #12, `/yatras`, `/contact`
+- Links → #12, `/destinations/maharashtra`, `/contact`
 
 **#12 The Five Jyotirlingas of Maharashtra: A Complete Guide**
 - Keyword: jyotirlinga in maharashtra · Intent: informational · URL: `/blog/jyotirlingas-of-maharashtra`
@@ -111,7 +111,7 @@ Each entry: **SEO title** · target keyword · intent · URL · meta description
 - Keyword: yatra by train or bus · Intent: commercial · URL: `/blog/yatra-travel-mode-rail-bus-flight`
 - Meta: Every GuruPriya yatra runs by railway, bus or flight. How the three compare on comfort, time, fatigue and suitability for elders, so you can choose well.
 - Outline: Why we offer all three · Railway · Travels / bus · Flight · Which suits whom (elders, families, short leave) · How to enquire for your mode
-- Links → `/yatras`, both trip pages, `/contact?mode=…`
+- Links → `/packages`, both trip pages, `/services/bus-coach-tours`, `/contact?mode=…`
 
 **#14 Tuljapur Tulja Bhavani Darshan from Latur: Guide**
 - Keyword: tuljapur darshan · Intent: informational · URL: `/blog/tuljapur-tulja-bhavani-darshan`
@@ -194,12 +194,12 @@ Each entry: **SEO title** · target keyword · intent · URL · meta description
 **#26 First Pilgrimage With Your Parents? 10 Things to Plan Ahead**
 - Keyword: pilgrimage with elderly parents · Intent: informational · URL: `/blog/pilgrimage-with-elderly-parents`
 - Meta: Practical tips for taking elderly parents on a yatra: medical prep, seat choice, food, rest days, documents and staying together in crowds.
-- Links → #2, #13, `/yatras`
+- Links → #2, #13, `/tours/family`, `/tours/senior-citizen`
 
 **#27 Group Yatra vs. Travelling on Your Own: An Honest Comparison**
 - Keyword: group pilgrimage tour benefits · Intent: commercial · URL: `/blog/group-yatra-vs-solo`
 - Meta: Is an organised group yatra right for you? An honest look at planning effort, safety, darshan arrangements and flexibility.
-- Links → `/yatras`, `/about`, `/contact`
+- Links → `/tours/group`, `/about`, `/contact`
 
 **#28 Pure Vegetarian Food on Yatra: What to Expect**
 - Keyword: pure veg food char dham · Intent: informational · URL: `/blog/pure-vegetarian-food-on-yatra`

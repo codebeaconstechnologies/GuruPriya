@@ -141,6 +141,51 @@ export function touristTripSchema(trip: Trip, path: string): JsonLd {
   };
 }
 
+/** A destination guide page. */
+export function touristDestinationSchema(d: { name: string; tagline: string; image: string; attractions: { name: string }[]; country: string }, path: string): JsonLd {
+  return {
+    "@type": "TouristDestination",
+    "@id": `${absoluteUrl(path)}#destination`,
+    name: d.name,
+    description: d.tagline,
+    url: absoluteUrl(path),
+    image: absoluteUrl(d.image),
+    ...(d.country === "India" || d.country === "Multiple countries" ? {} : { containedInPlace: { "@type": "Country", name: d.country } }),
+    includesAttraction: d.attractions.map((a) => ({ "@type": "TouristAttraction", name: a.name }))
+  };
+}
+
+/** A tailor-made (suggested) itinerary. No offers/price — prices are never published. */
+export function tailorMadeTripSchema(p: { title: string; summary: string; image: string; itinerary: { title: string }[] }, path: string): JsonLd {
+  return {
+    "@type": "TouristTrip",
+    "@id": `${absoluteUrl(path)}#trip`,
+    name: p.title,
+    description: p.summary,
+    url: absoluteUrl(path),
+    image: absoluteUrl(p.image),
+    provider: { "@id": ORG_ID },
+    itinerary: {
+      "@type": "ItemList",
+      numberOfItems: p.itinerary.length,
+      itemListElement: p.itinerary.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: `Day ${i + 1}: ${d.title}` }))
+    }
+  };
+}
+
+export function serviceSchema(s: { name: string; description: string }, path: string): JsonLd {
+  return {
+    "@type": "Service",
+    "@id": `${absoluteUrl(path)}#service`,
+    name: s.name,
+    description: s.description,
+    serviceType: s.name,
+    url: absoluteUrl(path),
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "Country", name: "India" }
+  };
+}
+
 export function blogPostingSchema(post: BlogPost, path: string): JsonLd {
   return {
     "@type": "BlogPosting",

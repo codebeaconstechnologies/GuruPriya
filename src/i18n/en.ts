@@ -183,7 +183,7 @@ const en = {
   },
 
   footer: {
-    description: "Thoughtfully planned pilgrimage journeys across India's sacred destinations — travel with faith, return with memories.",
+    description: "Holidays, group tours and pilgrimages across India and abroad, planned with care from Latur, Maharashtra.",
     quickLinks: "Quick Links",
     popularYatras: "Popular Yatras",
     contactInfo: "Contact Information",

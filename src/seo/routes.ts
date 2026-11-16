@@ -5,12 +5,13 @@
 //   - Breadcrumbs (visible breadcrumb trail)
 //   - scripts/build.mjs (prerendered per-route HTML <head>, sitemap.xml)
 //
-// Metadata is English: the target search queries are English-language.
-// (Body content defaults to Marathi — see docs/seo/01-audit.md, "Language".)
+// Metadata is English (English is the default site language; Marathi is a
+// visitor toggle on the same URLs).
 
 import { trips, isTripCompleted, getDeparture, type LocalizedText } from "@/data/trips";
-import { blogPosts, type BlogPost } from "@/data/blog";
-import { IS_PRODUCTION, DEFAULT_OG_IMAGE, SITE_NAME } from "@/config/site";
+import { getVisiblePosts } from "@/data/blog";
+export { getVisiblePosts };
+import { DEFAULT_OG_IMAGE, SITE_NAME } from "@/config/site";
 import {
   graph,
   travelAgencySchema,
@@ -19,8 +20,25 @@ import {
   breadcrumbSchema,
   touristTripSchema,
   blogPostingSchema,
+  touristDestinationSchema,
+  tailorMadeTripSchema,
+  serviceSchema,
   type JsonLd
 } from "./schema";
+import { categories } from "@/data/catalog/categories";
+import { categoryDetails } from "@/data/catalog/categoryDetails";
+import { destinationDetails } from "@/data/catalog/destinationDetails";
+import { packageDetails } from "@/data/catalog/packageDetails";
+import { destinations } from "@/data/catalog/destinations";
+import { tailorMadePackages } from "@/data/catalog/packages";
+import { services } from "@/data/catalog/services";
+import { photo } from "@/utils/images";
+
+/** Keep meta descriptions within ~158 characters, cutting at a word. */
+function clip(text: string, max = 158): string {
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
+}
 
 export interface BreadcrumbItem {
   label: LocalizedText;
@@ -52,15 +70,12 @@ export interface SeoRoute {
 export const GALLERY_HAS_OWN_PHOTOS = false;
 
 const HOME: BreadcrumbItem = { label: { en: "Home", mr: "मुख्यपृष्ठ" }, path: "/" };
-const YATRAS: BreadcrumbItem = { label: { en: "Yatras", mr: "यात्रा" }, path: "/yatras" };
+const PILGRIMAGE: BreadcrumbItem = { label: { en: "Pilgrimage Tours", mr: "तीर्थयात्रा" }, path: "/tours/pilgrimage" };
+const PACKAGES: BreadcrumbItem = { label: { en: "Tour Packages", mr: "टूर पॅकेजेस" }, path: "/packages" };
+const DESTINATIONS: BreadcrumbItem = { label: { en: "Destinations", mr: "पर्यटन स्थळे" }, path: "/destinations" };
+const SERVICES: BreadcrumbItem = { label: { en: "Travel Services", mr: "प्रवास सेवा" }, path: "/services" };
 const BLOG: BreadcrumbItem = { label: { en: "Travel Guides", mr: "प्रवास मार्गदर्शक" }, path: "/blog" };
 
-/** Blog posts visible in this build: published only in production; drafts too in local dev. */
-export function getVisiblePosts(): BlogPost[] {
-  return blogPosts
-    .filter((p) => p.status === "published" || !IS_PRODUCTION)
-    .sort((a, b) => b.datePublished.localeCompare(a.datePublished));
-}
 
 function page(opts: {
   path: string;
@@ -102,26 +117,61 @@ function tripDescription(slug: string, base: string): string {
 }
 
 export function getSeoRoutes(): SeoRoute[] {
-  const featured = trips.find((t) => !isTripCompleted(t)) ?? trips[0];
   const posts = getVisiblePosts();
+  const hasPublished = posts.some((p) => p.status === "published");
 
   const routes: SeoRoute[] = [
     page({
       path: "/",
-      title: "GuruPriya Tours & Travels | Pilgrimage Yatras from Latur",
+      title: "GuruPriya Tours & Travels | Holidays, Group Tours & Yatras",
       description:
-        "Group pilgrimage yatras from Latur, Maharashtra: Char Dham, Kainchi Dham and more, planned by a founder with 12 years of Uttarakhand experience. Rail, bus or flight.",
+        "Domestic and international holidays, family trips, honeymoons, group tours and pilgrimage yatras from Latur, Maharashtra. Tailor-made plans by rail, coach or flight.",
       crumbs: [HOME],
       extraSchema: [travelAgencySchema(), webSiteSchema()],
-      preloadImage: featured.heroImage
+      preloadImage: photo("switzerland-lauterbrunnen")
     }),
     page({
-      path: "/yatras",
-      title: "Pilgrimage Yatra Packages from Latur | GuruPriya Tours",
+      path: "/about",
+      title: "About GuruPriya Tours & Travels, Latur | Our Story",
       description:
-        "Browse GuruPriya's group pilgrimage yatras from Latur, with full routes, day-wise itineraries, inclusions and reviews. Travel by railway, bus or flight.",
-      crumbs: [HOME, YATRAS],
-      pageType: "CollectionPage"
+        "How one traveller's years on Uttarakhand's mountain roads became GuruPriya Tours & Travels: our story, vision, mission and the founder's message.",
+      crumbs: [HOME, { label: { en: "About Us", mr: "आमच्याबद्दल" }, path: "/about" }],
+      pageType: "AboutPage",
+      image: "/images/founder.jpg",
+      preloadImage: photo("uttarakhand-nainital")
+    }),
+    page({
+      path: "/packages",
+      title: "Tour Packages from Latur & Pune | India & International",
+      description:
+        "Scheduled group departures and tailor-made itineraries: Kashmir, Kerala, Goa, Rajasthan, Andaman, Dubai, Thailand, Bali, Singapore, the Maldives and yatras.",
+      crumbs: [HOME, PACKAGES],
+      pageType: "CollectionPage",
+      preloadImage: photo("thailand-phi-phi")
+    }),
+    ...tailorMadePackages.map((p) => {
+      const path = `/packages/${p.slug}`;
+      return page({
+        path,
+        title: `${p.title} ${p.nights}N/${p.days}D Itinerary | GuruPriya`,
+        description: clip(`${p.summary} Tailor-made ${p.nights}-night itinerary: ${p.route}. Details and quotation on enquiry.`),
+        crumbs: [HOME, PACKAGES, { label: { en: p.title, mr: p.title }, path }],
+        image: photo(p.image),
+        extraSchema: [tailorMadeTripSchema({ ...p, ...packageDetails[p.slug], image: photo(p.image) }, path)],
+        preloadImage: photo(p.image)
+      });
+    }),
+    ...categories.map((c) => {
+      const path = `/tours/${c.slug}`;
+      return page({
+        path,
+        title: categoryDetails[c.slug].seoTitle,
+        description: categoryDetails[c.slug].seoDescription,
+        crumbs: [HOME, PACKAGES, { label: c.name, path }],
+        image: photo(c.image),
+        pageType: "CollectionPage",
+        preloadImage: photo(c.image)
+      });
     }),
     ...trips.map((trip) => {
       const path = `/yatras/${trip.slug}`;
@@ -129,7 +179,7 @@ export function getSeoRoutes(): SeoRoute[] {
         path,
         title: trip.seo.title.en,
         description: tripDescription(trip.slug, trip.seo.description.en),
-        crumbs: [HOME, YATRAS, { label: trip.title, path }],
+        crumbs: [HOME, PILGRIMAGE, { label: trip.title, path }],
         image: trip.heroImage,
         extraSchema: [touristTripSchema(trip, path)],
         preloadImage: trip.heroImage
@@ -140,45 +190,81 @@ export function getSeoRoutes(): SeoRoute[] {
       title: "Upcoming Yatras: Tirupati, Rameshwaram & Kerala | GuruPriya",
       description:
         "Yatras we're planning next: Tirupati darshan, South Indian temples, and Kanyakumari, Rameshwaram and Kerala. Register interest to hear first when dates are fixed.",
-      crumbs: [HOME, { label: { en: "Upcoming Yatras", mr: "आगामी यात्रा" }, path: "/upcoming-yatras" }],
-      pageType: "CollectionPage"
+      crumbs: [HOME, PILGRIMAGE, { label: { en: "Upcoming Yatras", mr: "आगामी यात्रा" }, path: "/upcoming-yatras" }],
+      pageType: "CollectionPage",
+      preloadImage: photo("tamilnadu-meenakshi")
     }),
     page({
-      path: "/about",
-      title: "About GuruPriya Tours & Travels, Latur | Our Story",
+      path: "/destinations",
+      title: "Travel Destinations in India & Abroad | GuruPriya Guides",
       description:
-        "Founded in Latur by Shri. Guruprasad Hundekar after 12 years of travel across Uttarakhand. Read the GuruPriya story, our mission and the founder's message.",
-      crumbs: [HOME, { label: { en: "About Us", mr: "आमच्याबद्दल" }, path: "/about" }],
-      pageType: "AboutPage",
-      image: "/images/founder.jpg"
+        "Destination guides for Kashmir, Himachal, Uttarakhand, Kerala, Goa, Rajasthan, Maharashtra, Dubai, Thailand, Bali, Singapore, the Maldives, Europe and more.",
+      crumbs: [HOME, DESTINATIONS],
+      pageType: "CollectionPage",
+      preloadImage: photo("switzerland-lauterbrunnen")
+    }),
+    ...destinations.map((d) => {
+      const path = `/destinations/${d.slug}`;
+      return page({
+        path,
+        // Keep titles within ~60 characters so Google doesn't truncate them.
+        title: `${d.name} Travel Guide & Tour Packages | GuruPriya`.length <= 60 ? `${d.name} Travel Guide & Tour Packages | GuruPriya` : `${d.name} Travel Guide | GuruPriya`,
+        description: clip(`${d.tagline}. Best time: ${d.bestTime.split(";")[0]}. Ideal trip: ${d.idealDuration}. Attractions, tips and tailor-made trips.`),
+        crumbs: [HOME, DESTINATIONS, { label: { en: d.name, mr: d.name }, path }],
+        image: photo(d.image),
+        extraSchema: [touristDestinationSchema({ ...d, ...destinationDetails[d.slug], image: photo(d.image) }, path)],
+        preloadImage: photo(d.image)
+      });
+    }),
+    page({
+      path: "/services",
+      title: "Travel Services | Coaches, Hotels, Flights & Itineraries",
+      description:
+        "Bus and coach tours, hotel reservations, flight assistance, customized itineraries, group and corporate travel, and travel consultation from GuruPriya.",
+      crumbs: [HOME, SERVICES],
+      pageType: "CollectionPage",
+      preloadImage: photo("tourist-bus")
+    }),
+    ...services.map((sv) => {
+      const path = `/services/${sv.slug}`;
+      return page({
+        path,
+        title: sv.seoTitle,
+        description: sv.seoDescription,
+        crumbs: [HOME, SERVICES, { label: sv.name, path }],
+        image: photo(sv.image),
+        extraSchema: [serviceSchema({ name: sv.name.en, description: sv.seoDescription }, path)],
+        preloadImage: photo(sv.image)
+      });
     }),
     page({
       path: "/contact",
-      title: "Contact GuruPriya Tours & Travels | Yatra Enquiry, Latur",
+      title: "Contact GuruPriya Tours & Travels | Plan Your Trip, Latur",
       description:
         "Call, WhatsApp or send an enquiry to GuruPriya Tours & Travels. Office in Latur, with contact numbers in Pune, Solapur, Naldurg, Renapur and Nalegaon.",
       crumbs: [HOME, { label: { en: "Contact", mr: "संपर्क" }, path: "/contact" }],
       pageType: "ContactPage",
-      extraSchema: [travelAgencySchema()]
+      extraSchema: [travelAgencySchema()],
+      preloadImage: photo("kerala-houseboat")
     }),
     page({
       path: "/gallery",
-      title: "Yatra Gallery | GuruPriya Tours & Travels",
-      description: "Photos of the sacred destinations on GuruPriya Tours & Travels pilgrimage yatras.",
+      title: "Travel Gallery: Mountains, Beaches & Journeys | GuruPriya",
+      description: "Photographs of mountains, beaches, road trips, pilgrim towns and international destinations we can take you to.",
       crumbs: [HOME, { label: { en: "Gallery", mr: "गॅलरी" }, path: "/gallery" }],
       noindex: !GALLERY_HAS_OWN_PHOTOS
     }),
     page({
       path: "/faq",
-      title: "Yatra FAQs: Registration, Travel Modes & Refunds | GuruPriya",
+      title: "Travel FAQs: Booking, Travel Modes & Refunds | GuruPriya",
       description:
-        "How to register for a GuruPriya yatra, whether the advance is refundable, choosing railway, bus or flight, and when hotel and timing details are shared.",
+        "How to book a GuruPriya tour or yatra, whether the advance is refundable, choosing railway, bus or flight, and when hotel and timing details are shared.",
       crumbs: [HOME, { label: { en: "FAQ", mr: "प्रश्नोत्तरे" }, path: "/faq" }]
     }),
     page({
       path: "/terms",
       title: "Terms & Conditions | GuruPriya Tours & Travels",
-      description: "Registration, payment, cancellation and itinerary terms for yatras organised by GuruPriya Tours & Travels.",
+      description: "Registration, payment, cancellation and itinerary terms for tours and yatras organised by GuruPriya Tours & Travels.",
       crumbs: [HOME, { label: { en: "Terms & Conditions", mr: "नियम व अटी" }, path: "/terms" }]
     }),
     page({
@@ -186,35 +272,43 @@ export function getSeoRoutes(): SeoRoute[] {
       title: "Privacy Policy | GuruPriya Tours & Travels",
       description: "How GuruPriya Tours & Travels collects, uses and protects the details you share in an enquiry.",
       crumbs: [HOME, { label: { en: "Privacy Policy", mr: "गोपनीयता धोरण" }, path: "/privacy" }]
+    }),
+    page({
+      path: "/image-credits",
+      title: "Image Credits | GuruPriya Tours & Travels",
+      description: "Photographers and licences for the destination photographs used on the GuruPriya Tours & Travels website.",
+      crumbs: [HOME, { label: { en: "Image credits", mr: "छायाचित्र श्रेय" }, path: "/image-credits" }],
+      noindex: true
+    }),
+    // The blog index always exists (it is in the main menu); it stays out of
+    // the index until at least one reviewed article is published.
+    page({
+      path: "/blog",
+      title: "Travel Guides & Tips | GuruPriya Tours & Travels",
+      description:
+        "Practical travel guides from the GuruPriya team: routes, best seasons, packing, health and planning tips for holidays and yatras.",
+      crumbs: [HOME, BLOG],
+      pageType: "CollectionPage",
+      noindex: !hasPublished
     })
   ];
 
-  if (posts.length > 0) {
-    routes.push(
-      page({
-        path: "/blog",
-        title: "Pilgrimage Travel Guides & Tips | GuruPriya Tours & Travels",
-        description:
-          "Practical guides for pilgrims from Maharashtra: yatra routes, best seasons, registration, packing and health tips from the GuruPriya team.",
-        crumbs: [HOME, BLOG],
-        pageType: "CollectionPage"
-      }),
-      ...posts.map((post) => {
-        const path = `/blog/${post.slug}`;
-        return page({
-          path,
-          title: post.seoTitle,
-          description: post.description,
-          crumbs: [HOME, BLOG, { label: { en: post.title, mr: post.title }, path }],
-          image: post.image.src,
-          ogType: "article",
-          noindex: post.status !== "published",
-          extraSchema: [blogPostingSchema(post, path)],
-          lastmod: post.dateModified
-        });
-      })
-    );
-  }
+  routes.push(
+    ...posts.map((post) => {
+      const path = `/blog/${post.slug}`;
+      return page({
+        path,
+        title: post.seoTitle,
+        description: post.description,
+        crumbs: [HOME, BLOG, { label: { en: post.title, mr: post.title }, path }],
+        image: post.image.src,
+        ogType: "article",
+        noindex: post.status !== "published",
+        extraSchema: [blogPostingSchema(post, path)],
+        lastmod: post.dateModified
+      });
+    })
+  );
 
   return routes;
 }
