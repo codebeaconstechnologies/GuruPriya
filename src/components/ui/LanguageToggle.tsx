@@ -1,7 +1,12 @@
-import { useI18n } from "@/i18n/I18nContext";
+import { useI18n, type Language } from "@/i18n/I18nContext";
+import { trackEvent } from "@/utils/analytics";
 
 export function LanguageToggle({ compact, onDark }: { compact?: boolean; onDark?: boolean }) {
-  const { language, setLanguage } = useI18n();
+  const { language, setLanguage: set } = useI18n();
+  const setLanguage = (next: Language) => {
+    if (next !== language) trackEvent("language_change", { language: next });
+    set(next);
+  };
 
   return (
     <div

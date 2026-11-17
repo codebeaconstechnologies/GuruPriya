@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackPageView } from "@/utils/analytics";
 
 const MANAGED = "data-seo";
 
@@ -15,11 +14,9 @@ export function SeoManager() {
   const firstPage = useRef(true);
 
   useEffect(() => {
-    // The first page's <head> is already prerendered: just record the view,
-    // without downloading the SEO manifest.
+    // The first page's <head> is already prerendered — nothing to do.
     if (firstPage.current) {
       firstPage.current = false;
-      trackPageView(pathname, document.title);
       return;
     }
     let cancelled = false;
@@ -51,7 +48,6 @@ export function SeoManager() {
       }
       ld.textContent = jsonLdString(route);
 
-      trackPageView(pathname, route.title);
     });
     return () => {
       cancelled = true;

@@ -25,7 +25,7 @@ export function CtaBand({
   const pick = useLocalized();
   const phone = company.founder.phones[0];
   return (
-    <section className="container-site py-16 sm:py-20">
+    <section data-track-area="cta_band" className="container-site py-16 sm:py-20">
       <div className="relative isolate overflow-hidden rounded-4xl bg-navy-900 px-6 py-14 text-center sm:px-14 sm:py-20">
         <img src={photo(image, 1600)} alt="" loading="lazy" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-35" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-navy-950/90 via-navy-900/75 to-saffron-800/50" />

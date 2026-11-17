@@ -4,6 +4,7 @@
 declare const __SITE_CONFIG__: {
   env: "production" | "development";
   url: string;
-  ga4Id: string;
+  gtmId: string;
+  analyticsHost: string;
   buildDate: string;
 };

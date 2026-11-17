@@ -8,7 +8,11 @@ export const IS_PRODUCTION = SITE_ENV === "production";
 /** Canonical origin, no trailing slash, e.g. https://www.gurupriyatours.com */
 export const SITE_URL = __SITE_CONFIG__.url;
 
-export const GA4_ID = __SITE_CONFIG__.ga4Id;
+/** Google Tag Manager container ID (empty in dev). */
+export const GTM_ID = __SITE_CONFIG__.gtmId;
+
+/** Analytics run only on this host — never on staging, *.pages.dev or localhost. */
+export const ANALYTICS_HOST = __SITE_CONFIG__.analyticsHost;
 
 export const BUILD_DATE = __SITE_CONFIG__.buildDate;
 

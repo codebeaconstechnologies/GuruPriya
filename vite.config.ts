@@ -13,7 +13,10 @@ export default defineConfig(({ command }) => {
   const siteConfig = {
     env: siteEnv,
     url: siteUrl,
-    ga4Id: siteEnv === "production" ? process.env.GA4_MEASUREMENT_ID || "" : "",
+    // Google Tag Manager container (owner-supplied). Loaded only on the live
+    // host by the snippet scripts/build.mjs injects; override with GTM_CONTAINER_ID.
+    gtmId: siteEnv === "production" ? process.env.GTM_CONTAINER_ID ?? "GTM-TVQX9W8K" : "",
+    analyticsHost: new URL(siteUrl).hostname,
     buildDate: new Date().toISOString().slice(0, 10)
   };
 

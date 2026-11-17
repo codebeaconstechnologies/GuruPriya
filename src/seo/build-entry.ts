@@ -5,7 +5,7 @@
 export { getSeoRoutes, NOT_FOUND_ROUTE, GALLERY_HAS_OWN_PHOTOS } from "./routes";
 export { renderHeadHtml, robotsFor } from "./head";
 export { travelAgencySchema, graph } from "./schema";
-export { SITE_URL, SITE_ENV, IS_PRODUCTION, SITE_NAME } from "@/config/site";
+export { SITE_URL, SITE_ENV, IS_PRODUCTION, SITE_NAME, GTM_ID, ANALYTICS_HOST } from "@/config/site";
 export { company, trips } from "@/data/trips";
 export { blogPosts } from "@/data/blog";
 export { render } from "@/entry-server";

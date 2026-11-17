@@ -14,7 +14,8 @@
 //
 // Optional environment variables (Cloudflare Pages → Settings → Variables):
 //   SITE_URL                   canonical origin (default https://www.gurupriyatours.com)
-//   GA4_MEASUREMENT_ID         Google Analytics 4 (loads only when set)
+//   GTM_CONTAINER_ID           Google Tag Manager container (default GTM-TVQX9W8K;
+//                              loads only on www.gurupriyatours.com)
 //   GOOGLE_SITE_VERIFICATION   Search Console HTML-tag verification
 
 import { build } from "vite";
@@ -156,7 +157,26 @@ function renderPage(headHtml, extraHead, bodyHtml = "") {
   if (start < 0 || end < 0) throw new Error("index.html is missing the <!--seo:start--> / <!--seo:end--> markers");
   const html = template.slice(0, start) + [headHtml, ...extraHead].join("\n    ") + template.slice(end + "<!--seo:end-->".length);
   if (!html.includes('<div id="root"></div>')) throw new Error('index.html is missing <div id="root"></div>');
-  return html.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`);
+  return withGtm(html.replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`));
+}
+
+/**
+ * Official Google Tag Manager container snippet, placed high in <head>.
+ * Guarded to run only on the live host, so staging, *.pages.dev and local
+ * previews never send analytics data.
+ */
+function withGtm(html) {
+  if (!seo.GTM_ID) return html;
+  const id = JSON.stringify(seo.GTM_ID);
+  const host = JSON.stringify(seo.ANALYTICS_HOST);
+  const snippet = `<!-- Google Tag Manager (live site only) -->
+    <script>if(location.hostname===${host}){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${id});}</script>
+    <!-- End Google Tag Manager -->`;
+  const anchor = '<meta name="viewport"';
+  const i = html.indexOf(anchor);
+  if (i < 0) throw new Error("index.html is missing the viewport meta tag");
+  const lineEnd = html.indexOf("\n", i);
+  return html.slice(0, lineEnd + 1) + "    " + snippet + "\n" + html.slice(lineEnd + 1);
 }
 
 function routeFile(routePath) {

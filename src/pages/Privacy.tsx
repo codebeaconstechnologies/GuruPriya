@@ -9,6 +9,7 @@ export default function Privacy() {
     { title: "How We Use Your Information", body: "Your information is used only to respond to your enquiry, share yatra details and, if you register, to coordinate your travel arrangements." },
     { title: "Data Sharing", body: "We do not sell your personal information. Details are shared only with our internal team and service providers directly involved in organising your journey." },
     { title: "Data Storage", body: "Enquiry details submitted through our website are sent directly to our team's email and are not stored in a public database." },
+    { title: "Website Analytics", body: "We use Google Analytics (through Google Tag Manager) to understand how visitors use our website, such as which pages are viewed and which buttons are clicked. This uses cookies and collects anonymous usage information like device type and approximate location. It does not include your name or phone number. You can block these cookies in your browser settings." },
     { title: "Your Rights", body: "You may contact us at any time to request that your information be corrected or removed from our records." }
   ];
 
@@ -17,6 +18,7 @@ export default function Privacy() {
     { title: "माहितीचा वापर", body: "आपली माहिती केवळ आपल्या चौकशीला प्रतिसाद देण्यासाठी, यात्रेची माहिती कळवण्यासाठी आणि नोंदणी झाल्यास प्रवास व्यवस्थेच्या समन्वयासाठी वापरली जाते." },
     { title: "माहितीची देवाणघेवाण", body: "आम्ही आपली वैयक्तिक माहिती विकत नाही. ही माहिती केवळ आमच्या अंतर्गत टीम व यात्रा आयोजनाशी थेट संबंधित सेवा पुरवठादारांसोबत सामायिक केली जाते." },
     { title: "माहितीची साठवण", body: "वेबसाईटवरून सादर केलेली चौकशी थेट आमच्या टीमच्या ईमेलवर पाठवली जाते व ती कोणत्याही सार्वजनिक डेटाबेसमध्ये साठवली जात नाही." },
+    { title: "वेबसाईट विश्लेषण", body: "आमची वेबसाईट कशी वापरली जाते (उदा. कोणती पाने पाहिली जातात, कोणती बटणे क्लिक केली जातात) हे समजून घेण्यासाठी आम्ही Google Analytics (Google Tag Manager द्वारे) वापरतो. यासाठी कुकीज वापरल्या जातात व डिव्हाइसचा प्रकार, अंदाजे ठिकाण अशी निनावी माहिती संकलित होते. यात आपले नाव किंवा फोन नंबर समाविष्ट नसतो. आपण ब्राउझर सेटिंग्जमधून या कुकीज बंद करू शकता." },
     { title: "आपले हक्क", body: "आपली माहिती दुरुस्त करण्यासाठी किंवा आमच्या नोंदीतून काढून टाकण्यासाठी आपण केव्हाही आमच्याशी संपर्क साधू शकता." }
   ];
 

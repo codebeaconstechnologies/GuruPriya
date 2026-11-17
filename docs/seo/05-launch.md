@@ -42,7 +42,7 @@ Draft blog articles never reach the live site. Review them locally with `npm run
 |---|---|
 | `SITE_URL` | `https://www.gurupriyatours.com` (also the default, so optional) |
 | `RESEND_API_KEY`, `CONTACT_EMAIL`, `FROM_EMAIL` | already set (secrets) |
-| `GA4_MEASUREMENT_ID` | add once GA4 exists (see `04-google-setup.md`) |
+| `GTM_CONTAINER_ID` | optional; defaults to `GTM-TVQX9W8K` (see `04-google-setup.md`) |
 | `GOOGLE_SITE_VERIFICATION` | only if you verify Search Console by HTML tag |
 
 5. **Resend:** verify `gurupriyatours.com` in Resend and set `FROM_EMAIL` to an address on it (e.g. `GuruPriya Tours <enquiry@gurupriyatours.com>`). Until then, customer acknowledgement emails won't deliver; enquiries to you still do.

@@ -8,6 +8,7 @@ import { categories } from "@/data/catalog/categories";
 import { destinations } from "@/data/catalog/destinations";
 import { RoadStrip } from "@/components/bus/RoadStrip";
 import S from "@/i18n/strings";
+import { trackEvent } from "@/utils/analytics";
 
 export const HERO_SLIDES = [
   { id: "switzerland-lauterbrunnen", place: "Swiss Alps", alt: "The Lauterbrunnen valley in the Swiss Alps" },
@@ -30,6 +31,7 @@ function TripPlanner() {
     if (category) q.set("category", category);
     if (month) q.set("month", month);
     if (travellers) q.set("travellers", travellers);
+    trackEvent("trip_planner_submit", { destination: where.trim().slice(0, 60), travel_type: category, travel_month: month, travellers });
     navigate(`/contact?${q.toString()}#enquiry`);
   };
 
@@ -37,7 +39,7 @@ function TripPlanner() {
   const label = "flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-navy-900/70";
 
   return (
-    <form onSubmit={submit} className="rounded-3xl bg-white p-2 shadow-lift" aria-label={pick(S.hero.searchTitle)}>
+    <form onSubmit={submit} data-track-area="hero_planner" className="rounded-3xl bg-white p-2 shadow-lift" aria-label={pick(S.hero.searchTitle)}>
       <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_0.8fr_auto]">
         <label className="rounded-2xl px-4 py-3 transition focus-within:bg-navy-50 hover:bg-navy-50/60">
           <span className={label}>

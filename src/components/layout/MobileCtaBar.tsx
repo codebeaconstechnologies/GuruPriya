@@ -12,7 +12,7 @@ export function MobileCtaBar({ whatsappMessage }: { whatsappMessage: string }) {
   const item = "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-bold";
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 flex border-t border-charcoal/10 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-premium backdrop-blur lg:hidden">
+    <div data-track-area="mobile_bar" className="fixed inset-x-0 bottom-0 z-40 flex border-t border-charcoal/10 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-premium backdrop-blur lg:hidden">
       <a href={`tel:+91${phone}`} className={`${item} text-charcoal`}>
         <Phone className="h-5 w-5 text-saffron-600" />
         {t.mobileCta.call}

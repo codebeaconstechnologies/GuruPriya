@@ -26,7 +26,7 @@ export default function ContactUs() {
 
       <section className="section-py bg-sand">
         <div className="container-site grid gap-8 lg:grid-cols-[380px_1fr]">
-          <aside className="space-y-4">
+          <aside data-track-area="contact_page" className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <a href={`tel:+91${primary}`} className="card-premium flex flex-col items-center gap-2 p-5 text-center hover:-translate-y-0.5">
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-800 text-white">

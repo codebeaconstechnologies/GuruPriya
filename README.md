@@ -110,7 +110,7 @@ runs server-side only, the key is never bundled into browser JavaScript.
 ## 5. Cloudflare Deployment
 
 **Build command:** `npm run build` (optional variables: `SITE_URL`,
-`GA4_MEASUREMENT_ID`, `GOOGLE_SITE_VERIFICATION` — see docs/seo/05-launch.md)
+`GTM_CONTAINER_ID`, `GOOGLE_SITE_VERIFICATION` — see docs/seo/05-launch.md)
 
 
 **Build output directory:** `dist`

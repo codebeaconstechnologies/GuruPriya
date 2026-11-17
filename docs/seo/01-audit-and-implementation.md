@@ -138,7 +138,7 @@ Validation: every JSON-LD block is parsed and checked for required properties on
 - No booking or payment added.
 
 ### Analytics (Phase 11)
-`src/utils/analytics.ts`: GA4 loads **only** in production builds with `GA4_MEASUREMENT_ID` set. Events: `page_view` (SPA), `generate_lead` (form success), `phone_call_click`, `whatsapp_click` (all `tel:` / WhatsApp links site-wide). Search Console verification via `GOOGLE_SITE_VERIFICATION`. No IDs are hardcoded.
+`src/utils/analytics.ts` + `scripts/build.mjs`: Google Tag Manager (`GTM-TVQX9W8K`) is injected into every page and runs **only** on www.gurupriyatours.com. GA4 (`G-H76BYDNXBD`) is configured inside GTM. The site pushes dataLayer events: `form_start`, `generate_lead`, `trip_planner_submit`, `phone_call_click`, `whatsapp_click`, `cta_click`, `language_change`. See `04-google-setup.md`. Search Console verification via `GOOGLE_SITE_VERIFICATION`.
 
 ### Blog (Phase 8)
 `/blog` and `/blog/:slug` with author, published/updated dates, featured image, `BlogPosting` schema, breadcrumbs, related yatras, related articles, WhatsApp/Facebook/copy-link sharing. **Drafts render only in the local preview, `npm run dev`** (red "Draft" banner, noindex) and are excluded from production routes, nav and sitemap. One draft is included as a template: *Char Dham Yatra from Latur: Route, Season and Planning Guide*. It needs your review before publishing.

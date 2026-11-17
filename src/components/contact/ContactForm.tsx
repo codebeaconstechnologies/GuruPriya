@@ -83,6 +83,7 @@ export function ContactForm() {
   }
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [started, setStarted] = useState(false);
   // Time-trap: the server rejects forms submitted implausibly fast (bots).
   const [startedAt] = useState(() => Date.now());
 
@@ -122,10 +123,13 @@ export function ContactForm() {
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
       trackEvent("generate_lead", {
-        form: "enquiry",
-        yatra: values.yatra || "none",
-        category: values.category || "none",
-        travel_mode: values.travelMode || "none"
+        form_name: "enquiry",
+        tour: allTourOptions.find((o) => o.value === values.yatra)?.label ?? "",
+        travel_type: values.category,
+        travel_mode: values.travelMode,
+        destination: values.destination.trim().slice(0, 60),
+        travellers: values.travellers,
+        travel_month: values.preferredDate
       });
       setValues(initialValues);
     } catch {
@@ -144,7 +148,17 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+    <form
+      onSubmit={handleSubmit}
+      onFocusCapture={() => {
+        if (!started) {
+          setStarted(true);
+          trackEvent("form_start", { form_name: "enquiry" });
+        }
+      }}
+      noValidate
+      className="flex flex-col gap-5"
+    >
       {/* Honeypot field — hidden from real users, catches simple bots */}
       <input
         type="text"

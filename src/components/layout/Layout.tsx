@@ -25,7 +25,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <Breadcrumbs />
       <main id="main">{children}</main>
       <Footer />
-      <div className="hidden lg:block">
+      <div className="hidden lg:block" data-track-area="floating_whatsapp">
         <WhatsAppButton floating message={whatsappMessage} />
       </div>
       <MobileCtaBar whatsappMessage={whatsappMessage} />

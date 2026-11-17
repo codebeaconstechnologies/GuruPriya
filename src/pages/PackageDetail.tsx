@@ -125,7 +125,7 @@ export default function PackageDetail() {
             )}
           </div>
 
-          <aside className="lg:sticky lg:top-28 lg:self-start">
+          <aside data-track-area="package_sidebar" className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-3xl border border-navy-900/10 bg-white p-6 shadow-premium">
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-saffron-600">{pick(S.card.tailorMade)}</p>
               <p className="mt-2 font-display text-xl font-extrabold">{p.title}</p>
