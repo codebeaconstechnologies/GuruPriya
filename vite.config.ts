@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -20,8 +21,21 @@ export default defineConfig(({ command }) => {
     buildDate: new Date().toISOString().slice(0, 10)
   };
 
+  // Opening bus intro (src/intro). Injected after Vite's own HTML processing
+  // so its inline <style>/<script> stay inline and render before any JS loads.
+  const introPlugin = {
+    name: "gurupriya-intro",
+    transformIndexHtml: {
+      order: "post" as const,
+      handler: (html: string) =>
+        html
+          .replace("<!--intro:head-->", readFileSync(fileURLToPath(new URL("./src/intro/intro-head.html", import.meta.url)), "utf8").trim())
+          .replace("<!--intro:body-->", readFileSync(fileURLToPath(new URL("./src/intro/intro-body.html", import.meta.url)), "utf8").trim())
+    }
+  };
+
   return {
-    plugins: [react()],
+    plugins: [react(), introPlugin],
     define: {
       __SITE_CONFIG__: JSON.stringify(siteConfig)
     },
